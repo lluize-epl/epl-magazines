@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import bcrypt from 'bcrypt'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '../generated/prisma/client'

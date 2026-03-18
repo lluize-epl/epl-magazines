@@ -314,3 +314,13 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - All data mutations via **Server Actions** or API route handlers — no client-side fetch for mutations
 - Use `date-fns` for all date arithmetic (already a Next.js ecosystem staple)
 - shadcn/ui components live in `components/ui/` — add with `npx shadcn@latest add <component>`
+
+---
+
+## Gotchas
+
+- `proxy.ts` is Next.js Edge middleware (alternative to `middleware.ts`) — cannot import `server-only` modules or `cookies()` from `next/headers`; use `request.cookies` and inline Edge-compatible code
+- Winston: use `logger.info('message', { ...data })` not `logger.info({ ...data })` — the latter nests payload under `message` key
+- Base UI Button with `render={<Link>}`: must set `nativeButton={false}` to avoid console warnings
+- `tsx prisma/seed.ts` doesn't auto-load `.env.local` — seed script needs `import 'dotenv/config'`
+- After editing `proxy.ts`, delete `.next/` cache for changes to take effect in dev

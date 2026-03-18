@@ -12,19 +12,13 @@ export default function LoginPage() {
         style={{ backgroundColor: 'oklch(0.215 0.058 158)' }}
       >
         <div>
-          <div className="flex items-center gap-3 mb-16">
-            <div
-              className="w-10 h-10 rounded flex items-center justify-center text-xl"
-              style={{ backgroundColor: 'oklch(0.60 0.128 79)', color: 'oklch(0.15 0.028 62)' }}
-            >
-              📚
-            </div>
-            <span
-              className="text-lg font-semibold tracking-wide"
-              style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.92 0.010 91)' }}
-            >
-              EPL Magazines
-            </span>
+          <div className="mb-16">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/epl-logo-white.png"
+              alt="Edison Public Library"
+              className="h-14 w-auto"
+            />
           </div>
 
           <h1
@@ -55,19 +49,13 @@ export default function LoginPage() {
       >
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="flex items-center gap-3 mb-10 lg:hidden">
-            <div
-              className="w-9 h-9 rounded flex items-center justify-center"
-              style={{ backgroundColor: 'oklch(0.38 0.082 156)' }}
-            >
-              <span className="text-base">📚</span>
-            </div>
-            <span
-              className="text-lg font-semibold"
-              style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.215 0.058 158)' }}
-            >
-              EPL Magazines
-            </span>
+          <div className="mb-10 lg:hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/epl-logo-white.png"
+              alt="Edison Public Library"
+              className="h-10 w-auto brightness-0"
+            />
           </div>
 
           <h2

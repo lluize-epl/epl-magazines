@@ -1,10 +1,32 @@
 import type { NextRequest, NextResponse } from 'next/server'
 import { NextResponse as NextResponseImpl } from 'next/server'
-import { decrypt } from '@/lib/session'
-import { cookies } from 'next/headers'
+import { jwtVerify } from 'jose'
 import type { SessionPayload } from '@/types'
 
 const publicRoutes = ['/login']
+
+/** Returns the encoded SESSION_SECRET key */
+function getSecret(): Uint8Array {
+  const secret = process.env.SESSION_SECRET
+  if (!secret) throw new Error('SESSION_SECRET is not set')
+  return new TextEncoder().encode(secret)
+}
+
+/**
+ * Decrypts a session JWT for use in middleware (Edge-compatible).
+ * Duplicated from lib/session.ts to avoid importing 'server-only' in Edge runtime.
+ */
+async function decryptSession(session: string | undefined): Promise<SessionPayload | null> {
+  if (!session) return null
+  try {
+    const { payload } = await jwtVerify(session, getSecret(), {
+      algorithms: ['HS256'],
+    })
+    return payload as unknown as SessionPayload
+  } catch {
+    return null
+  }
+}
 
 /**
  * Middleware proxy for route protection.
@@ -17,9 +39,8 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   const path = request.nextUrl.pathname
   const isPublicRoute = publicRoutes.includes(path)
 
-  const cookieStore = await cookies()
-  const cookie = cookieStore.get('session')?.value
-  const session: SessionPayload | null = await decrypt(cookie)
+  const cookie = request.cookies.get('session')?.value
+  const session = await decryptSession(cookie)
 
   // Redirect unauthenticated users trying to access protected routes
   if (!isPublicRoute && !session?.userId) {
@@ -35,5 +56,5 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)'],
 }

@@ -159,6 +159,7 @@ export default async function MagazinesPage({ searchParams }: PageProps) {
                         size="sm"
                         variant="outline"
                         className="h-7 text-xs"
+                        nativeButton={false}
                         render={<Link href={`/magazines/${mag.id}`} />}
                       >
                         History

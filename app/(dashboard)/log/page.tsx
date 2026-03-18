@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { AuditAction, AuditLogEntry } from '@/types'
 import { redirect } from 'next/navigation'
 import { getUser } from '@/lib/dal'
+import db from '@/lib/db'
 import { format } from 'date-fns'
 import fs from 'fs'
 import path from 'path'
@@ -42,7 +43,15 @@ function readLogs(): AuditLogEntry[] {
       .split('\n')
       .filter(Boolean)
       .map((line) => {
-        try { return JSON.parse(line) as AuditLogEntry } catch { return null }
+        try {
+          const raw = JSON.parse(line) as Record<string, unknown>
+          // Winston may nest the payload under `message` when called with an object
+          if (raw.message && typeof raw.message === 'object') {
+            const { message, ...rest } = raw
+            return { ...rest, ...(message as Record<string, unknown>) } as AuditLogEntry
+          }
+          return raw as AuditLogEntry
+        } catch { return null }
       })
       .filter((entry): entry is AuditLogEntry => entry !== null)
       .reverse()
@@ -67,6 +76,13 @@ export default async function LogPage({ searchParams }: PageProps) {
   const total = allLogs.length
   const totalPages = Math.ceil(total / PAGE_SIZE)
   const logs = allLogs.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  // Resolve user names for visible log entries
+  const userIds = [...new Set(logs.map((e) => e.userId).filter(Boolean))]
+  const users = userIds.length > 0
+    ? await db.user.findMany({ where: { id: { in: userIds } }, select: { id: true, name: true } })
+    : []
+  const userNameMap = new Map(users.map((u) => [u.id, u.name]))
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -100,7 +116,7 @@ export default async function LogPage({ searchParams }: PageProps) {
             <Table>
               <TableHeader>
                 <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                  {['Timestamp', 'Action', 'User ID', 'Details'].map((h) => (
+                  {['Timestamp', 'Action', 'User', 'Details'].map((h) => (
                     <TableHead key={h} className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>
                       {h}
                     </TableHead>
@@ -112,7 +128,7 @@ export default async function LogPage({ searchParams }: PageProps) {
                   const { timestamp, userId, action, level: _level, ...details } = entry
                   const actionStyle = getActionStyle(action)
                   const detailStr = Object.entries(details)
-                    .map(([k, v]) => `${k}: ${v}`)
+                    .map(([k, v]) => `${k}: ${typeof v === 'object' && v !== null ? JSON.stringify(v) : v}`)
                     .join('  ·  ')
 
                   return (
@@ -136,8 +152,8 @@ export default async function LogPage({ searchParams }: PageProps) {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <span className="text-xs font-mono" style={{ color: 'oklch(0.55 0.030 72)' }}>
-                          {userId ? userId.slice(0, 12) + '…' : '—'}
+                        <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
+                          {userId ? userNameMap.get(userId) ?? userId.slice(0, 12) + '…' : '—'}
                         </span>
                       </TableCell>
                       <TableCell>

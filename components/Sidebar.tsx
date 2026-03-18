@@ -63,26 +63,13 @@ export default function Sidebar({ user }: SidebarProps) {
       style={{ backgroundColor: FOREST }}
     >
       {/* Logo */}
-      <div className="px-5 py-6 border-b" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
-        <div className="flex items-center gap-3">
-          <div
-            className="w-8 h-8 rounded flex items-center justify-center text-sm font-bold flex-shrink-0"
-            style={{ backgroundColor: GOLD, color: 'oklch(0.15 0.028 62)' }}
-          >
-            EP
-          </div>
-          <div>
-            <p
-              className="text-sm font-semibold leading-tight"
-              style={{ fontFamily: 'var(--font-playfair)', color: CREAM }}
-            >
-              EPL Magazines
-            </p>
-            <p className="text-xs" style={{ color: CREAM_MUTED }}>
-              Periodical Tracker
-            </p>
-          </div>
-        </div>
+      <div className="px-5 py-5 border-b" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/epl-logo-white.png"
+          alt="Edison Public Library"
+          className="h-10 w-auto"
+        />
       </div>
 
       {/* Main navigation */}
@@ -178,7 +165,7 @@ export default function Sidebar({ user }: SidebarProps) {
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer"
           style={{ color: CREAM_MUTED }}
         >
           <LogOut size={15} />

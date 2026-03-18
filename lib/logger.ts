@@ -32,5 +32,5 @@ export function auditLog(
   action: AuditAction,
   details: Record<string, unknown> = {}
 ): void {
-  logger.info({ userId, action, ...details })
+  logger.info('audit', { userId, action, ...details })
 }

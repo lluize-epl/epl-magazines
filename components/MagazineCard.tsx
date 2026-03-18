@@ -9,6 +9,7 @@ import { CalendarCheck, CalendarX, Clock, ExternalLink } from 'lucide-react'
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { CADENCE_LABELS } from '@/lib/cadence'
 import MarkReceivedDialog from './MarkReceivedDialog'
 
@@ -131,23 +132,31 @@ export default function MagazineCard({ magazine }: MagazineCardProps) {
           )}
         </CardContent>
 
-        <CardFooter className="pt-0 gap-2">
+        <CardFooter className="gap-2 items-center justify-center">
           <Button
             size="sm"
-            className="flex-1 gap-1.5 text-xs h-8"
+            className="flex-1 gap-1.5 text-xs h-8 cursor-pointer"
             onClick={() => setDialogOpen(true)}
             style={{ backgroundColor: 'oklch(0.38 0.082 156)' }}
           >
             <CalendarCheck size={13} /> Mark Received
           </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="h-8 px-2"
-            render={<Link href={`/magazines/${magazine.id}`} />}
-          >
-            <ExternalLink size={13} />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-8 px-2"
+                  nativeButton={false}
+                  render={<Link href={`/magazines/${magazine.id}`} />}
+                />
+              }
+            >
+              <ExternalLink size={13} />
+            </TooltipTrigger>
+            <TooltipContent>Details</TooltipContent>
+          </Tooltip>
         </CardFooter>
       </Card>
 
