@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/generated/prisma/client'
 import db from '@/lib/db'
 import { verifySession } from '@/lib/dal'
 import { auditLog } from '@/lib/logger'

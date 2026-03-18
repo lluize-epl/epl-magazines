@@ -18,7 +18,7 @@ Staff log when magazines arrive; the system tracks cadence, flags overdue issues
 |---|---|---|
 | Framework | Next.js (latest stable), App Router | Full-stack in one repo; user is familiar with it |
 | Language | **TypeScript** (`strict: true`) | Type-safe; peer-readable with TSDoc comments in `docs/` |
-| Database | SQLite via **Prisma ORM** | No extra server; file-based; easy Docker volume backup |
+| Database | SQLite via **Prisma ORM v7** (`prisma-client` generator + `@prisma/adapter-better-sqlite3`) | No extra server; file-based; easy Docker volume backup |
 | Auth | Custom session cookies with **jose** (JWT) + **bcrypt** | Simple, no OAuth needed; HTTP-only cookies |
 | Styling | **Tailwind CSS** + **shadcn/ui** | Fast to build clean internal UIs |
 | Audit logging | **Winston** → `logs/audit.log` (JSON lines) | File-based, no external dependency, mountable in Docker |
@@ -79,9 +79,12 @@ epl-magazines/
 │   └── ...                        # All components as .tsx with Props interfaces
 ├── docs/                          # 9 documentation files for non-TS peers
 ├── proxy.ts                       # Route protection (redirect unauthed → /login)
+├── generated/
+│   └── prisma/                   # Generated Prisma client (git-ignored, run `npx prisma generate`)
 ├── prisma/
 │   ├── schema.prisma
-│   └── dev.db                    # SQLite file (git-ignored, Docker volume)
+│   ├── dev.db                    # SQLite file (git-ignored, Docker volume)
+│   └── seed.ts                   # Database seed script
 ├── logs/
 │   └── audit.log                 # Winston output (git-ignored, Docker volume)
 ├── .env.local                    # Secrets (git-ignored)
@@ -145,7 +148,7 @@ model IssueReceipt {
 
 ## Key Business Logic
 
-### Cadence → Next Expected Date (`lib/cadence.js`)
+### Cadence → Next Expected Date (`lib/cadence.ts`)
 
 No start date is stored. The **last received date** (most recent `IssueReceipt.receivedDate`)
 is used as the anchor to compute the next expected date.
@@ -158,8 +161,8 @@ is used as the anchor to compute the next expected date.
 | BI_MONTHLY | + 2 calendar months |
 | SEASONAL | + 3 calendar months |
 
-```js
-// lib/cadence.js
+```ts
+// lib/cadence.ts
 import { addDays, addMonths } from 'date-fns'
 
 const CADENCE_OFFSETS = {
@@ -200,8 +203,8 @@ For each active magazine:
 - Passwords hashed with **bcrypt** (cost factor 10)
 - Sessions stored as HTTP-only encrypted JWT cookies (7-day expiry) using **jose**
 - `SESSION_SECRET` in `.env.local` — generate with `openssl rand -base64 32`
-- `middleware.js` redirects unauthenticated users to `/login` for all dashboard routes
-- `lib/dal.js` `verifySession()` re-checks auth in every Server Component (defense in depth)
+- `proxy.ts` redirects unauthenticated users to `/login` for all dashboard routes
+- `lib/dal.ts` `verifySession()` re-checks auth in every Server Component (defense in depth)
 
 ---
 
@@ -220,12 +223,12 @@ Enforce in API routes: check `session.role === 'ADMIN'` before admin operations.
 
 ---
 
-## Audit Logging (`lib/logger.js`)
+## Audit Logging (`lib/logger.ts`)
 
 Every meaningful action is logged as a JSON line to `logs/audit.log`.
 
-```js
-// lib/logger.js
+```ts
+// lib/logger.ts
 import winston from 'winston'
 
 const logger = winston.createLogger({
@@ -286,6 +289,19 @@ npx prisma studio    # Visual DB browser
 npx prisma migrate dev --name <name>   # Create and run migration
 npx prisma generate  # Regenerate Prisma client after schema change
 ```
+
+---
+
+## Prisma Client (v7 adapter pattern)
+
+Prisma v7 with SQLite requires a driver adapter. Import from `@/generated/prisma/client`:
+```ts
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
+import { PrismaClient } from '../generated/prisma/client'
+const adapter = new PrismaBetterSqlite3({ url: process.env['DATABASE_URL']! })
+const prisma = new PrismaClient({ adapter })
+```
+The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript, not .mjs).
 
 ---
 
