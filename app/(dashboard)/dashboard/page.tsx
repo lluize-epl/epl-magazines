@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-react'
 import type { MagazineStatus, MagazineWithStatus } from '@/types'
 import { verifySession } from '@/lib/dal'
 import db from '@/lib/db'
+import { resolveActiveBranchId } from '@/lib/branch'
 import { computeNextExpectedDate, getMagazineStatus } from '@/lib/cadence'
 import MagazineCard from '@/components/MagazineCard'
 import { AlertTriangle, Clock, CalendarCheck, BookOpen } from 'lucide-react'
@@ -58,11 +59,25 @@ type Buckets = Record<MagazineStatus, MagazineWithStatus[]>
 export default async function DashboardPage() {
   await verifySession()
 
+  const activeBranchId = await resolveActiveBranchId()
+
+  // Get magazine IDs subscribed at this branch
+  const branchSubscriptions = await db.branchMagazine.findMany({
+    where: { branchId: activeBranchId, active: true },
+    select: { magazineId: true },
+  })
+  const subscribedMagazineIds = branchSubscriptions.map(s => s.magazineId)
+
+  // Fetch only those magazines with branch-specific receipts
   const magazines = await db.magazine.findMany({
-    where: { active: true },
+    where: {
+      id: { in: subscribedMagazineIds },
+      active: true,
+    },
     include: {
       receipts: {
-        orderBy: { receivedDate: 'desc' },
+        where: { branchId: activeBranchId },
+        orderBy: { receivedDate: 'desc' as const },
         take: 1,
         include: { receivedBy: { select: { name: true } } },
       },
