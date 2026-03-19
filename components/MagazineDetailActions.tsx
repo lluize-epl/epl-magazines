@@ -8,9 +8,10 @@ import MarkReceivedDialog from './MarkReceivedDialog'
 
 export interface MagazineDetailActionsProps {
   magazine: Pick<Magazine, 'id' | 'name'>
+  activeBranchId: string
 }
 
-export default function MagazineDetailActions({ magazine }: MagazineDetailActionsProps) {
+export default function MagazineDetailActions({ magazine, activeBranchId }: MagazineDetailActionsProps) {
   const [dialogOpen, setDialogOpen] = useState(false)
 
   return (
@@ -22,7 +23,7 @@ export default function MagazineDetailActions({ magazine }: MagazineDetailAction
       >
         <CalendarCheck size={16} /> Mark Received
       </Button>
-      <MarkReceivedDialog magazine={magazine} open={dialogOpen} onOpenChange={setDialogOpen} />
+      <MarkReceivedDialog magazine={magazine} activeBranchId={activeBranchId} open={dialogOpen} onOpenChange={setDialogOpen} />
     </>
   )
 }

@@ -15,6 +15,7 @@ import MarkReceivedDialog from './MarkReceivedDialog'
 
 export interface MagazineCardProps {
   magazine: MagazineWithStatus
+  activeBranchId: string
 }
 
 interface StatusStyle {
@@ -60,7 +61,7 @@ function fmt(date: Date | string | null): string {
   return date ? format(new Date(date), 'MMM d, yyyy') : '—'
 }
 
-export default function MagazineCard({ magazine }: MagazineCardProps) {
+export default function MagazineCard({ magazine, activeBranchId }: MagazineCardProps) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const style = STATUS_STYLES[magazine.status] ?? STATUS_STYLES.never_received
   const StatusIcon = style.icon
@@ -162,6 +163,7 @@ export default function MagazineCard({ magazine }: MagazineCardProps) {
 
       <MarkReceivedDialog
         magazine={magazine}
+        activeBranchId={activeBranchId}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
       />

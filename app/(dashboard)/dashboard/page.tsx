@@ -189,7 +189,7 @@ export default async function DashboardPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {items.map((magazine) => (
-                  <MagazineCard key={magazine.id} magazine={magazine} />
+                  <MagazineCard key={magazine.id} magazine={magazine} activeBranchId={activeBranchId} />
                 ))}
               </div>
             </section>

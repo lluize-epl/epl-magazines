@@ -21,11 +21,12 @@ import {
 
 export interface MarkReceivedDialogProps {
   magazine: Pick<Magazine, 'id' | 'name'>
+  activeBranchId: string
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export default function MarkReceivedDialog({ magazine, open, onOpenChange }: MarkReceivedDialogProps) {
+export default function MarkReceivedDialog({ magazine, activeBranchId, open, onOpenChange }: MarkReceivedDialogProps) {
   const router = useRouter()
   const today = format(new Date(), 'yyyy-MM-dd')
   const [receivedDate, setReceivedDate] = useState(today)
@@ -40,7 +41,7 @@ export default function MarkReceivedDialog({ magazine, open, onOpenChange }: Mar
       const res = await fetch(`/api/magazines/${magazine.id}/receipts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ receivedDate, notes: notes.trim() || null }),
+        body: JSON.stringify({ receivedDate, notes: notes.trim() || null, branchId: activeBranchId }),
       })
 
       if (!res.ok) {

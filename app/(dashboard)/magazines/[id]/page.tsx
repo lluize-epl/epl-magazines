@@ -7,6 +7,7 @@ import { format } from 'date-fns'
 import Link from 'next/link'
 import MagazineStatusBadge from '@/components/MagazineStatusBadge'
 import MagazineDetailActions from '@/components/MagazineDetailActions'
+import { resolveActiveBranchId } from '@/lib/branch'
 import { ArrowLeft, BookOpen } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -38,6 +39,7 @@ function fmt(date: Date | string | null, includeTime = false): string {
 export default async function MagazineDetailPage({ params }: PageProps) {
   await verifySession()
   const { id } = await params
+  const activeBranchId = await resolveActiveBranchId()
 
   const magazine = await db.magazine.findUnique({
     where: { id },
@@ -113,7 +115,7 @@ export default async function MagazineDetailPage({ params }: PageProps) {
             )}
           </div>
 
-          <MagazineDetailActions magazine={{ id: magazine.id, name: magazine.name }} />
+          <MagazineDetailActions magazine={{ id: magazine.id, name: magazine.name }} activeBranchId={activeBranchId} />
         </div>
 
         {/* Stats row */}
