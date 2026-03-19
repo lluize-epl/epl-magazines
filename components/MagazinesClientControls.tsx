@@ -18,6 +18,7 @@ type RowActionsMode = {
   mode: 'row-actions'
   magazineId: string
   magazine: MagazineWithStatus
+  activeBranchId: string
   currentFilter?: never
 }
 
@@ -68,7 +69,7 @@ function FilterBar({ currentFilter }: { currentFilter: string }) {
   )
 }
 
-function RowActions({ magazine }: { magazine: MagazineWithStatus }) {
+function RowActions({ magazine, activeBranchId }: { magazine: MagazineWithStatus; activeBranchId: string }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   return (
     <>
@@ -82,6 +83,7 @@ function RowActions({ magazine }: { magazine: MagazineWithStatus }) {
       </Button>
       <MarkReceivedDialog
         magazine={magazine}
+        activeBranchId={activeBranchId}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
       />
@@ -91,7 +93,7 @@ function RowActions({ magazine }: { magazine: MagazineWithStatus }) {
 
 export default function MagazinesClientControls(props: MagazinesClientControlsProps) {
   if (props.mode === 'row-actions') {
-    return <RowActions magazine={props.magazine} />
+    return <RowActions magazine={props.magazine} activeBranchId={props.activeBranchId} />
   }
   return <FilterBar currentFilter={props.currentFilter} />
 }

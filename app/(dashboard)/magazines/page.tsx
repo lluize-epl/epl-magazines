@@ -180,7 +180,7 @@ export default async function MagazinesPage({ searchParams }: PageProps) {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <MagazinesClientControls magazineId={mag.id} magazine={mag} mode="row-actions" />
+                      <MagazinesClientControls magazineId={mag.id} magazine={mag} mode="row-actions" activeBranchId={activeBranchId} />
                       <Button
                         size="sm"
                         variant="outline"
