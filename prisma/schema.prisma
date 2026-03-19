@@ -24,14 +24,15 @@ enum Role {
 }
 
 model Magazine {
-  id        String         @id @default(cuid())
+  id        String           @id @default(cuid())
   name      String
   cadence   Cadence
-  active    Boolean        @default(true)
+  active    Boolean          @default(true)
   notes     String?
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   receipts  IssueReceipt[]
+  branches  BranchMagazine[]
 }
 
 enum Cadence {
@@ -42,12 +43,37 @@ enum Cadence {
   SEASONAL
 }
 
+model Branch {
+  id        String            @id @default(cuid())
+  name      String
+  code      String            @unique
+  active    Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  magazines BranchMagazine[]
+  receipts  IssueReceipt[]
+}
+
+model BranchMagazine {
+  id         String   @id @default(cuid())
+  branch     Branch   @relation(fields: [branchId], references: [id])
+  branchId   String
+  magazine   Magazine @relation(fields: [magazineId], references: [id])
+  magazineId String
+  quantity   Int      @default(1)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@unique([branchId, magazineId])
+}
+
 model IssueReceipt {
   id           String   @id @default(cuid())
   magazine     Magazine @relation(fields: [magazineId], references: [id])
   magazineId   String
   receivedBy   User     @relation(fields: [receivedById], references: [id])
   receivedById String
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  branchId     String?
   receivedDate DateTime @default(now())
   notes        String?
   createdAt    DateTime @default(now())
