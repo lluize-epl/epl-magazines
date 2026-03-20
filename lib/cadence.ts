@@ -1,4 +1,4 @@
-import { addDays, addMonths } from 'date-fns'
+import { addDays, addMonths, startOfWeek, endOfWeek } from 'date-fns'
 import type { CadenceType, MagazineStatus } from '@/types'
 
 /** Maps each cadence to a function that advances a date by one period */
@@ -43,15 +43,17 @@ export function isOverdue(nextExpectedDate: Date | null): boolean {
 }
 
 /**
- * Returns `true` if the next expected date falls within the next 7 days (inclusive of today).
+ * Returns `true` if the next expected date falls within the current calendar week
+ * (Sunday through Saturday).
  * @param nextExpectedDate - Computed next expected date, or null
  */
 export function isExpectedThisWeek(nextExpectedDate: Date | null): boolean {
   if (!nextExpectedDate) return false
   const now = new Date()
-  const weekFromNow = addDays(now, 7)
+  const weekStart = startOfWeek(now, { weekStartsOn: 0 }) // Sunday
+  const weekEnd = endOfWeek(now, { weekStartsOn: 0 })     // Saturday
   const next = new Date(nextExpectedDate)
-  return next >= now && next <= weekFromNow
+  return next >= weekStart && next <= weekEnd
 }
 
 /**
