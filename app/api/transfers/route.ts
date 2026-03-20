@@ -72,12 +72,12 @@ export async function POST(request: NextRequest): Promise<Response> {
 
     const [magazine, fromBranch, toBranch] = await Promise.all([
       db.magazine.findUnique({ where: { id: magazineId } }),
-      db.branch.findUnique({ where: { id: fromBranchId } }),
+      db.branch.findUnique({ where: { id: fromBranchId, active: true } }),
       db.branch.findUnique({ where: { id: toBranchId, active: true } }),
     ])
 
     if (!magazine) return Response.json({ error: 'Magazine not found' }, { status: 404 })
-    if (!fromBranch) return Response.json({ error: 'Source branch not found' }, { status: 404 })
+    if (!fromBranch) return Response.json({ error: 'Source branch not found or inactive' }, { status: 404 })
     if (!toBranch) return Response.json({ error: 'Destination branch not found or inactive' }, { status: 404 })
 
     // Check sender has enough quantity
