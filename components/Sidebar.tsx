@@ -146,7 +146,10 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
         <BranchSelector branches={branches} activeBranchId={activeBranchId} />
       </div>
       <div className="border-t p-4 space-y-3" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
-        <div className="flex items-center gap-3 px-1">
+        <Link
+          href="/profile"
+          className="flex items-center gap-3 px-1 rounded-md transition-colors hover:bg-white/5"
+        >
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
             style={{ backgroundColor: 'oklch(0.30 0.065 158)', color: CREAM }}
@@ -170,7 +173,7 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
               {user.role}
             </Badge>
           </div>
-        </div>
+        </Link>
 
         <button
           onClick={handleLogout}
