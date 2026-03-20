@@ -28,21 +28,24 @@ import { CADENCE_LABELS } from '@/lib/cadence'
 export interface CreateMagazineDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  branchId: string
 }
 
 const CADENCES = Object.entries(CADENCE_LABELS)
 
-export default function CreateMagazineDialog({ open, onOpenChange }: CreateMagazineDialogProps) {
+export default function CreateMagazineDialog({ open, onOpenChange, branchId }: CreateMagazineDialogProps) {
   const router = useRouter()
   const [name, setName] = useState('')
   const [cadence, setCadence] = useState('')
   const [notes, setNotes] = useState('')
+  const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
 
   function reset() {
     setName('')
     setCadence('')
     setNotes('')
+    setQuantity(1)
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -51,19 +54,32 @@ export default function CreateMagazineDialog({ open, onOpenChange }: CreateMagaz
     setLoading(true)
 
     try {
-      const res = await fetch('/api/magazines', {
+      // Step 1: Create the global magazine record
+      const magRes = await fetch('/api/magazines', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), cadence, notes: notes.trim() || null }),
       })
 
-      const data = (await res.json()) as { error?: string }
-      if (!res.ok) {
-        toast.error(data.error || 'Failed to create magazine')
+      const magData = (await magRes.json()) as { id?: string; error?: string }
+      if (!magRes.ok) {
+        toast.error(magData.error || 'Failed to create magazine')
         return
       }
 
-      toast.success(`${name} added to the collection`)
+      // Step 2: Subscribe to the active branch
+      const subRes = await fetch(`/api/branches/${branchId}/magazines`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ magazineId: magData.id, quantity }),
+      })
+
+      if (!subRes.ok) {
+        toast.error('Magazine created but failed to subscribe to branch. You can retry from the edit view.')
+      } else {
+        toast.success(`${name} added to the collection`)
+      }
+
       onOpenChange(false)
       reset()
       router.refresh()
@@ -79,7 +95,7 @@ export default function CreateMagazineDialog({ open, onOpenChange }: CreateMagaz
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle style={{ fontFamily: 'var(--font-playfair)' }}>Add New Magazine</DialogTitle>
-          <DialogDescription>Add a periodical to the collection.</DialogDescription>
+          <DialogDescription>Add a periodical to this branch&apos;s collection.</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-2">
@@ -106,6 +122,18 @@ export default function CreateMagazineDialog({ open, onOpenChange }: CreateMagaz
                 ))}
               </SelectContent>
             </Select>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="mag-quantity">Quantity</Label>
+            <Input
+              id="mag-quantity"
+              type="number"
+              min={1}
+              value={quantity}
+              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10) || 1))}
+              required
+            />
           </div>
 
           <div className="space-y-1.5">
