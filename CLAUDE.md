@@ -54,6 +54,13 @@ epl-magazines/
 │       ├── auth/
 │       │   ├── login/route.ts
 │       │   └── logout/route.ts
+│       ├── branches/
+│       │   ├── route.ts           # GET list of branches
+│       │   └── [id]/
+│       │       └── magazines/
+│       │           ├── route.ts   # GET/POST branch magazine subscriptions
+│       │           └── [magazineId]/
+│       │               └── route.ts # PUT/DELETE branch subscription
 │       ├── magazines/
 │       │   ├── route.ts           # GET list, POST create
 │       │   └── [id]/
@@ -69,11 +76,13 @@ epl-magazines/
 │   ├── session.ts                 # encrypt/decrypt JWT, createSession, deleteSession
 │   ├── dal.ts                     # Data Access Layer: verifySession, getUser
 │   ├── logger.ts                  # Winston audit logger
+│   ├── branch.ts                  # Branch cookie helper: resolveActiveBranchId, getActiveBranches
 │   ├── cadence.ts                 # computeNextExpectedDate, isOverdue helpers
 │   ├── utils.ts                   # cn() helper for Tailwind class merging
 │   └── db.ts                      # Prisma client singleton
 ├── components/
 │   ├── ui/                        # shadcn/ui generated components (.tsx)
+│   ├── BranchSelector.tsx          # Branch dropdown (cookie-persisted)
 │   ├── MagazineCard.tsx
 │   ├── Sidebar.tsx
 │   └── ...                        # All components as .tsx with Props interfaces
@@ -114,14 +123,15 @@ enum Role {
 }
 
 model Magazine {
-  id        String        @id @default(cuid())
+  id        String            @id @default(cuid())
   name      String
   cadence   Cadence
-  active    Boolean       @default(true)
+  active    Boolean           @default(true)
   notes     String?
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
   receipts  IssueReceipt[]
+  branches  BranchMagazine[]
 }
 
 enum Cadence {
@@ -132,15 +142,40 @@ enum Cadence {
   SEASONAL     // every ~3 months (quarterly)
 }
 
+model Branch {
+  id        String            @id @default(cuid())
+  name      String
+  code      String            @unique
+  active    Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  magazines BranchMagazine[]
+  receipts  IssueReceipt[]
+}
+
+model BranchMagazine {
+  id         String   @id @default(cuid())
+  branch     Branch   @relation(fields: [branchId], references: [id])
+  branchId   String
+  magazine   Magazine @relation(fields: [magazineId], references: [id])
+  magazineId String
+  quantity   Int      @default(1)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@unique([branchId, magazineId])
+}
+
 model IssueReceipt {
-  id          String   @id @default(cuid())
-  magazine    Magazine @relation(fields: [magazineId], references: [id])
-  magazineId  String
-  receivedBy  User     @relation(fields: [receivedById], references: [id])
+  id           String   @id @default(cuid())
+  magazine     Magazine @relation(fields: [magazineId], references: [id])
+  magazineId   String
+  receivedBy   User     @relation(fields: [receivedById], references: [id])
   receivedById String
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  branchId     String?
   receivedDate DateTime @default(now())
-  notes       String?
-  createdAt   DateTime @default(now())
+  notes        String?
+  createdAt    DateTime @default(now())
 }
 ```
 
@@ -188,8 +223,8 @@ If a magazine has **no receipts at all**, it shows in the dashboard as "Never re
 
 ### Dashboard Logic
 
-For each active magazine:
-1. Fetch most recent `IssueReceipt` → `lastReceivedDate`
+For each active magazine **subscribed at the active branch** (via `BranchMagazine`):
+1. Fetch most recent `IssueReceipt` **for that branch** → `lastReceivedDate`
 2. Compute `nextExpectedDate = computeNextExpectedDate(lastReceivedDate, cadence)`
 3. Bucket into:
    - **Overdue / Missing**: `nextExpectedDate < today`
@@ -285,9 +320,11 @@ Both are mounted as Docker volumes. Back them up by copying these two files.
 
 ```bash
 npm run dev          # Start dev server (localhost:3000)
+npm run seed         # Run seed script (tsx prisma/seed.ts)
 npx prisma studio    # Visual DB browser
 npx prisma migrate dev --name <name>   # Create and run migration
 npx prisma generate  # Regenerate Prisma client after schema change
+npx prisma migrate reset --force       # Reset DB + reseed (requires user consent, see Gotchas)
 ```
 
 ---
@@ -324,3 +361,4 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - Base UI Button with `render={<Link>}`: must set `nativeButton={false}` to avoid console warnings
 - `tsx prisma/seed.ts` doesn't auto-load `.env.local` — seed script needs `import 'dotenv/config'`
 - After editing `proxy.ts`, delete `.next/` cache for changes to take effect in dev
+- Prisma v7 AI safety gate: `prisma migrate reset` and other destructive commands fail when invoked by AI agents. Must set `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION` env var with the user's exact consent message. Always ask the user first.

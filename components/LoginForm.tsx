@@ -121,7 +121,9 @@ export default function LoginForm({ branches }: LoginFormProps) {
         </Label>
         <Select value={branchId} onValueChange={(v) => setBranchId(v ?? '')}>
           <SelectTrigger id="branch" className="h-11">
-            <SelectValue placeholder="Select your branch…" />
+            <SelectValue placeholder="Select your branch…">
+              {branches.find((b) => b.id === branchId)?.name}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {branches.map((b) => (
