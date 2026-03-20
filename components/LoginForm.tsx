@@ -119,7 +119,7 @@ export default function LoginForm({ branches }: LoginFormProps) {
         <Label htmlFor="branch" style={{ color: 'oklch(0.30 0.028 62)' }}>
           Branch
         </Label>
-        <Select value={branchId} onValueChange={setBranchId}>
+        <Select value={branchId} onValueChange={(v) => setBranchId(v ?? '')}>
           <SelectTrigger id="branch" className="h-11">
             <SelectValue placeholder="Select your branch…" />
           </SelectTrigger>
