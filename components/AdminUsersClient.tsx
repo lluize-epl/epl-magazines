@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
 import type { AdminUser } from '@/types'
-import { Plus, Trash2, UserX, UserCheck, Users } from 'lucide-react'
+import { Plus, Trash2, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Switch } from '@/components/ui/switch'
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table'
@@ -23,30 +24,42 @@ export default function AdminUsersClient({ users, currentUserId }: AdminUsersCli
   const router = useRouter()
   const [createOpen, setCreateOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<AdminUser | null>(null)
+  const [togglingId, setTogglingId] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   async function toggleActive(user: AdminUser) {
-    const res = await fetch(`/api/users/${user.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ active: !user.active }),
-    })
-    if (res.ok) {
-      toast.success(`${user.name} ${user.active ? 'deactivated' : 'activated'}`)
-      router.refresh()
-    } else {
-      toast.error('Failed to update user')
+    setTogglingId(user.id)
+    try {
+      const res = await fetch(`/api/users/${user.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ active: !user.active }),
+      })
+      if (res.ok) {
+        toast.success(`${user.name} ${user.active ? 'deactivated' : 'activated'}`)
+        router.refresh()
+      } else {
+        toast.error('Failed to update user')
+      }
+    } finally {
+      setTogglingId(null)
     }
   }
 
   async function deleteUser(user: AdminUser) {
-    const res = await fetch(`/api/users/${user.id}`, { method: 'DELETE' })
-    if (res.ok) {
-      toast.success(`${user.name} deleted`)
-      setDeleteTarget(null)
-      router.refresh()
-    } else {
-      const data = (await res.json()) as { error?: string }
-      toast.error(data.error || 'Failed to delete user')
+    setDeletingId(user.id)
+    try {
+      const res = await fetch(`/api/users/${user.id}`, { method: 'DELETE' })
+      if (res.ok) {
+        toast.success(`${user.name} deleted`)
+        setDeleteTarget(null)
+        router.refresh()
+      } else {
+        const data = (await res.json()) as { error?: string }
+        toast.error(data.error || 'Failed to delete user')
+      }
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -75,7 +88,7 @@ export default function AdminUsersClient({ users, currentUserId }: AdminUsersCli
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                {['Name', 'Email', 'Role', 'Status', 'Receipts', 'Joined', 'Actions'].map((h) => (
+                {['Name', 'Email', 'Role', 'Receipts', 'Joined', 'Actions'].map((h) => (
                   <TableHead
                     key={h}
                     className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
@@ -132,19 +145,6 @@ export default function AdminUsersClient({ users, currentUserId }: AdminUsersCli
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      variant="outline"
-                      className="text-xs"
-                      style={
-                        user.active
-                          ? { backgroundColor: 'oklch(0.92 0.05 155)', color: 'oklch(0.38 0.082 156)', border: 'none' }
-                          : { backgroundColor: 'oklch(0.93 0.010 88)', color: 'oklch(0.50 0.035 72)', border: 'none' }
-                      }
-                    >
-                      {user.active ? 'Active' : 'Inactive'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
                       {user._count.receipts}
                     </span>
@@ -158,24 +158,18 @@ export default function AdminUsersClient({ users, currentUserId }: AdminUsersCli
                     <div className="flex items-center justify-end gap-1.5">
                       {user.id !== currentUserId && (
                         <>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-7 w-7 p-0"
-                            onClick={() => toggleActive(user)}
-                            title={user.active ? 'Deactivate' : 'Activate'}
-                          >
-                            {user.active
-                              ? <UserX size={14} style={{ color: 'oklch(0.55 0.15 78)' }} />
-                              : <UserCheck size={14} style={{ color: 'oklch(0.45 0.10 155)' }} />
-                            }
-                          </Button>
+                          <Switch
+                            checked={user.active}
+                            onCheckedChange={() => toggleActive(user)}
+                            disabled={togglingId === user.id}
+                          />
                           <Button
                             size="sm"
                             variant="ghost"
                             className="h-7 w-7 p-0"
                             onClick={() => setDeleteTarget(user)}
                             title="Delete"
+                            disabled={deletingId === user.id}
                           >
                             <Trash2 size={14} style={{ color: 'oklch(0.56 0.225 27)' }} />
                           </Button>
