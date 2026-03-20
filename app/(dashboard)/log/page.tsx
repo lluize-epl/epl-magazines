@@ -84,6 +84,24 @@ export default async function LogPage({ searchParams }: PageProps) {
     : []
   const userNameMap = new Map(users.map((u) => [u.id, u.name]))
 
+  // Resolve magazine names for visible log entries
+  const magazineIds = [...new Set(
+    logs.flatMap((e) => [e.magazineId as string | undefined]).filter(Boolean)
+  )] as string[]
+  const magazines = magazineIds.length > 0
+    ? await db.magazine.findMany({ where: { id: { in: magazineIds } }, select: { id: true, name: true } })
+    : []
+  const magazineNameMap = new Map(magazines.map((m) => [m.id, m.name]))
+
+  // Resolve branch names for visible log entries
+  const branchIds = [...new Set(
+    logs.flatMap((e) => [e.branchId as string | undefined]).filter(Boolean)
+  )] as string[]
+  const branchesForLog = branchIds.length > 0
+    ? await db.branch.findMany({ where: { id: { in: branchIds } }, select: { id: true, name: true } })
+    : []
+  const branchNameMap = new Map(branchesForLog.map((b) => [b.id, b.name]))
+
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <div className="mb-8">
@@ -128,8 +146,25 @@ export default async function LogPage({ searchParams }: PageProps) {
                   const { timestamp, userId, action, level: _level, ...details } = entry
                   const actionStyle = getActionStyle(action)
                   const detailStr = Object.entries(details)
-                    .map(([k, v]) => `${k}: ${typeof v === 'object' && v !== null ? JSON.stringify(v) : v}`)
+                    .filter(([k]) => !k.endsWith('Id'))
+                    .map(([k, v]) => {
+                      if (k === 'magazineName') return `magazine: ${v}`
+                      if (k === 'branchName') return `branch: ${v}`
+                      return `${k}: ${typeof v === 'object' && v !== null ? JSON.stringify(v) : v}`
+                    })
                     .join('  ·  ')
+
+                  // Resolve any remaining IDs that have name maps
+                  const resolvedParts: string[] = []
+                  if (details.magazineId && !details.magazineName) {
+                    const name = magazineNameMap.get(details.magazineId as string)
+                    if (name) resolvedParts.push(`magazine: ${name}`)
+                  }
+                  if (details.branchId && !details.branchName) {
+                    const name = branchNameMap.get(details.branchId as string)
+                    if (name) resolvedParts.push(`branch: ${name}`)
+                  }
+                  const fullDetails = [...resolvedParts, detailStr].filter(Boolean).join('  ·  ')
 
                   return (
                     <TableRow
@@ -158,7 +193,7 @@ export default async function LogPage({ searchParams }: PageProps) {
                       </TableCell>
                       <TableCell>
                         <span className="text-xs" style={{ color: 'oklch(0.45 0.030 72)' }}>
-                          {detailStr || '—'}
+                          {fullDetails || '—'}
                         </span>
                       </TableCell>
                     </TableRow>
