@@ -3,46 +3,68 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import type { MagazineWithCount } from '@/types'
-import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight, BookMarked } from 'lucide-react'
+import { format } from 'date-fns'
+import type { BranchMagazineWithDetails } from '@/types'
+import { Plus, Pencil, Trash2, BookMarked } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Switch } from '@/components/ui/switch'
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table'
 import { CADENCE_LABELS } from '@/lib/cadence'
 import CreateMagazineDialog from './CreateMagazineDialog'
 import EditMagazineDialog from './EditMagazineDialog'
-import DeleteConfirmDialog from './DeleteConfirmDialog'
+import AdminMagazineDeleteDialog from './AdminMagazineDeleteDialog'
 
 export interface AdminMagazinesClientProps {
-  magazines: MagazineWithCount[]
+  magazines: BranchMagazineWithDetails[]
+  branchId: string
+  page: number
+  totalPages: number
 }
 
-export default function AdminMagazinesClient({ magazines }: AdminMagazinesClientProps) {
+export default function AdminMagazinesClient({ magazines, branchId, page, totalPages }: AdminMagazinesClientProps) {
   const router = useRouter()
   const [createOpen, setCreateOpen] = useState(false)
-  const [editTarget, setEditTarget] = useState<MagazineWithCount | null>(null)
-  const [deleteTarget, setDeleteTarget] = useState<MagazineWithCount | null>(null)
+  const [editTarget, setEditTarget] = useState<BranchMagazineWithDetails | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<BranchMagazineWithDetails | null>(null)
+  const [togglingId, setTogglingId] = useState<string | null>(null)
 
-  async function toggleActive(mag: MagazineWithCount) {
-    const res = await fetch(`/api/magazines/${mag.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ active: !mag.active }),
-    })
-    if (res.ok) {
-      toast.success(`${mag.name} ${mag.active ? 'deactivated' : 'activated'}`)
-      router.refresh()
-    } else {
-      toast.error('Failed to update status')
+  async function toggleActive(sub: BranchMagazineWithDetails) {
+    setTogglingId(sub.id)
+    try {
+      const res = await fetch(`/api/branches/${branchId}/magazines/${sub.magazineId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ active: !sub.active }),
+      })
+      if (res.ok) {
+        toast.success(`${sub.magazine.name} ${sub.active ? 'deactivated' : 'activated'}`)
+        router.refresh()
+      } else {
+        toast.error('Failed to update status')
+      }
+    } finally {
+      setTogglingId(null)
     }
   }
 
-  async function deleteMagazine(mag: MagazineWithCount) {
-    const res = await fetch(`/api/magazines/${mag.id}`, { method: 'DELETE' })
+  async function removeFromBranch(sub: BranchMagazineWithDetails) {
+    const res = await fetch(`/api/branches/${branchId}/magazines/${sub.magazineId}`, { method: 'DELETE' })
     if (res.ok) {
-      toast.success(`${mag.name} deleted`)
+      toast.success(`${sub.magazine.name} removed from branch`)
+      setDeleteTarget(null)
+      router.refresh()
+    } else {
+      toast.error('Failed to remove subscription')
+    }
+  }
+
+  async function deleteEntirely(sub: BranchMagazineWithDetails) {
+    const res = await fetch(`/api/magazines/${sub.magazineId}`, { method: 'DELETE' })
+    if (res.ok) {
+      toast.success(`${sub.magazine.name} deleted entirely`)
       setDeleteTarget(null)
       router.refresh()
     } else {
@@ -67,9 +89,9 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
         <div className="text-center py-20" style={{ color: 'oklch(0.60 0.025 72)' }}>
           <BookMarked size={40} className="mx-auto mb-4 opacity-30" />
           <p className="text-lg font-medium" style={{ fontFamily: 'var(--font-playfair)' }}>
-            No magazines yet
+            No magazines at this branch
           </p>
-          <p className="text-sm mt-1">Click &quot;Add Magazine&quot; to get started.</p>
+          <p className="text-sm mt-1">Click &quot;Add Magazine&quot; to subscribe one.</p>
         </div>
       ) : (
         <div
@@ -79,22 +101,25 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Name</TableHead>
-                <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Cadence</TableHead>
-                <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Status</TableHead>
-                <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Issues</TableHead>
-                <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Notes</TableHead>
-                <TableHead className="font-semibold text-right" style={{ color: 'oklch(0.30 0.028 62)' }}>Actions</TableHead>
+                {['Name', 'Cadence', 'Qty', 'Total Issues', 'Last Received', 'Next Expected', 'Status', 'Notes', 'Actions'].map((h) => (
+                  <TableHead
+                    key={h}
+                    className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
+                    style={{ color: 'oklch(0.30 0.028 62)' }}
+                  >
+                    {h}
+                  </TableHead>
+                ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {magazines.map((mag) => (
+              {magazines.map((sub) => (
                 <TableRow
-                  key={mag.id}
+                  key={sub.id}
                   className="hover:bg-black/[0.02] transition-colors"
                   style={{
                     borderColor: 'oklch(0.900 0.012 88)',
-                    opacity: mag.active ? 1 : 0.55,
+                    opacity: sub.active ? 1 : 0.55,
                   }}
                 >
                   <TableCell>
@@ -102,7 +127,7 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
                       className="font-medium"
                       style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                     >
-                      {mag.name}
+                      {sub.magazine.name}
                     </span>
                   </TableCell>
                   <TableCell>
@@ -115,30 +140,43 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
                         borderColor: 'oklch(0.38 0.082 156 / 0.20)',
                       }}
                     >
-                      {CADENCE_LABELS[mag.cadence]}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className="text-xs"
-                      style={
-                        mag.active
-                          ? { backgroundColor: 'oklch(0.92 0.05 155)', color: 'oklch(0.38 0.082 156)', border: 'none' }
-                          : { backgroundColor: 'oklch(0.93 0.010 88)', color: 'oklch(0.50 0.035 72)', border: 'none' }
-                      }
-                    >
-                      {mag.active ? 'Active' : 'Inactive'}
+                      {CADENCE_LABELS[sub.magazine.cadence]}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
-                      {mag._count.receipts}
+                      {sub.quantity}
                     </span>
                   </TableCell>
                   <TableCell>
+                    <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
+                      {sub.totalIssues}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
+                      {sub.lastReceivedDate
+                        ? format(new Date(sub.lastReceivedDate), 'MMM d, yyyy')
+                        : 'Never'}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
+                      {sub.nextExpectedDate
+                        ? format(new Date(sub.nextExpectedDate), 'MMM d, yyyy')
+                        : '—'}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={sub.active}
+                      onCheckedChange={() => toggleActive(sub)}
+                      disabled={togglingId === sub.id}
+                    />
+                  </TableCell>
+                  <TableCell>
                     <span className="text-sm italic" style={{ color: 'oklch(0.55 0.030 72)' }}>
-                      {mag.notes || '—'}
+                      {sub.magazine.notes || '—'}
                     </span>
                   </TableCell>
                   <TableCell>
@@ -147,19 +185,7 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
                         size="sm"
                         variant="ghost"
                         className="h-7 w-7 p-0"
-                        onClick={() => toggleActive(mag)}
-                        title={mag.active ? 'Deactivate' : 'Activate'}
-                      >
-                        {mag.active
-                          ? <ToggleRight size={16} style={{ color: 'oklch(0.45 0.10 155)' }} />
-                          : <ToggleLeft size={16} style={{ color: 'oklch(0.55 0.030 72)' }} />
-                        }
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="h-7 w-7 p-0"
-                        onClick={() => setEditTarget(mag)}
+                        onClick={() => setEditTarget(sub)}
                         title="Edit"
                       >
                         <Pencil size={14} style={{ color: 'oklch(0.45 0.082 156)' }} />
@@ -168,7 +194,7 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
                         size="sm"
                         variant="ghost"
                         className="h-7 w-7 p-0"
-                        onClick={() => setDeleteTarget(mag)}
+                        onClick={() => setDeleteTarget(sub)}
                         title="Delete"
                       >
                         <Trash2 size={14} style={{ color: 'oklch(0.56 0.225 27)' }} />
@@ -182,23 +208,51 @@ export default function AdminMagazinesClient({ magazines }: AdminMagazinesClient
         </div>
       )}
 
-      <CreateMagazineDialog open={createOpen} onOpenChange={setCreateOpen} />
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-6">
+          {page > 1 && (
+            <a
+              href={`?page=${page - 1}`}
+              className="px-4 py-2 rounded-md text-sm border transition-colors hover:bg-black/[0.04]"
+              style={{ borderColor: 'oklch(0.876 0.016 88)', color: 'oklch(0.38 0.082 156)' }}
+            >
+              ← Previous
+            </a>
+          )}
+          <span className="text-sm" style={{ color: 'oklch(0.50 0.035 72)' }}>
+            {page} / {totalPages}
+          </span>
+          {page < totalPages && (
+            <a
+              href={`?page=${page + 1}`}
+              className="px-4 py-2 rounded-md text-sm border transition-colors hover:bg-black/[0.04]"
+              style={{ borderColor: 'oklch(0.876 0.016 88)', color: 'oklch(0.38 0.082 156)' }}
+            >
+              Next →
+            </a>
+          )}
+        </div>
+      )}
+
+      <CreateMagazineDialog open={createOpen} onOpenChange={setCreateOpen} branchId={branchId} />
 
       {editTarget && (
         <EditMagazineDialog
-          magazine={editTarget}
+          subscription={editTarget}
+          branchId={branchId}
           open={!!editTarget}
           onOpenChange={(v) => { if (!v) setEditTarget(null) }}
         />
       )}
 
       {deleteTarget && (
-        <DeleteConfirmDialog
+        <AdminMagazineDeleteDialog
           open={!!deleteTarget}
           onOpenChange={(v) => { if (!v) setDeleteTarget(null) }}
-          title={`Delete "${deleteTarget.name}"?`}
-          description={`This will permanently delete the magazine and all ${deleteTarget._count?.receipts ?? 0} receipt records. This cannot be undone.`}
-          onConfirm={() => deleteMagazine(deleteTarget)}
+          magazineName={deleteTarget.magazine.name}
+          onRemoveFromBranch={() => removeFromBranch(deleteTarget)}
+          onDeleteEntirely={() => deleteEntirely(deleteTarget)}
         />
       )}
     </>
