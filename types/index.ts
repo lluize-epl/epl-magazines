@@ -16,6 +16,9 @@ export type CadenceType = 'WEEKLY' | 'BI_WEEKLY' | 'MONTHLY' | 'BI_MONTHLY' | 'S
 /** Dashboard status bucket for a magazine */
 export type MagazineStatus = 'overdue' | 'this_week' | 'upcoming' | 'never_received'
 
+/** Dashboard-only status buckets (reduced from 4 to 2) */
+export type DashboardStatus = 'overdue' | 'this_week'
+
 /** Short code identifying each library branch */
 export type BranchCode = 'MAIN' | 'NORTH' | 'CB' | 'MOBILE'
 
@@ -152,6 +155,39 @@ export interface BranchWithCount extends Branch {
 }
 
 // ---------------------------------------------------------------------------
+// Transfers
+// ---------------------------------------------------------------------------
+
+/** Transfer lifecycle status */
+export type TransferStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED'
+
+/** Raw transfer record from the database */
+export interface Transfer {
+  id: string
+  magazineId: string
+  fromBranchId: string
+  toBranchId: string
+  quantity: number
+  status: TransferStatus
+  initiatedById: string
+  completedById: string | null
+  cancelledById: string | null
+  createdAt: Date
+  completedAt: Date | null
+  cancelledAt: Date | null
+}
+
+/** Transfer enriched with related names for display */
+export interface TransferWithDetails extends Transfer {
+  magazine: { name: string }
+  fromBranch: { name: string; code: BranchCode }
+  toBranch: { name: string; code: BranchCode }
+  initiatedBy: { name: string }
+  completedBy: { name: string } | null
+  cancelledBy: { name: string } | null
+}
+
+// ---------------------------------------------------------------------------
 // Users (admin views)
 // ---------------------------------------------------------------------------
 
@@ -186,6 +222,9 @@ export type AuditAction =
   | 'BRANCH_MAGAZINE_REMOVED'
   | 'USER_NAME_CHANGED'
   | 'USER_PASSWORD_CHANGED'
+  | 'TRANSFER_INITIATED'
+  | 'TRANSFER_COMPLETED'
+  | 'TRANSFER_CANCELLED'
 
 /** Parsed JSON line from logs/audit.log */
 export interface AuditLogEntry {
