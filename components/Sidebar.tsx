@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
@@ -12,7 +13,9 @@ import {
   ScrollText,
   LogOut,
   ChevronRight,
+  ChevronLeft,
   BookMarked,
+  ArrowLeftRight,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -21,6 +24,7 @@ export interface SidebarProps {
   user: AuthUser
   branches: Branch[]
   activeBranchId: string
+  defaultCollapsed?: boolean
 }
 
 interface NavItem {
@@ -42,13 +46,21 @@ const navItems: NavItem[] = [
 
 const adminItems: NavItem[] = [
   { href: '/admin/magazines', label: 'Manage Magazines', icon: BookMarked },
+  { href: '/admin/transfers', label: 'Transfers', icon: ArrowLeftRight },
   { href: '/admin/users', label: 'Manage Users', icon: Users },
   { href: '/log', label: 'Audit Log', icon: ScrollText },
 ]
 
-export default function Sidebar({ user, branches, activeBranchId }: SidebarProps) {
+export default function Sidebar({ user, branches, activeBranchId, defaultCollapsed }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
+  const [collapsed, setCollapsed] = useState(defaultCollapsed ?? false)
+
+  function toggleCollapsed() {
+    const next = !collapsed
+    setCollapsed(next)
+    document.cookie = `epl-sidebar-collapsed=${next};path=/;max-age=${60 * 60 * 24 * 365}`
+  }
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -62,24 +74,39 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
 
   return (
     <aside
-      className="w-64 flex-shrink-0 flex flex-col h-full"
-      style={{ backgroundColor: FOREST }}
+      className="flex-shrink-0 flex flex-col h-full transition-all duration-300 relative"
+      style={{ backgroundColor: FOREST, width: collapsed ? '64px' : '256px' }}
     >
+      {/* Collapse toggle button */}
+      <button
+        onClick={toggleCollapsed}
+        className="absolute -right-3 top-6 z-10 w-6 h-6 rounded-full flex items-center justify-center border transition-colors cursor-pointer"
+        style={{
+          backgroundColor: FOREST,
+          borderColor: 'oklch(0.30 0.055 158)',
+          color: CREAM,
+        }}
+      >
+        {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+      </button>
+
       {/* Logo */}
       <div className="px-5 py-5 border-b" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/epl-logo-white.png"
-          alt="Edison Public Library"
-          className="h-10 w-auto"
-        />
+        {collapsed ? (
+          <span className="text-lg font-bold block text-center" style={{ color: CREAM }}>E</span>
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src="/epl-logo-white.png" alt="Edison Public Library" className="h-10 w-auto" />
+        )}
       </div>
 
       {/* Main navigation */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        <p className="px-2 pb-1 text-xs font-medium uppercase tracking-widest" style={{ color: CREAM_MUTED }}>
-          Navigation
-        </p>
+        {!collapsed && (
+          <p className="px-2 pb-1 text-xs font-medium uppercase tracking-widest" style={{ color: CREAM_MUTED }}>
+            Navigation
+          </p>
+        )}
 
         {navItems.map(({ href, label, icon: Icon }) => (
           <Link
@@ -89,15 +116,17 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
             style={{
               backgroundColor: isActive(href) ? FOREST_HOVER : 'transparent',
               color: isActive(href) ? CREAM : CREAM_MUTED,
+              justifyContent: collapsed ? 'center' : 'flex-start',
             }}
+            title={collapsed ? label : undefined}
           >
             <Icon
               size={16}
               style={{ color: isActive(href) ? GOLD : CREAM_MUTED }}
-              className="flex-shrink-0 transition-colors"
+              className={`flex-shrink-0 transition-all ${collapsed ? 'hover:scale-110' : ''}`}
             />
-            <span className="font-medium">{label}</span>
-            {isActive(href) && (
+            {!collapsed && <span className="font-medium">{label}</span>}
+            {!collapsed && isActive(href) && (
               <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
             )}
           </Link>
@@ -109,9 +138,11 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
             <div className="pt-4 pb-1">
               <Separator style={{ backgroundColor: 'oklch(0.30 0.055 158)' }} />
             </div>
-            <p className="px-2 pb-1 text-xs font-medium uppercase tracking-widest" style={{ color: CREAM_MUTED }}>
-              Administration
-            </p>
+            {!collapsed && (
+              <p className="px-2 pb-1 text-xs font-medium uppercase tracking-widest" style={{ color: CREAM_MUTED }}>
+                Administration
+              </p>
+            )}
 
             {adminItems.map(({ href, label, icon: Icon }) => (
               <Link
@@ -121,15 +152,17 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
                 style={{
                   backgroundColor: isActive(href) ? FOREST_HOVER : 'transparent',
                   color: isActive(href) ? CREAM : CREAM_MUTED,
+                  justifyContent: collapsed ? 'center' : 'flex-start',
                 }}
+                title={collapsed ? label : undefined}
               >
                 <Icon
                   size={16}
                   style={{ color: isActive(href) ? GOLD : CREAM_MUTED }}
-                  className="flex-shrink-0"
+                  className={`flex-shrink-0 ${collapsed ? 'hover:scale-110' : ''}`}
                 />
-                <span className="font-medium">{label}</span>
-                {isActive(href) && (
+                {!collapsed && <span className="font-medium">{label}</span>}
+                {!collapsed && isActive(href) && (
                   <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
                 )}
               </Link>
@@ -139,16 +172,16 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
       </nav>
 
       {/* Branch selector + user info + logout */}
-      <div
-        className="border-t mt-auto"
-        style={{ borderColor: 'oklch(0.30 0.04 158)' }}
-      >
-        <BranchSelector branches={branches} activeBranchId={activeBranchId} />
-      </div>
+      {!collapsed && (
+        <div className="border-t mt-auto" style={{ borderColor: 'oklch(0.30 0.04 158)' }}>
+          <BranchSelector branches={branches} activeBranchId={activeBranchId} />
+        </div>
+      )}
       <div className="border-t p-4 space-y-3" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
         <Link
           href="/profile"
-          className="flex items-center gap-3 px-1 rounded-md transition-colors hover:bg-white/5"
+          className={`flex items-center gap-3 px-1 rounded-md transition-colors hover:bg-white/5 ${collapsed ? 'justify-center' : ''}`}
+          title={collapsed ? user.name : undefined}
         >
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
@@ -156,32 +189,35 @@ export default function Sidebar({ user, branches, activeBranchId }: SidebarProps
           >
             {user.name.charAt(0).toUpperCase()}
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium truncate" style={{ color: CREAM }}>
-              {user.name}
-            </p>
-            <Badge
-              variant="outline"
-              className="text-xs px-1.5 py-0 border-0 font-medium"
-              style={{
-                backgroundColor: user.role === 'ADMIN'
-                  ? 'oklch(0.60 0.128 79 / 0.20)'
-                  : 'oklch(0.38 0.082 156 / 0.30)',
-                color: user.role === 'ADMIN' ? GOLD : CREAM,
-              }}
-            >
-              {user.role}
-            </Badge>
-          </div>
+          {!collapsed && (
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium truncate" style={{ color: CREAM }}>
+                {user.name}
+              </p>
+              <Badge
+                variant="outline"
+                className="text-xs px-1.5 py-0 border-0 font-medium"
+                style={{
+                  backgroundColor: user.role === 'ADMIN'
+                    ? 'oklch(0.60 0.128 79 / 0.20)'
+                    : 'oklch(0.38 0.082 156 / 0.30)',
+                  color: user.role === 'ADMIN' ? GOLD : CREAM,
+                }}
+              >
+                {user.role}
+              </Badge>
+            </div>
+          )}
         </Link>
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer"
+          className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer ${collapsed ? 'justify-center' : ''}`}
           style={{ color: CREAM_MUTED }}
+          title={collapsed ? 'Sign out' : undefined}
         >
           <LogOut size={15} />
-          <span>Sign out</span>
+          {!collapsed && <span>Sign out</span>}
         </button>
       </div>
     </aside>
