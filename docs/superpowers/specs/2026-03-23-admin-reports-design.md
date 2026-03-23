@@ -85,11 +85,12 @@ All filter state lives in the URL for shareability and back-button support.
 
 ### Tab 2 — Overdue / Compliance
 
-**Purpose:** Which magazines are overdue or were overdue during the period.
+**Purpose:** Which magazines are currently overdue (point-in-time snapshot).
 
 - **Summary cards:** Total overdue count, on-time rate (%)
 - **Table columns:** Magazine name, language, branch, cadence, days overdue, last received date, next expected date
 - **Sorting:** Most overdue first (worst offenders at top)
+- **Note:** Date filter does NOT apply to this tab — it shows current overdue state (same as Subscription Overview). Branch and language filters still apply.
 
 ### Tab 3 — Transfer Activity
 
@@ -201,6 +202,17 @@ Separate from production seed (`prisma/seed.ts`). Generates realistic demo data 
 5. `ReportsClient` renders tabs, charts, and tables
 6. On "Export" click, client navigates to `/admin/reports/export?...` with current filters
 7. Export route runs the same query, builds ExcelJS workbook, returns `.xlsx` download
+
+---
+
+## Performance: WAL Mode
+
+SQLite WAL (Write-Ahead Logging) is enabled in `lib/db.ts` at connection time. This ensures:
+- Report queries (heavy reads) do not block staff from marking magazines as received (writes)
+- Multiple concurrent reads proceed without contention
+- Only concurrent writes can conflict (handled by existing `withRetry` in `lib/db-retry.ts`)
+
+WAL mode is a prerequisite for this feature — without it, long-running report aggregations would block all writes.
 
 ---
 
