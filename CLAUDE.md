@@ -126,12 +126,14 @@ model Magazine {
   id        String            @id @default(cuid())
   name      String
   cadence   Cadence
+  language  String            @default("English")
   active    Boolean           @default(true)
   notes     String?
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
   receipts  IssueReceipt[]
   branches  BranchMagazine[]
+  transfers Transfer[]
 }
 
 enum Cadence {
@@ -253,6 +255,7 @@ For each active magazine **subscribed at the active branch** (via `BranchMagazin
 | Create / edit / delete magazine | ✗ | ✓ |
 | Create / delete users | ✗ | ✓ |
 | View audit log | ✗ | ✓ |
+| View reports / export .xlsx | ✗ | ✓ |
 
 Enforce in API routes: check `session.role === 'ADMIN'` before admin operations.
 
@@ -321,6 +324,7 @@ Both are mounted as Docker volumes. Back them up by copying these two files.
 ```bash
 npm run dev          # Start dev server (localhost:3000)
 npm run seed         # Run seed script (tsx prisma/seed.ts)
+npx tsx prisma/seed_test.ts  # Run test seed with demo data (destroys existing data)
 npx prisma studio    # Visual DB browser
 npx prisma migrate dev --name <name>   # Create and run migration
 npx prisma generate  # Regenerate Prisma client after schema change
@@ -353,6 +357,7 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - Use `date-fns` for all date arithmetic (already a Next.js ecosystem staple)
 - shadcn/ui components live in `components/ui/` — add with `npx shadcn@latest add <component>`
 - Audit log changes with before/after values: fetch record before update, log `field: old → new` (not just field names)
+- Magazine `language` field: free-text string (not enum) normalized to title case ("Hindi", not "hindi") in API routes. Default: "English"
 
 ---
 
@@ -366,3 +371,6 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - After editing `proxy.ts`, delete `.next/` cache for changes to take effect in dev
 - After merging a worktree branch, run `npx prisma generate` — the generated client doesn't carry over from worktrees
 - Prisma v7 AI safety gate: `prisma migrate reset` and other destructive commands fail when invoked by AI agents. Must set `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION` env var with the user's exact consent message. Always ask the user first.
+- SQLite WAL mode is enabled in `lib/db.ts` at startup — allows concurrent reads during writes. Do not change journal mode.
+- All DB write operations should use `withRetry()` from `lib/db-retry.ts` to handle transient `SQLITE_BUSY`/`SQLITE_LOCKED` errors
+- Recharts does not support oklch color values — use hex approximations (e.g. `#2d7a4f` for primary green `oklch(0.38 0.082 156)`)
