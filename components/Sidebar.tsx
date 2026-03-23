@@ -16,9 +16,11 @@ import {
   ChevronLeft,
   BookMarked,
   ArrowLeftRight,
+  BarChart3,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip'
 
 export interface SidebarProps {
   user: AuthUser
@@ -47,6 +49,7 @@ const navItems: NavItem[] = [
 const adminItems: NavItem[] = [
   { href: '/admin/magazines', label: 'Manage Magazines', icon: BookMarked },
   { href: '/admin/transfers', label: 'Transfers', icon: ArrowLeftRight },
+  { href: '/admin/reports', label: 'Reports', icon: BarChart3 },
   { href: '/admin/users', label: 'Manage Users', icon: Users },
   { href: '/log', label: 'Audit Log', icon: ScrollText },
 ]
@@ -101,6 +104,7 @@ export default function Sidebar({ user, branches, activeBranchId, defaultCollaps
       </div>
 
       {/* Main navigation */}
+      <TooltipProvider>
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {!collapsed && (
           <p className="px-2 pb-1 text-xs font-medium uppercase tracking-widest" style={{ color: CREAM_MUTED }}>
@@ -108,29 +112,43 @@ export default function Sidebar({ user, branches, activeBranchId, defaultCollaps
           </p>
         )}
 
-        {navItems.map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all group"
-            style={{
-              backgroundColor: isActive(href) ? FOREST_HOVER : 'transparent',
-              color: isActive(href) ? CREAM : CREAM_MUTED,
-              justifyContent: collapsed ? 'center' : 'flex-start',
-            }}
-            title={collapsed ? label : undefined}
-          >
-            <Icon
-              size={16}
-              style={{ color: isActive(href) ? GOLD : CREAM_MUTED }}
-              className={`flex-shrink-0 transition-all ${collapsed ? 'hover:scale-110' : ''}`}
-            />
-            {!collapsed && <span className="font-medium">{label}</span>}
-            {!collapsed && isActive(href) && (
-              <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
-            )}
-          </Link>
-        ))}
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const active = isActive(href)
+          const link = (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all group ${
+                active ? '' : 'hover:bg-white/10 hover:scale-[1.02]'
+              }`}
+              style={{
+                backgroundColor: active ? FOREST_HOVER : undefined,
+                color: active ? CREAM : CREAM_MUTED,
+                justifyContent: collapsed ? 'center' : 'flex-start',
+              }}
+            >
+              <Icon
+                size={16}
+                style={{ color: active ? GOLD : CREAM_MUTED }}
+                className="flex-shrink-0 transition-all group-hover:text-white"
+              />
+              {!collapsed && (
+                <span className={`font-medium transition-colors ${active ? '' : 'group-hover:text-white'}`}>
+                  {label}
+                </span>
+              )}
+              {!collapsed && active && (
+                <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
+              )}
+            </Link>
+          )
+          return collapsed ? (
+            <Tooltip key={href}>
+              <TooltipTrigger render={<div />}>{link}</TooltipTrigger>
+              <TooltipContent side="right">{label}</TooltipContent>
+            </Tooltip>
+          ) : link
+        })}
 
         {/* Admin section */}
         {user.role === 'ADMIN' && (
@@ -144,32 +162,47 @@ export default function Sidebar({ user, branches, activeBranchId, defaultCollaps
               </p>
             )}
 
-            {adminItems.map(({ href, label, icon: Icon }) => (
-              <Link
-                key={href}
-                href={href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all"
-                style={{
-                  backgroundColor: isActive(href) ? FOREST_HOVER : 'transparent',
-                  color: isActive(href) ? CREAM : CREAM_MUTED,
-                  justifyContent: collapsed ? 'center' : 'flex-start',
-                }}
-                title={collapsed ? label : undefined}
-              >
-                <Icon
-                  size={16}
-                  style={{ color: isActive(href) ? GOLD : CREAM_MUTED }}
-                  className={`flex-shrink-0 ${collapsed ? 'hover:scale-110' : ''}`}
-                />
-                {!collapsed && <span className="font-medium">{label}</span>}
-                {!collapsed && isActive(href) && (
-                  <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
-                )}
-              </Link>
-            ))}
+            {adminItems.map(({ href, label, icon: Icon }) => {
+              const active = isActive(href)
+              const link = (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all group ${
+                    active ? '' : 'hover:bg-white/10 hover:scale-[1.02]'
+                  }`}
+                  style={{
+                    backgroundColor: active ? FOREST_HOVER : undefined,
+                    color: active ? CREAM : CREAM_MUTED,
+                    justifyContent: collapsed ? 'center' : 'flex-start',
+                  }}
+                >
+                  <Icon
+                    size={16}
+                    style={{ color: active ? GOLD : CREAM_MUTED }}
+                    className="flex-shrink-0 transition-all group-hover:text-white"
+                  />
+                  {!collapsed && (
+                    <span className={`font-medium transition-colors ${active ? '' : 'group-hover:text-white'}`}>
+                      {label}
+                    </span>
+                  )}
+                  {!collapsed && active && (
+                    <ChevronRight size={12} className="ml-auto" style={{ color: GOLD }} />
+                  )}
+                </Link>
+              )
+              return collapsed ? (
+                <Tooltip key={href}>
+                  <TooltipTrigger render={<div />}>{link}</TooltipTrigger>
+                  <TooltipContent side="right">{label}</TooltipContent>
+                </Tooltip>
+              ) : link
+            })}
           </>
         )}
       </nav>
+      </TooltipProvider>
 
       {/* Branch selector + user info + logout */}
       {!collapsed && (
@@ -177,49 +210,83 @@ export default function Sidebar({ user, branches, activeBranchId, defaultCollaps
           <BranchSelector branches={branches} activeBranchId={activeBranchId} />
         </div>
       )}
-      <div className="border-t p-4 space-y-3" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
-        <Link
-          href="/profile"
-          className={`flex items-center gap-3 px-1 rounded-md transition-colors hover:bg-white/5 ${collapsed ? 'justify-center' : ''}`}
-          title={collapsed ? user.name : undefined}
-        >
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-            style={{ backgroundColor: 'oklch(0.30 0.065 158)', color: CREAM }}
-          >
-            {user.name.charAt(0).toUpperCase()}
-          </div>
-          {!collapsed && (
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium truncate" style={{ color: CREAM }}>
-                {user.name}
-              </p>
-              <Badge
-                variant="outline"
-                className="text-xs px-1.5 py-0 border-0 font-medium"
-                style={{
-                  backgroundColor: user.role === 'ADMIN'
-                    ? 'oklch(0.60 0.128 79 / 0.20)'
-                    : 'oklch(0.38 0.082 156 / 0.30)',
-                  color: user.role === 'ADMIN' ? GOLD : CREAM,
-                }}
+      <TooltipProvider>
+        <div className="border-t p-4 space-y-3" style={{ borderColor: 'oklch(0.30 0.055 158)' }}>
+          {collapsed ? (
+            <Tooltip>
+              <TooltipTrigger render={<div />}>
+                <Link
+                  href="/profile"
+                  className="flex items-center justify-center rounded-md transition-colors hover:bg-white/5"
+                >
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                    style={{ backgroundColor: 'oklch(0.30 0.065 158)', color: CREAM }}
+                  >
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">{user.name}</TooltipContent>
+            </Tooltip>
+          ) : (
+            <Link
+              href="/profile"
+              className="flex items-center gap-3 px-1 rounded-md transition-colors hover:bg-white/5"
+            >
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                style={{ backgroundColor: 'oklch(0.30 0.065 158)', color: CREAM }}
               >
-                {user.role}
-              </Badge>
-            </div>
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium truncate" style={{ color: CREAM }}>
+                  {user.name}
+                </p>
+                <Badge
+                  variant="outline"
+                  className="text-xs px-1.5 py-0 border-0 font-medium"
+                  style={{
+                    backgroundColor: user.role === 'ADMIN'
+                      ? 'oklch(0.60 0.128 79 / 0.20)'
+                      : 'oklch(0.38 0.082 156 / 0.30)',
+                    color: user.role === 'ADMIN' ? GOLD : CREAM,
+                  }}
+                >
+                  {user.role}
+                </Badge>
+              </div>
+            </Link>
           )}
-        </Link>
 
-        <button
-          onClick={handleLogout}
-          className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer ${collapsed ? 'justify-center' : ''}`}
-          style={{ color: CREAM_MUTED }}
-          title={collapsed ? 'Sign out' : undefined}
-        >
-          <LogOut size={15} />
-          {!collapsed && <span>Sign out</span>}
-        </button>
-      </div>
+          {collapsed ? (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer"
+                    style={{ color: CREAM_MUTED }}
+                  />
+                }
+              >
+                <LogOut size={15} />
+              </TooltipTrigger>
+              <TooltipContent side="right">Sign out</TooltipContent>
+            </Tooltip>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-black/10 cursor-pointer"
+              style={{ color: CREAM_MUTED }}
+            >
+              <LogOut size={15} />
+              <span>Sign out</span>
+            </button>
+          )}
+        </div>
+      </TooltipProvider>
     </aside>
   )
 }
