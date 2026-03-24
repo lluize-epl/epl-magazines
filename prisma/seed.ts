@@ -14,6 +14,7 @@ const db = new PrismaClient({ adapter })
 interface MagSeed {
   name: string
   cadence: 'WEEKLY' | 'BI_WEEKLY' | 'MONTHLY' | 'BI_MONTHLY' | 'SEASONAL'
+  language?: string
   branches: { code: string; qty: number }[]
 }
 
@@ -137,6 +138,19 @@ const MAGAZINES: MagSeed[] = [
   { name: 'Wired', cadence: 'MONTHLY', branches: parseBranches('ML,NE,CB') },
   { name: 'Womens Health', cadence: 'MONTHLY', branches: parseBranches('ML,NE,CB') },
   { name: 'Zoobooks', cadence: 'BI_MONTHLY', branches: parseBranches('ML,NE,CB') },
+  // Non-English magazines
+  { name: 'Champak (Gujarati Edition)', cadence: 'BI_WEEKLY', language: 'Gujarati', branches: parseBranches('ML') },
+  { name: 'Champak (Hindi Edition)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
+  { name: 'Champak (Tamil Edition)', cadence: 'MONTHLY', language: 'Tamil', branches: parseBranches('ML') },
+  { name: 'Champak (Telugu Edition)', cadence: 'MONTHLY', language: 'Telugu', branches: parseBranches('ML') },
+  { name: 'Chitralekha (Gujarati)', cadence: 'WEEKLY', language: 'Gujarati', branches: parseBranches('ML') },
+  { name: 'GrihShobha (Gujarati)', cadence: 'MONTHLY', language: 'Gujarati', branches: parseBranches('ML') },
+  { name: 'GrihShobha (Hindi)(IND)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
+  { name: 'GrihShobha (Tamil)', cadence: 'MONTHLY', language: 'Tamil', branches: parseBranches('ML') },
+  { name: 'GrihShobha (Telugu)', cadence: 'MONTHLY', language: 'Telugu', branches: parseBranches('ML') },
+  { name: 'Saras Salil (Hindi Edition)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
+  { name: 'Sarita (Hindi)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
+  { name: 'Swati Saparivara Patrika (Telugu)', cadence: 'WEEKLY', language: 'Telugu', branches: parseBranches('ML') },
 ]
 
 async function main() {
@@ -192,7 +206,7 @@ async function main() {
   for (const mag of MAGAZINES) {
     const existing = await db.magazine.findFirst({ where: { name: mag.name } })
     const magazine = existing ?? await db.magazine.create({
-      data: { name: mag.name, cadence: mag.cadence },
+      data: { name: mag.name, cadence: mag.cadence, language: mag.language ?? 'English' },
     })
     magCount++
 

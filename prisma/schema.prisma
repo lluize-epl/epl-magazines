@@ -30,6 +30,7 @@ model Magazine {
   id        String           @id @default(cuid())
   name      String
   cadence   Cadence
+  language  String           @default("English")
   active    Boolean          @default(true)
   notes     String?
   createdAt DateTime         @default(now())
