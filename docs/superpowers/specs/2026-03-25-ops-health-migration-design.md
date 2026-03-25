@@ -1,7 +1,7 @@
 # Operational Improvements: Health Check & Migration Safety
 
 **Date:** 2026-03-25
-**Status:** Draft
+**Status:** Approved
 **Scope:** Health check endpoint + Docker healthcheck, migration safety script
 
 ---
@@ -16,9 +16,9 @@ The app has no health endpoint. Docker only knows the process is running, not wh
 
 **New file:** `app/api/health/route.ts`
 
-- `GET /api/health` — unauthenticated (Docker healthcheck cannot authenticate)
+- `GET /api/health` — unauthenticated (Docker healthcheck cannot authenticate). No middleware change needed: `/api/*` routes are already excluded from the auth matcher in `proxy.ts`.
 - Performs two checks, each wrapped in try/catch so all failures are reported:
-  1. **Database reachability:** `SELECT 1` via Prisma `$queryRawUnsafe('SELECT 1')`
+  1. **Database reachability:** `SELECT 1` via Prisma tagged template `` $queryRaw`SELECT 1` `` (no dynamic parts, so prefer the safe variant over `$queryRawUnsafe`)
   2. **Audit log directory writable:** `fs.access(logsDir, fs.constants.W_OK)`
 - Response:
   - `200 { status: "healthy" }` — both checks pass
@@ -54,7 +54,7 @@ TypeScript script executed via `tsx scripts/migrate-safe.ts`.
 **Steps:**
 
 1. **Backup:** Copy `prisma/dev.db` (plus `-wal` and `-shm` files if present) to `prisma/backups/dev-<ISO-timestamp>.db`
-2. **Test:** Copy the backup to a temp file. Run `prisma migrate deploy` against the temp copy using a modified `DATABASE_URL` pointing to the temp file.
+2. **Test:** Copy the backup to a temp file. Run `prisma migrate deploy` against the temp copy by passing `DATABASE_URL=file:./path/to/temp.db` in the `execSync` env option.
 3. **On test success:** Run `prisma migrate deploy` against the real `dev.db`.
 4. **On test failure:** Print the error message, leave the backup in place, abort without touching the real DB.
 
@@ -64,8 +64,9 @@ TypeScript script executed via `tsx scripts/migrate-safe.ts`.
 "migrate:safe": "tsx scripts/migrate-safe.ts"
 ```
 
-**Backup management:**
+**Implementation notes:**
 
+- The script creates `prisma/backups/` via `mkdirSync({ recursive: true })` if it doesn't exist.
 - Backups accumulate in `prisma/backups/`. No auto-cleanup — the SQLite files are small for this app.
 - `prisma/backups/` is added to `.gitignore`.
 
