@@ -138,6 +138,7 @@ export async function getReceiptSummary(
   const grouped = new Map<
     string,
     {
+      magazineId: string
       magazineName: string
       language: string
       cadence: CadenceType
@@ -155,6 +156,7 @@ export async function getReceiptSummary(
       // receipts are ordered desc, so first encountered is the latest
     } else {
       grouped.set(key, {
+        magazineId: receipt.magazineId,
         magazineName: receipt.magazine.name,
         language: receipt.magazine.language,
         cadence: receipt.magazine.cadence as CadenceType,
@@ -166,6 +168,7 @@ export async function getReceiptSummary(
   }
 
   const rows: ReceiptSummaryRow[] = Array.from(grouped.values()).map((g) => ({
+    magazineId: g.magazineId,
     magazineName: g.magazineName,
     language: g.language,
     cadence: g.cadence,
@@ -265,6 +268,7 @@ export async function getOverdueReport(filters: ReportFilters): Promise<{
 
     if (overdue) {
       rows.push({
+        magazineId: sub.magazineId,
         magazineName: sub.magazine.name,
         language: sub.magazine.language,
         branchName: sub.branch.name,
@@ -343,6 +347,7 @@ export async function getTransferReport(filters: ReportFilters): Promise<{
     }
 
     return {
+      magazineId: t.magazineId,
       date: t.createdAt,
       magazineName: t.magazine.name,
       fromBranch: t.fromBranch.name,
@@ -397,6 +402,7 @@ export async function getSubscriptionOverview(
   })
 
   return subscriptions.map((s) => ({
+    magazineId: s.magazineId,
     branchName: s.branch.name,
     magazineName: s.magazine.name,
     language: s.magazine.language,

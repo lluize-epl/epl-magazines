@@ -26,10 +26,20 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
   const router = useRouter()
   const [createOpen, setCreateOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<AdminUser | null>(null)
+  const [deactivateTarget, setDeactivateTarget] = useState<AdminUser | null>(null)
   const [togglingId, setTogglingId] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
   async function toggleActive(user: AdminUser) {
+    // Deactivation requires confirmation; reactivation is immediate
+    if (user.active) {
+      setDeactivateTarget(user)
+      return
+    }
+    await performToggle(user)
+  }
+
+  async function performToggle(user: AdminUser) {
     setTogglingId(user.id)
     try {
       const res = await fetch(`/api/users/${user.id}`, {
@@ -39,6 +49,7 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
       })
       if (res.ok) {
         toast.success(`${user.name} ${user.active ? 'deactivated' : 'activated'}`)
+        setDeactivateTarget(null)
         router.refresh()
       } else {
         toast.error('Failed to update user')
@@ -108,9 +119,9 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
                 <TableRow
                   key={user.id}
                   className="hover:bg-black/[0.02] transition-colors"
-                  style={{ borderColor: 'oklch(0.900 0.012 88)', opacity: user.active ? 1 : 0.55 }}
+                  style={{ borderColor: 'oklch(0.900 0.012 88)' }}
                 >
-                  <TableCell>
+                  <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <div className="flex items-center gap-2">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
@@ -132,10 +143,10 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>{user.email}</span>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <Badge
                       variant="outline"
                       className="text-xs font-medium"
@@ -148,12 +159,12 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
                       {user.role}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
                       {user._count.receipts}
                     </span>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
                       {format(new Date(user.createdAt), 'MMM d, yyyy')}
                     </span>
@@ -203,6 +214,18 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
           title={`Delete "${deleteTarget.name}"?`}
           description={`This will permanently delete the user account. Their ${deleteTarget._count?.receipts ?? 0} receipt records will remain.`}
           onConfirm={() => deleteUser(deleteTarget)}
+        />
+      )}
+
+      {deactivateTarget && (
+        <DeleteConfirmDialog
+          open={!!deactivateTarget}
+          onOpenChange={(v) => { if (!v) setDeactivateTarget(null) }}
+          title={`Deactivate "${deactivateTarget.name}"?`}
+          description="This user will no longer be able to log in. You can reactivate them later."
+          onConfirm={() => performToggle(deactivateTarget)}
+          confirmLabel="Deactivate"
+          loadingLabel="Deactivating…"
         />
       )}
     </>

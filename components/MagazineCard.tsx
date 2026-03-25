@@ -5,11 +5,10 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 import type { LucideIcon } from 'lucide-react'
 import type { MagazineStatus, MagazineWithStatus } from '@/types'
-import { CalendarCheck, CalendarX, Clock, ExternalLink } from 'lucide-react'
+import { CalendarCheck, CalendarX, Clock } from 'lucide-react'
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { CADENCE_LABELS } from '@/lib/cadence'
 import MarkReceivedDialog from './MarkReceivedDialog'
 
@@ -83,12 +82,13 @@ export default function MagazineCard({ magazine, activeBranchId }: MagazineCardP
 
         <CardHeader className="pb-2 pr-8">
           <div className="flex items-start gap-2 flex-wrap">
-            <h3
-              className="font-semibold text-base leading-snug flex-1 min-w-0"
+            <Link
+              href={`/magazines/${magazine.id}`}
+              className="font-semibold text-base leading-snug flex-1 min-w-0 hover:underline cursor-pointer"
               style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
             >
               {magazine.name}
-            </h3>
+            </Link>
           </div>
           <Badge
             variant="outline"
@@ -133,7 +133,7 @@ export default function MagazineCard({ magazine, activeBranchId }: MagazineCardP
           )}
         </CardContent>
 
-        <CardFooter className="gap-2 items-center justify-center">
+        <CardFooter className="items-center justify-center">
           <Button
             size="sm"
             className="flex-1 gap-1.5 text-xs h-8 cursor-pointer"
@@ -142,22 +142,6 @@ export default function MagazineCard({ magazine, activeBranchId }: MagazineCardP
           >
             <CalendarCheck size={13} /> Mark Received
           </Button>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-8 px-2"
-                  nativeButton={false}
-                  render={<Link href={`/magazines/${magazine.id}`} />}
-                />
-              }
-            >
-              <ExternalLink size={13} />
-            </TooltipTrigger>
-            <TooltipContent>Details</TooltipContent>
-          </Tooltip>
         </CardFooter>
       </Card>
 

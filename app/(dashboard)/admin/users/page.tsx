@@ -40,7 +40,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
 
   const users = await db.user.findMany({
     where,
-    orderBy: [{ active: 'desc' }, { name: 'asc' }],
+    orderBy: { name: 'asc' },
     skip: startIdx,
     take: PAGE_SIZE,
     select: {

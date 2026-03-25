@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import type { TransferWithDetails } from '@/types'
@@ -49,12 +50,13 @@ export default function TransferCard({ transfer }: TransferCardProps) {
 
       <CardHeader className="pb-2 pr-8">
         <div className="flex items-start gap-2 flex-wrap">
-          <h3
-            className="font-semibold text-base leading-snug flex-1 min-w-0"
+          <Link
+            href={`/magazines/${transfer.magazineId}`}
+            className="font-semibold text-base leading-snug flex-1 min-w-0 hover:underline cursor-pointer"
             style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
           >
             {transfer.magazine.name}
-          </h3>
+          </Link>
         </div>
         <Badge
           variant="outline"

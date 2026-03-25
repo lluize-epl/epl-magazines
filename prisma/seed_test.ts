@@ -1,18 +1,21 @@
 /**
- * Test/demo seed: generates realistic receipt and transfer data for
- * demonstrating the admin reports feature. Self-contained — creates users,
- * branches, magazines, and subscriptions from scratch, then layers on
- * 3-6 months of receipt history plus sample transfers.
+ * Test/demo seed: generates ~12 months of realistic receipt and transfer data.
+ * Self-contained — deletes all existing data and creates users, branches,
+ * magazines, subscriptions, receipts, and transfers from scratch.
+ *
+ * Receipt patterns are modeled on real CSV tracking data from the library,
+ * including realistic gaps, never-received magazines, and controlled last-receipt
+ * dates to ensure the dashboard always shows overdue + coming-this-week items.
  *
  * Usage:  npx tsx prisma/seed_test.ts
- * WARNING: This will add data to the existing database. Reset first if needed.
+ * WARNING: This DESTROYS all existing data. Reset your DB first if needed.
  */
 
 import 'dotenv/config'
 import bcrypt from 'bcrypt'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '../generated/prisma/client'
-import { addDays, addMonths, subMonths, subDays } from 'date-fns'
+import { addDays, addMonths, subDays, subMonths } from 'date-fns'
 
 const adapter = new PrismaBetterSqlite3({ url: process.env['DATABASE_URL']! })
 const db = new PrismaClient({ adapter })
@@ -27,7 +30,21 @@ interface MagSeed {
   name: string
   cadence: CadenceType
   language?: string
+  /** Branch subscriptions from the production seed (ML/NE/CB shorthand) */
   branches: { code: string; qty: number }[]
+}
+
+/** Reliability tier — controls how many issues are skipped */
+type ReliabilityTier = 'highly_regular' | 'moderate_gaps' | 'significant_gaps' | 'never_received'
+
+/** A subscription record linking a branch to a magazine for receipt generation */
+interface SubRecord {
+  branchId: string
+  branchCode: string
+  magazineId: string
+  magazineName: string
+  cadence: CadenceType
+  language: string
 }
 
 // ---------------------------------------------------------------------------
@@ -57,6 +74,15 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(rand() * arr.length)]
 }
 
+/** Deterministically shuffle an array in place */
+function shuffle<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 // ---------------------------------------------------------------------------
 // Cadence offset logic (mirrors lib/cadence.ts)
 // ---------------------------------------------------------------------------
@@ -69,10 +95,25 @@ const CADENCE_OFFSETS: Record<CadenceType, (d: Date) => Date> = {
   SEASONAL: (d) => addMonths(d, 3),
 }
 
+/** Reverse offset: how many days back should the last receipt be to make it overdue? */
+function daysForCadence(cadence: CadenceType): number {
+  switch (cadence) {
+    case 'WEEKLY': return 7
+    case 'BI_WEEKLY': return 14
+    case 'MONTHLY': return 31
+    case 'BI_MONTHLY': return 62
+    case 'SEASONAL': return 93
+  }
+}
+
 // ---------------------------------------------------------------------------
-// Magazine catalogue (copied from seed.ts)
+// Branch code mapping: spreadsheet abbreviation -> DB code
 // ---------------------------------------------------------------------------
 
+/** Maps CSV shorthand to database branch code. Bookmobile is excluded. */
+const BRANCH_MAP: Record<string, string> = { ML: 'MAIN', NE: 'NORTH', CB: 'CB' }
+
+/** Parse branch string like "ML,NE,CB" or "ML(2),NE(2),CB(1)" */
 function parseBranches(s: string): { code: string; qty: number }[] {
   return s.split(',').map((part) => {
     const match = part.match(/^(\w+)\((\d+)\)$/)
@@ -81,7 +122,9 @@ function parseBranches(s: string): { code: string; qty: number }[] {
   })
 }
 
-const BRANCH_MAP: Record<string, string> = { ML: 'MAIN', NE: 'NORTH', CB: 'CB' }
+// ---------------------------------------------------------------------------
+// Magazine catalogue (canonical list from seed.ts)
+// ---------------------------------------------------------------------------
 
 const MAGAZINES: MagSeed[] = [
   { name: 'AARP Bulletin', cadence: 'BI_MONTHLY', branches: parseBranches('ML') },
@@ -191,7 +234,7 @@ const MAGAZINES: MagSeed[] = [
   { name: 'Wired', cadence: 'MONTHLY', branches: parseBranches('ML,NE,CB') },
   { name: 'Womens Health', cadence: 'MONTHLY', branches: parseBranches('ML,NE,CB') },
   { name: 'Zoobooks', cadence: 'BI_MONTHLY', branches: parseBranches('ML,NE,CB') },
-  // Non-English magazines
+  // Non-English magazines (ML only)
   { name: 'Champak (Gujarati Edition)', cadence: 'BI_WEEKLY', language: 'Gujarati', branches: parseBranches('ML') },
   { name: 'Champak (Hindi Edition)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
   { name: 'Champak (Tamil Edition)', cadence: 'MONTHLY', language: 'Tamil', branches: parseBranches('ML') },
@@ -205,6 +248,118 @@ const MAGAZINES: MagSeed[] = [
   { name: 'Sarita (Hindi)', cadence: 'BI_WEEKLY', language: 'Hindi', branches: parseBranches('ML') },
   { name: 'Swati Saparivara Patrika (Telugu)', cadence: 'WEEKLY', language: 'Telugu', branches: parseBranches('ML') },
 ]
+
+// ---------------------------------------------------------------------------
+// Reliability tiers — based on real CSV tracking data
+// ---------------------------------------------------------------------------
+
+/**
+ * Magazine reliability tiers from real tracking data.
+ * Controls skip probability during receipt generation.
+ */
+const RELIABILITY: Record<string, ReliabilityTier> = {
+  // Highly regular — almost never missed (skip ~3%)
+  'Science News': 'highly_regular',
+  'Economist': 'highly_regular',
+  'People': 'highly_regular',
+  'US Weekly': 'highly_regular',
+  'The Week - US Edition': 'highly_regular',
+  'New Yorker': 'highly_regular',
+  'Time Magazine': 'highly_regular',
+  'Forbes': 'highly_regular',
+  'New York': 'highly_regular',
+  'Consumer Reports': 'highly_regular',
+  'Readers Digest - US Ed': 'highly_regular',
+  'Readers Digest - Large Print': 'highly_regular',
+  'Good Housekeeping': 'highly_regular',
+  'Better Homes and Gardens': 'highly_regular',
+  'National Geographic Kids': 'highly_regular',
+  'Highlights for Children': 'highly_regular',
+  'Highlights High Five': 'highly_regular',
+  'Real Simple': 'highly_regular',
+  'Cosmopolitan': 'highly_regular',
+  'Prevention': 'highly_regular',
+  'Smithsonian': 'highly_regular',
+
+  // Moderate gaps — miss 1-3 issues per year (skip ~10-15%)
+  'National Geographic': 'moderate_gaps',
+  'Sports Illustrated': 'moderate_gaps',
+  'Atlantic Monthly': 'moderate_gaps',
+  'Vogue': 'moderate_gaps',
+  'Harpers Bazaar': 'moderate_gaps',
+  'Architectural Digest': 'moderate_gaps',
+  'Bon Appetit': 'moderate_gaps',
+  'GQ - US Edition': 'moderate_gaps',
+  'Harvard Business Review': 'moderate_gaps',
+  'Popular Mechanics': 'moderate_gaps',
+  'Scientific American': 'moderate_gaps',
+  'Vanity Fair - American Ed': 'moderate_gaps',
+  'Mens Health': 'moderate_gaps',
+  'Womens Health': 'moderate_gaps',
+  'Entrepreneur': 'moderate_gaps',
+  'Fortune - Domestic Ed': 'moderate_gaps',
+
+  // Significant gaps — miss 3+ issues (skip ~35-50%)
+  'The Week Junior': 'significant_gaps',
+  'Wired': 'significant_gaps',
+  'Muse': 'significant_gaps',
+  'Spider': 'significant_gaps',
+  'Babybug': 'significant_gaps',
+  'Chirp': 'significant_gaps',
+  'Ask': 'significant_gaps',
+  'Ladybug': 'significant_gaps',
+  'Poetry': 'significant_gaps',
+  'Hockey News': 'significant_gaps',
+  'Scout Life': 'significant_gaps',
+
+  // Never received — 0 receipts
+  'Library Journal': 'never_received',
+  'Publishers Weekly': 'never_received',
+  'School Library Journal': 'never_received',
+  'Series Made Simple': 'never_received',
+  'Inc 500': 'never_received',
+  'MAD': 'never_received',
+  'Consumer Reports Buying Guide - Online': 'never_received',
+}
+
+/** Returns the skip probability for a magazine based on its reliability tier */
+function skipProbability(magazineName: string): number {
+  const tier = RELIABILITY[magazineName]
+  switch (tier) {
+    case 'highly_regular': return 0.03
+    case 'moderate_gaps': return 0.12
+    case 'significant_gaps': return 0.40
+    case 'never_received': return 1.0
+    default: return 0.10 // default: most magazines have moderate reliability
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Bookmobile subscription list (~10-15 popular magazines)
+// ---------------------------------------------------------------------------
+
+/** Popular magazines subscribed at the Bookmobile branch */
+const BOOKMOBILE_MAGAZINES = [
+  'People',
+  'Time Magazine',
+  'National Geographic',
+  'Readers Digest - US Ed',
+  'Readers Digest - Large Print',
+  'Good Housekeeping',
+  'Better Homes and Gardens',
+  'Highlights for Children',
+  'National Geographic Kids',
+  'Sports Illustrated',
+  'US Weekly',
+  'Real Simple',
+  'Consumer Reports',
+]
+
+// ---------------------------------------------------------------------------
+// Clara Barton ~1/3 English subset (representative mix)
+// These are the CB magazines from the production seed that already have CB
+// in their branches string. We use the production seed's CB assignments as-is.
+// ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
 // Receipt note templates (~20% of receipts get a note)
@@ -224,20 +379,45 @@ const RECEIPT_NOTES = [
 ]
 
 // ---------------------------------------------------------------------------
+// Dashboard-aware last-receipt date calculation
+// ---------------------------------------------------------------------------
+
+/**
+ * For a given cadence, returns a receivedDate that makes the next expected
+ * date fall within [targetStart, targetEnd].
+ *
+ * nextExpected = lastReceived + cadenceInterval
+ * So lastReceived = targetDate - cadenceInterval
+ */
+function lastReceiptForTarget(targetDate: Date, cadence: CadenceType): Date {
+  const days = daysForCadence(cadence)
+  return subDays(targetDate, days)
+}
+
+// ---------------------------------------------------------------------------
 // Main seed logic
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log('=== Test Seed: generating demo data for reports ===\n')
+  console.log('=== Test Seed: generating ~12 months of realistic demo data ===\n')
 
-  // ---- Step 1: Base data (users, branches, magazines, subscriptions) ----
+  const today = new Date()
 
-  // Users
+  // ---- Step 0: Clean existing data ----
+  console.log('Cleaning existing data...')
+  await db.transfer.deleteMany()
+  await db.issueReceipt.deleteMany()
+  await db.branchMagazine.deleteMany()
+  await db.magazine.deleteMany()
+  await db.branch.deleteMany()
+  await db.user.deleteMany()
+  console.log('  All tables cleared.\n')
+
+  // ---- Step 1: Users ----
+
   const adminHash = await bcrypt.hash('admin1234', 10)
-  const admin = await db.user.upsert({
-    where: { email: 'admin@library.org' },
-    update: {},
-    create: {
+  const admin = await db.user.create({
+    data: {
       name: 'Library Admin',
       email: 'admin@library.org',
       passwordHash: adminHash,
@@ -246,10 +426,8 @@ async function main() {
   })
 
   const staffHash = await bcrypt.hash('staff1234', 10)
-  const staff = await db.user.upsert({
-    where: { email: 'staff@library.org' },
-    update: {},
-    create: {
+  const staff = await db.user.create({
+    data: {
       name: 'Jane Smith',
       email: 'staff@library.org',
       passwordHash: staffHash,
@@ -259,101 +437,125 @@ async function main() {
   const users = [admin, staff]
   console.log('Users: admin@library.org / admin1234, staff@library.org / staff1234')
 
-  // Branches
+  // ---- Step 2: Branches ----
+
   const branchData = [
     { name: 'Main Library', code: 'MAIN' },
     { name: 'North Edison Branch Library', code: 'NORTH' },
     { name: 'Clara Barton Branch Library', code: 'CB' },
     { name: 'Bookmobile', code: 'MOBILE' },
   ]
-  const branchMap = new Map<string, string>()
+  const branchMap = new Map<string, string>() // code -> id
   const branchIds: string[] = []
   for (const b of branchData) {
-    const branch = await db.branch.upsert({
-      where: { code: b.code },
-      update: { name: b.name },
-      create: b,
-    })
+    const branch = await db.branch.create({ data: b })
     branchMap.set(b.code, branch.id)
     branchIds.push(branch.id)
     console.log(`  Branch: ${b.name} (${b.code})`)
   }
   console.log(`Branches: ${branchData.length} created\n`)
 
-  // Magazines + subscriptions
-  /** Tracks created magazine IDs by name for later receipt/transfer generation */
+  // ---- Step 3: Magazines + subscriptions ----
+
+  /** Tracks created magazine IDs by name */
   const magazineIndex = new Map<string, { id: string; cadence: CadenceType; language: string }>()
+  /** All subscriptions for receipt generation */
+  const allSubs: SubRecord[] = []
   let magCount = 0
   let subCount = 0
 
-  /** All BranchMagazine records for receipt generation */
-  interface SubRecord {
-    branchId: string
-    magazineId: string
-    cadence: CadenceType
-    language: string
-  }
-  const allSubs: SubRecord[] = []
-
   for (const mag of MAGAZINES) {
-    const existing = await db.magazine.findFirst({ where: { name: mag.name } })
-    const magazine = existing ?? await db.magazine.create({
+    const magazine = await db.magazine.create({
       data: { name: mag.name, cadence: mag.cadence, language: mag.language ?? 'English' },
     })
     magazineIndex.set(mag.name, { id: magazine.id, cadence: mag.cadence, language: mag.language ?? 'English' })
     magCount++
 
+    // Create subscriptions from CSV branch mapping (ML/NE/CB)
     for (const b of mag.branches) {
       const dbCode = BRANCH_MAP[b.code]
+      if (!dbCode) continue
       const branchId = branchMap.get(dbCode)
       if (!branchId) continue
-      await db.branchMagazine.upsert({
-        where: { branchId_magazineId: { branchId, magazineId: magazine.id } },
-        update: { quantity: b.qty },
-        create: { branchId, magazineId: magazine.id, quantity: b.qty },
+      await db.branchMagazine.create({
+        data: { branchId, magazineId: magazine.id, quantity: b.qty },
       })
-      allSubs.push({ branchId, magazineId: magazine.id, cadence: mag.cadence, language: mag.language ?? 'English' })
+      allSubs.push({
+        branchId,
+        branchCode: dbCode,
+        magazineId: magazine.id,
+        magazineName: mag.name,
+        cadence: mag.cadence,
+        language: mag.language ?? 'English',
+      })
       subCount++
     }
   }
-  console.log(`Magazines: ${magCount} created, ${subCount} subscriptions\n`)
 
-  // ---- Step 2: Receipt history (3-6 months) ----
-
-  // Select ~30 subscriptions: ensure all non-English magazines are included,
-  // then fill up with random English ones.
-  const nonEnglishSubs = allSubs.filter((s) => s.language !== 'English')
-  const englishSubs = allSubs.filter((s) => s.language === 'English')
-
-  // Shuffle English subs deterministically
-  for (let i = englishSubs.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [englishSubs[i], englishSubs[j]] = [englishSubs[j], englishSubs[i]]
+  // Bookmobile subscriptions — popular English magazines only
+  const mobileId = branchMap.get('MOBILE')!
+  for (const magName of BOOKMOBILE_MAGAZINES) {
+    const mag = magazineIndex.get(magName)
+    if (!mag) continue
+    await db.branchMagazine.create({
+      data: { branchId: mobileId, magazineId: mag.id, quantity: 1 },
+    })
+    allSubs.push({
+      branchId: mobileId,
+      branchCode: 'MOBILE',
+      magazineId: mag.id,
+      magazineName: magName,
+      cadence: mag.cadence,
+      language: mag.language,
+    })
+    subCount++
   }
 
-  const targetSubCount = 30
-  const selectedSubs = [
-    ...nonEnglishSubs,
-    ...englishSubs.slice(0, Math.max(0, targetSubCount - nonEnglishSubs.length)),
-  ]
+  console.log(`Magazines: ${magCount} created, ${subCount} subscriptions\n`)
 
-  console.log(`Generating receipts for ${selectedSubs.length} subscriptions...`)
+  // ---- Step 4: Receipt history (Jan 2025 - Mar 2026) ----
+
+  // Data range: Jan 1 2025 through ~today
+  const historyStart = new Date(2025, 0, 1) // Jan 1, 2025
+
+  console.log(`Generating receipts from ${historyStart.toISOString().slice(0, 10)} to ${today.toISOString().slice(0, 10)}...`)
 
   let receiptCount = 0
-  const today = new Date()
 
-  for (const sub of selectedSubs) {
-    // Random start: 3-6 months ago
-    const monthsBack = randInt(3, 6)
-    let cursor = subMonths(today, monthsBack)
+  /**
+   * Per-branch, per-magazine tracking of last receipt date.
+   * Used to control dashboard state after bulk generation.
+   */
+  const lastReceiptDates = new Map<string, Date>() // key: `${branchId}:${magazineId}`
+
+  // Generate receipts for ALL subscriptions
+  for (const sub of allSubs) {
+    const skip = skipProbability(sub.magazineName)
+
+    // Never-received magazines get no receipts at all
+    if (skip >= 1.0) continue
+
+    let cursor = new Date(historyStart)
     const advance = CADENCE_OFFSETS[sub.cadence]
 
-    while (cursor <= today) {
-      // Skip ~15% of expected receipts to create overdue gaps
-      if (rand() < 0.15) {
+    // Stagger start dates slightly per subscription so not everything starts Jan 1
+    const staggerDays = randInt(0, daysForCadence(sub.cadence) - 1)
+    cursor = addDays(cursor, staggerDays)
+
+    // Stop generating about 5 weeks ago — we will place the final receipts
+    // carefully in Step 5 to control dashboard state
+    const cutoff = subDays(today, 35)
+
+    while (cursor <= cutoff) {
+      // Skip based on reliability tier
+      if (rand() < skip) {
         cursor = advance(cursor)
         continue
       }
+
+      // Add 0-2 days of jitter to make dates realistic
+      const jitter = randInt(0, 2)
+      const receivedDate = addDays(cursor, jitter)
 
       const receivedById = pick(users).id
       const notes = rand() < 0.2 ? pick(RECEIPT_NOTES) : null
@@ -363,47 +565,146 @@ async function main() {
           magazineId: sub.magazineId,
           branchId: sub.branchId,
           receivedById,
-          receivedDate: cursor,
+          receivedDate,
           notes,
         },
       })
       receiptCount++
+
+      const key = `${sub.branchId}:${sub.magazineId}`
+      const prev = lastReceiptDates.get(key)
+      if (!prev || receivedDate > prev) {
+        lastReceiptDates.set(key, receivedDate)
+      }
+
       cursor = advance(cursor)
     }
   }
-  console.log(`Created ${receiptCount} receipts\n`)
+
+  console.log(`  Bulk receipts: ${receiptCount}`)
+
+  // ---- Step 5: Dashboard-controlled final receipts ----
+  //
+  // For each branch, we ensure at least:
+  //   - 3 magazines whose next expected date is overdue (past)
+  //   - 3 magazines whose next expected date is within the next 7 days
+  //   - Remaining get a recent receipt so they show as "upcoming"
+  //
+  // We do this by placing a final receipt at a carefully computed date.
+
+  console.log('  Placing dashboard-controlled final receipts...')
+
+  const branchCodes = ['MAIN', 'NORTH', 'CB', 'MOBILE']
+
+  for (const code of branchCodes) {
+    const branchId = branchMap.get(code)!
+    // Get all subs for this branch that are NOT never-received
+    const branchSubs = allSubs.filter(
+      (s) => s.branchId === branchId && skipProbability(s.magazineName) < 1.0
+    )
+
+    if (branchSubs.length === 0) continue
+
+    // Shuffle to randomize which magazines get which dashboard state
+    const shuffled = shuffle([...branchSubs])
+
+    // Pick 3 for overdue, 3 for this-week, rest get normal recent receipt
+    const overdueTargets = shuffled.slice(0, 3)
+    const thisWeekTargets = shuffled.slice(3, 6)
+    const recentTargets = shuffled.slice(6)
+
+    // Overdue: last receipt should be old enough that nextExpected < today
+    // Place last receipt such that nextExpected is 3-14 days in the past
+    for (const sub of overdueTargets) {
+      const daysOverdue = randInt(3, 14)
+      const targetNext = subDays(today, daysOverdue)
+      const receiptDate = lastReceiptForTarget(targetNext, sub.cadence)
+
+      await db.issueReceipt.create({
+        data: {
+          magazineId: sub.magazineId,
+          branchId: sub.branchId,
+          receivedById: pick(users).id,
+          receivedDate: receiptDate,
+          notes: null,
+        },
+      })
+      receiptCount++
+    }
+
+    // This week: last receipt such that nextExpected is within [today, today+7]
+    for (const sub of thisWeekTargets) {
+      const daysUntil = randInt(0, 6)
+      const targetNext = addDays(today, daysUntil)
+      const receiptDate = lastReceiptForTarget(targetNext, sub.cadence)
+
+      await db.issueReceipt.create({
+        data: {
+          magazineId: sub.magazineId,
+          branchId: sub.branchId,
+          receivedById: pick(users).id,
+          receivedDate: receiptDate,
+          notes: null,
+        },
+      })
+      receiptCount++
+    }
+
+    // Recent: last receipt 1-3 weeks ago (shows as "upcoming" on dashboard)
+    for (const sub of recentTargets) {
+      const daysAgo = randInt(3, 14)
+      const receiptDate = subDays(today, daysAgo)
+
+      await db.issueReceipt.create({
+        data: {
+          magazineId: sub.magazineId,
+          branchId: sub.branchId,
+          receivedById: pick(users).id,
+          receivedDate: receiptDate,
+          notes: null,
+        },
+      })
+      receiptCount++
+    }
+
+    console.log(`    ${code}: ${overdueTargets.length} overdue, ${thisWeekTargets.length} this-week, ${recentTargets.length} upcoming`)
+  }
+
+  console.log(`  Total receipts: ${receiptCount}\n`)
 
   // Verify non-English receipt counts
   for (const lang of ['Gujarati', 'Hindi', 'Tamil', 'Telugu']) {
-    const langSubs = nonEnglishSubs.filter((s) => s.language === lang)
-    const langMagIds = langSubs.map((s) => s.magazineId)
+    const langMagIds = Array.from(magazineIndex.entries())
+      .filter(([, v]) => v.language === lang)
+      .map(([, v]) => v.id)
     const langReceipts = await db.issueReceipt.count({
       where: { magazineId: { in: langMagIds } },
     })
-    console.log(`  ${lang}: ${langReceipts} receipts across ${langSubs.length} subscriptions`)
+    console.log(`  ${lang}: ${langReceipts} receipts`)
   }
 
-  // ---- Step 3: Transfers (15-20) ----
+  // ---- Step 6: Transfers ----
 
-  // Pick magazine IDs from our selected subs for transfers
-  const subMagIds = [...new Set(selectedSubs.map((s) => s.magazineId))]
-  // We need branches that aren't MOBILE for transfers (only MAIN, NORTH, CB)
-  const transferBranchIds = branchIds.filter((id) => {
-    const code = [...branchMap.entries()].find(([, v]) => v === id)?.[0]
-    return code !== 'MOBILE'
-  })
+  // Use all magazine IDs (excluding never-received) for transfer variety
+  const transferMagIds = Array.from(magazineIndex.entries())
+    .filter(([name]) => skipProbability(name) < 1.0)
+    .map(([, v]) => v.id)
+
+  // All four branches participate in transfers
+  const transferBranchIds = branchIds
 
   let transferCount = 0
 
   /**
-   * Creates a transfer record with the given status.
-   * Spreads creation dates across the last 3 months.
+   * Creates a transfer record between two random branches.
+   * @param status - Transfer lifecycle status
+   * @param daysAgo - How many days ago the transfer was initiated
    */
   async function createTransfer(
     status: 'COMPLETED' | 'PENDING' | 'CANCELLED',
-    daysAgo: number
+    daysAgo: number,
   ): Promise<void> {
-    const magazineId = pick(subMagIds)
+    const magazineId = pick(transferMagIds)
     // Pick two different branches
     let fromIdx = Math.floor(rand() * transferBranchIds.length)
     let toIdx = Math.floor(rand() * transferBranchIds.length)
@@ -438,16 +739,53 @@ async function main() {
     transferCount++
   }
 
-  console.log('Generating transfers...')
+  console.log('\nGenerating transfers...')
 
   // 10 COMPLETED transfers spread across last 90 days
   for (let i = 0; i < 10; i++) {
     await createTransfer('COMPLETED', randInt(5, 90))
   }
 
-  // 3 PENDING transfers (more recent)
-  for (let i = 0; i < 3; i++) {
+  // 4 PENDING transfers (recent) — ensures 2+ pending per branch on average
+  // We create extras involving each branch to guarantee coverage
+  for (let i = 0; i < 4; i++) {
     await createTransfer('PENDING', randInt(1, 14))
+  }
+
+  // Ensure each branch has at least 2 pending transfers (as from or to)
+  // Create targeted pending transfers for branches that may be underserved
+  for (const code of branchCodes) {
+    const branchId = branchMap.get(code)!
+    // Create 1 pending FROM this branch and 1 pending TO this branch
+    const otherBranches = transferBranchIds.filter((id) => id !== branchId)
+
+    const mag1 = pick(transferMagIds)
+    await db.transfer.create({
+      data: {
+        magazineId: mag1,
+        fromBranchId: branchId,
+        toBranchId: pick(otherBranches),
+        quantity: randInt(1, 2),
+        status: 'PENDING',
+        initiatedById: pick(users).id,
+        createdAt: subDays(today, randInt(1, 7)),
+      },
+    })
+    transferCount++
+
+    const mag2 = pick(transferMagIds)
+    await db.transfer.create({
+      data: {
+        magazineId: mag2,
+        fromBranchId: pick(otherBranches),
+        toBranchId: branchId,
+        quantity: randInt(1, 2),
+        status: 'PENDING',
+        initiatedById: pick(users).id,
+        createdAt: subDays(today, randInt(1, 7)),
+      },
+    })
+    transferCount++
   }
 
   // 3 CANCELLED transfers
@@ -455,11 +793,22 @@ async function main() {
     await createTransfer('CANCELLED', randInt(10, 60))
   }
 
-  console.log(`Created ${transferCount} transfers\n`)
+  console.log(`Created ${transferCount} transfers (${transferCount - 3} pending/completed, 3 cancelled)\n`)
 
   // ---- Summary ----
 
-  console.log(`\nTest seed complete: ${receiptCount} receipts, ${transferCount} transfers`)
+  const totalReceipts = await db.issueReceipt.count()
+  const totalTransfers = await db.transfer.count()
+  const pendingTransfers = await db.transfer.count({ where: { status: 'PENDING' } })
+  const completedTransfers = await db.transfer.count({ where: { status: 'COMPLETED' } })
+  const cancelledTransfers = await db.transfer.count({ where: { status: 'CANCELLED' } })
+
+  console.log('=== Test Seed Complete ===')
+  console.log(`  Receipts:   ${totalReceipts}`)
+  console.log(`  Transfers:  ${totalTransfers} (${pendingTransfers} pending, ${completedTransfers} completed, ${cancelledTransfers} cancelled)`)
+  console.log(`  Magazines:  ${magCount}`)
+  console.log(`  Subs:       ${subCount}`)
+  console.log(`  Users:      admin@library.org / admin1234, staff@library.org / staff1234`)
 }
 
 main()

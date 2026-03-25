@@ -72,9 +72,7 @@ export async function POST(request: NextRequest, { params }: RouteContext): Prom
     }))
 
     auditLog(session.userId, 'BRANCH_MAGAZINE_ADDED', {
-      branchId: id,
       branchName: branch.name,
-      magazineId,
       magazineName: magazine.name,
       quantity,
     })

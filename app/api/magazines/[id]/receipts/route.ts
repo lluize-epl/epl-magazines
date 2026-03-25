@@ -81,11 +81,8 @@ export async function POST(request: NextRequest, { params }: RouteContext): Prom
     }))
 
     auditLog(session.userId, 'RECEIPT_CREATED', {
-      magazineId: id,
       magazineName: magazine.name,
-      receiptId: receipt.id,
       receivedDate: receivedDate.split('T')[0],
-      branchId,
       branchName: branch.name,
     })
 
@@ -147,9 +144,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
     const oldDate = lastReceipt.receivedDate.toISOString().split('T')[0]
     const newDate = receivedDate.split('T')[0]
     auditLog(session.userId, 'RECEIPT_EDITED', {
-      magazineId: id,
       magazineName: magazine?.name,
-      receiptId: lastReceipt.id,
       changes: `receivedDate: ${oldDate} → ${newDate}`,
     })
 

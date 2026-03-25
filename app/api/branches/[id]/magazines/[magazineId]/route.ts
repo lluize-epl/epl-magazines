@@ -47,8 +47,6 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
       .join(', ')
 
     auditLog(session.userId, 'BRANCH_MAGAZINE_UPDATED', {
-      branchId: id,
-      magazineId,
       magazineName: before.magazine.name,
       branchName: before.branch.name,
       changes: changes || 'no changes',
@@ -80,13 +78,17 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext): P
 
     const { id, magazineId } = await params
 
+    // Fetch names before deletion for audit log
+    const branch = await db.branch.findUnique({ where: { id }, select: { name: true } })
+    const magazine = await db.magazine.findUnique({ where: { id: magazineId }, select: { name: true } })
+
     await withRetry(() => db.branchMagazine.delete({
       where: { branchId_magazineId: { branchId: id, magazineId } },
     }))
 
     auditLog(session.userId, 'BRANCH_MAGAZINE_REMOVED', {
-      branchId: id,
-      magazineId,
+      branchName: branch?.name,
+      magazineName: magazine?.name,
     })
 
     return Response.json({ success: true })

@@ -84,12 +84,8 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
     }))
 
     auditLog(session.userId, 'TRANSFER_COMPLETED', {
-      transferId: id,
-      magazineId: transfer.magazineId,
       magazineName: transfer.magazine.name,
-      fromBranchId: transfer.fromBranchId,
       fromBranchName: transfer.fromBranch.name,
-      toBranchId: transfer.toBranchId,
       toBranchName: transfer.toBranch.name,
       quantity: transfer.quantity,
     })

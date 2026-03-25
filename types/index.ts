@@ -260,6 +260,7 @@ export interface ReportFilters {
 
 /** Row in the Receipt Summary report table */
 export interface ReceiptSummaryRow {
+  magazineId: string
   magazineName: string
   language: string
   cadence: CadenceType
@@ -270,6 +271,7 @@ export interface ReceiptSummaryRow {
 
 /** Row in the Overdue / Compliance report table */
 export interface OverdueReportRow {
+  magazineId: string
   magazineName: string
   language: string
   branchName: string
@@ -281,6 +283,7 @@ export interface OverdueReportRow {
 
 /** Row in the Transfer Activity report table */
 export interface TransferReportRow {
+  magazineId: string
   date: Date
   magazineName: string
   fromBranch: string
@@ -293,6 +296,7 @@ export interface TransferReportRow {
 
 /** Row in the Subscription Overview report table */
 export interface SubscriptionReportRow {
+  magazineId: string
   branchName: string
   magazineName: string
   language: string

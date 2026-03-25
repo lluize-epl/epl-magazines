@@ -68,7 +68,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
       .map(([k, v]) => `${k}: ${before[k as keyof typeof before]} → ${v}`)
       .join(', ')
 
-    auditLog(session.userId, 'MAGAZINE_UPDATED', { magazineId: id, magazineName: before.name, changes: changes || 'no changes' })
+    auditLog(session.userId, 'MAGAZINE_UPDATED', { magazineName: before.name, changes: changes || 'no changes' })
     return Response.json(magazine)
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
@@ -103,7 +103,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext): P
       return db.magazine.delete({ where: { id } })
     })
 
-    auditLog(session.userId, 'MAGAZINE_DELETED', { magazineId: id, name: magazine.name })
+    auditLog(session.userId, 'MAGAZINE_DELETED', { name: magazine.name })
     return Response.json({ success: true })
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {

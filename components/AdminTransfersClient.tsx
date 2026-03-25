@@ -7,10 +7,12 @@ import { format } from 'date-fns'
 import type { TransferWithDetails, TransferStatus } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
 import { Filter, XCircle } from 'lucide-react'
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table'
+import DeleteConfirmDialog from './DeleteConfirmDialog'
 
 /** Props for the admin transfers management client component. */
 export interface AdminTransfersClientProps {
@@ -64,6 +66,7 @@ export default function AdminTransfersClient({ transfers, currentFilter }: Admin
   const router = useRouter()
   const pathname = usePathname()
   const [cancellingId, setCancellingId] = useState<string | null>(null)
+  const [cancelTarget, setCancelTarget] = useState<TransferWithDetails | null>(null)
 
   /** Push a new URL with the selected status filter (or clear it for 'ALL'). */
   function applyFilter(value: string) {
@@ -151,12 +154,13 @@ export default function AdminTransfersClient({ transfers, currentFilter }: Admin
                     style={{ borderColor: 'oklch(0.900 0.012 88)' }}
                   >
                     <TableCell>
-                      <span
-                        className="font-medium"
+                      <Link
+                        href={`/magazines/${t.magazineId}`}
+                        className="font-medium hover:underline cursor-pointer"
                         style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                       >
                         {t.magazine.name}
-                      </span>
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm" style={{ color: 'oklch(0.35 0.028 62)' }}>
@@ -202,7 +206,7 @@ export default function AdminTransfersClient({ transfers, currentFilter }: Admin
                           size="sm"
                           variant="outline"
                           className="h-7 text-xs gap-1"
-                          onClick={() => handleCancel(t.id)}
+                          onClick={() => setCancelTarget(t)}
                           disabled={cancellingId === t.id}
                           style={{ color: 'oklch(0.56 0.225 27)', borderColor: 'oklch(0.56 0.225 27 / 0.3)' }}
                         >
@@ -216,6 +220,21 @@ export default function AdminTransfersClient({ transfers, currentFilter }: Admin
             </TableBody>
           </Table>
         </div>
+      )}
+
+      {cancelTarget && (
+        <DeleteConfirmDialog
+          open={!!cancelTarget}
+          onOpenChange={(v) => { if (!v) setCancelTarget(null) }}
+          title={`Cancel transfer of "${cancelTarget.magazine.name}"?`}
+          description={`This will cancel the pending transfer of ${cancelTarget.quantity} ${cancelTarget.quantity === 1 ? 'copy' : 'copies'} from ${cancelTarget.fromBranch.name} to ${cancelTarget.toBranch.name}.`}
+          onConfirm={async () => {
+            await handleCancel(cancelTarget.id)
+            setCancelTarget(null)
+          }}
+          confirmLabel="Cancel Transfer"
+          loadingLabel="Cancelling…"
+        />
       )}
     </>
   )

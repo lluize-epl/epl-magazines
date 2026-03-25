@@ -72,7 +72,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       select: { id: true, name: true, email: true, role: true, active: true, createdAt: true },
     }))
 
-    auditLog(session.userId, 'USER_CREATED', { newUserId: user.id, email: user.email, role: user.role })
+    auditLog(session.userId, 'USER_CREATED', { newUserName: user.name, email: user.email, role: user.role })
     return Response.json(user, { status: 201 })
   } catch (err) {
     const e = err as { code?: string; message?: string }

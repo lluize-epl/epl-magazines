@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 import ExcelJS from 'exceljs'
 import { getUser } from '@/lib/dal'
+import db from '@/lib/db'
 import { auditLog } from '@/lib/logger'
 import {
   parseReportFilters,
@@ -176,10 +177,20 @@ export async function GET(request: NextRequest): Promise<Response> {
 
     const buffer = await workbook.xlsx.writeBuffer()
 
+    // Resolve branch ID to name for audit log readability
+    let branchLabel = filters.branch
+    if (filters.branch !== 'all') {
+      const branch = await db.branch.findUnique({
+        where: { id: filters.branch },
+        select: { name: true },
+      })
+      if (branch) branchLabel = branch.name
+    }
+
     auditLog(user.id, 'REPORT_EXPORTED', {
       tab: filters.tab,
       period: filters.period,
-      branch: filters.branch,
+      branch: branchLabel,
       language: filters.language,
       rowCount,
     })

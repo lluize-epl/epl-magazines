@@ -18,9 +18,13 @@ export interface DeleteConfirmDialogProps {
   title: string
   description: string
   onConfirm: () => Promise<void> | void
+  /** Override the confirm button label (default: "Delete") */
+  confirmLabel?: string
+  /** Override the loading button label (default: "Deleting…") */
+  loadingLabel?: string
 }
 
-export default function DeleteConfirmDialog({ open, onOpenChange, title, description, onConfirm }: DeleteConfirmDialogProps) {
+export default function DeleteConfirmDialog({ open, onOpenChange, title, description, onConfirm, confirmLabel = 'Delete', loadingLabel = 'Deleting…' }: DeleteConfirmDialogProps) {
   const [loading, setLoading] = useState(false)
 
   async function handleConfirm() {
@@ -50,9 +54,9 @@ export default function DeleteConfirmDialog({ open, onOpenChange, title, descrip
             className="gap-2"
           >
             {loading ? (
-              <><Loader2 size={15} className="animate-spin" /> Deleting…</>
+              <><Loader2 size={15} className="animate-spin" /> {loadingLabel}</>
             ) : (
-              <><Trash2 size={15} /> Delete</>
+              <><Trash2 size={15} /> {confirmLabel}</>
             )}
           </Button>
         </DialogFooter>

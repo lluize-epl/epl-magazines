@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
 import type { BranchMagazineWithDetails, Branch } from '@/types'
+import Link from 'next/link'
 import { Plus, Pencil, Trash2, BookMarked, SendHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -126,12 +127,13 @@ export default function AdminMagazinesClient({ magazines, branchId, branches, se
                   }}
                 >
                   <TableCell>
-                    <span
-                      className="font-medium"
+                    <Link
+                      href={`/magazines/${sub.magazineId}`}
+                      className="font-medium hover:underline cursor-pointer"
                       style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                     >
                       {sub.magazine.name}
-                    </span>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <Badge

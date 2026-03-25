@@ -123,12 +123,8 @@ export async function POST(request: NextRequest): Promise<Response> {
     }))
 
     auditLog(session.userId, 'TRANSFER_INITIATED', {
-      transferId: transfer.id,
-      magazineId,
       magazineName: transfer.magazine.name,
-      fromBranchId,
       fromBranchName: transfer.fromBranch.name,
-      toBranchId,
       toBranchName: transfer.toBranch.name,
       quantity,
     })

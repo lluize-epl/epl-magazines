@@ -66,7 +66,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       data: { name: name.trim(), cadence, language: normalizedLanguage, notes: notes?.trim() || null },
     }))
 
-    auditLog(session.userId, 'MAGAZINE_CREATED', { magazineId: magazine.id, name: magazine.name })
+    auditLog(session.userId, 'MAGAZINE_CREATED', { name: magazine.name })
     return Response.json(magazine, { status: 201 })
   } catch (err) {
     const e = err as { code?: string; message?: string }

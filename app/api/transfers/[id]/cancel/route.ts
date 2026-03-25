@@ -74,12 +74,8 @@ export async function PUT(_request: NextRequest, { params }: RouteContext): Prom
     }))
 
     auditLog(session.userId, 'TRANSFER_CANCELLED', {
-      transferId: id,
-      magazineId: transfer.magazineId,
       magazineName: transfer.magazine.name,
-      fromBranchId: transfer.fromBranchId,
       fromBranchName: transfer.fromBranch.name,
-      toBranchId: transfer.toBranchId,
       toBranchName: transfer.toBranch.name,
       quantity: transfer.quantity,
     })

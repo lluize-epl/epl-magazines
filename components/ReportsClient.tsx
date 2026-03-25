@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Download } from 'lucide-react'
@@ -198,7 +199,7 @@ export default function ReportsClient({
             Reports
           </h1>
           <p style={{ color: 'oklch(0.50 0.035 72)' }}>
-            Analyze receipts, overdue items, transfers, and subscriptions
+            Analyze receipts, overdue items, transfers, and trends 
           </p>
         </div>
         <a href={buildExportUrl()}>
@@ -396,17 +397,18 @@ function ReceiptsTable({ rows }: { rows: ReceiptSummaryRow[] | null }) {
         <TableBody>
           {rows.map((row, i) => (
             <TableRow
-              key={`${row.magazineName}-${row.branchName}-${i}`}
+              key={`${row.magazineId}-${row.branchName}-${i}`}
               className="hover:bg-black/[0.02] transition-colors"
               style={{ borderColor: 'oklch(0.900 0.012 88)' }}
             >
               <TableCell>
-                <span
-                  className="font-medium"
+                <Link
+                  href={`/magazines/${row.magazineId}`}
+                  className="font-medium hover:underline cursor-pointer"
                   style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                 >
                   {row.magazineName}
-                </span>
+                </Link>
               </TableCell>
               <TableCell>
                 <span className="text-sm" style={{ color: 'oklch(0.35 0.028 62)' }}>
@@ -493,17 +495,18 @@ function OverdueSection({ data }: { data: { rows: OverdueReportRow[]; totalOverd
             <TableBody>
               {data.rows.map((row, i) => (
                 <TableRow
-                  key={`${row.magazineName}-${row.branchName}-${i}`}
+                  key={`${row.magazineId}-${row.branchName}-${i}`}
                   className="hover:bg-black/[0.02] transition-colors"
                   style={{ borderColor: 'oklch(0.900 0.012 88)' }}
                 >
                   <TableCell>
-                    <span
-                      className="font-medium"
+                    <Link
+                      href={`/magazines/${row.magazineId}`}
+                      className="font-medium hover:underline cursor-pointer"
                       style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                     >
                       {row.magazineName}
-                    </span>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm" style={{ color: 'oklch(0.35 0.028 62)' }}>
@@ -573,7 +576,7 @@ function TransfersSection({ data }: { data: { rows: TransferReportRow[]; totalCo
               const statusStyle = STATUS_COLORS[row.status]
               return (
                 <TableRow
-                  key={`${row.magazineName}-${row.fromBranch}-${i}`}
+                  key={`${row.magazineId}-${row.fromBranch}-${i}`}
                   className="hover:bg-black/[0.02] transition-colors"
                   style={{ borderColor: 'oklch(0.900 0.012 88)' }}
                 >
@@ -583,12 +586,13 @@ function TransfersSection({ data }: { data: { rows: TransferReportRow[]; totalCo
                     </span>
                   </TableCell>
                   <TableCell>
-                    <span
-                      className="font-medium"
+                    <Link
+                      href={`/magazines/${row.magazineId}`}
+                      className="font-medium hover:underline cursor-pointer"
                       style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                     >
                       {row.magazineName}
-                    </span>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm" style={{ color: 'oklch(0.35 0.028 62)' }}>
@@ -671,7 +675,7 @@ function SubscriptionsTable({ rows }: { rows: SubscriptionReportRow[] | null }) 
             const activeStyle = row.active ? ACTIVE_COLORS.active : ACTIVE_COLORS.inactive
             return (
               <TableRow
-                key={`${row.branchName}-${row.magazineName}-${i}`}
+                key={`${row.branchName}-${row.magazineId}-${i}`}
                 className="hover:bg-black/[0.02] transition-colors"
                 style={{
                   borderColor: 'oklch(0.900 0.012 88)',
@@ -684,12 +688,13 @@ function SubscriptionsTable({ rows }: { rows: SubscriptionReportRow[] | null }) 
                   </span>
                 </TableCell>
                 <TableCell>
-                  <span
-                    className="font-medium"
+                  <Link
+                    href={`/magazines/${row.magazineId}`}
+                    className="font-medium hover:underline cursor-pointer"
                     style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                   >
                     {row.magazineName}
-                  </span>
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm" style={{ color: 'oklch(0.35 0.028 62)' }}>
