@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import fs from 'fs'
 import path from 'path'
 import { execSync } from 'child_process'
@@ -104,7 +103,7 @@ try {
 } catch {
   console.error('\nMigrations FAILED on the production database.')
   console.error(`   Backup is at: ${backupPath}`)
-  console.error('   Restore manually: cp <backup> prisma/dev.db')
+  console.error(`   Restore manually: cp ${backupPath} prisma/dev.db`)
   process.exit(1)
 }
 
