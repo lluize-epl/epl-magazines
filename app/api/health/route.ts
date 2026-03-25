@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server'
 import db from '@/lib/db'
 import fs from 'fs/promises'
 import path from 'path'
@@ -11,7 +10,7 @@ const logsDir = path.join(process.cwd(), 'logs')
  * Returns 503 with error details if either check fails.
  * Unauthenticated — used by Docker HEALTHCHECK.
  */
-export async function GET(): Promise<NextResponse> {
+export async function GET(): Promise<Response> {
   const errors: string[] = []
 
   // Check 1: Database reachability
@@ -29,8 +28,8 @@ export async function GET(): Promise<NextResponse> {
   }
 
   if (errors.length > 0) {
-    return NextResponse.json({ status: 'unhealthy', errors }, { status: 503 })
+    return Response.json({ status: 'unhealthy', errors }, { status: 503 })
   }
 
-  return NextResponse.json({ status: 'healthy' })
+  return Response.json({ status: 'healthy' })
 }
