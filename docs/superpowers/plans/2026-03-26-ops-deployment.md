@@ -16,20 +16,78 @@
 
 | File | Action | Responsibility |
 |---|---|---|
+| `docker-compose.yml` | Modify | Add `migrate` service using builder stage for migrations/seeding |
+| `Dockerfile` | Modify | Add named `migrate` target stage with Prisma CLI + tsx |
 | `scripts/epl-magazines-backup.sh` | Create | Daily SQLite + audit log backup to QNAP NAS |
 | `scripts/epl-magazines-watcher.sh` | Create | Health endpoint + disk usage monitor with email alerts |
 | `docs/deployment-checklist.md` | Create | Step-by-step deployment instructions for CT 100 and Proxmox host |
 
 ---
 
-## Task 1: Local Docker Build & Test
+## Task 1: Add Migrate Service & Local Docker Build/Test
 
 **Files:**
-- Existing: `Dockerfile`, `docker-compose.yml`, `app/api/health/route.ts`
+- Modify: `Dockerfile` — add a `migrate` target stage
+- Modify: `docker-compose.yml` — add `migrate` service
+- Existing: `app/api/health/route.ts`
 
-**Context:** The Dockerfile uses multi-stage build with `output: 'standalone'` (set in `next.config.mjs`). The runner stage copies `app/generated` (Prisma client) and `prisma/` (schema + SQLite DB). The health endpoint at `GET /api/health` checks DB reachability and audit log directory writability. Docker HEALTHCHECK uses `wget` (Alpine doesn't have `curl` by default).
+**Context:** The Dockerfile uses multi-stage build with `output: 'standalone'` (set in `next.config.mjs`). The standalone runner image is lean — no `node_modules`, no `prisma` CLI, no `tsx`. To run migrations and seeding without installing Node.js on CT 100, we add a `migrate` stage in the Dockerfile that reuses the builder (which has all deps) and a `migrate` service in docker-compose.yml that runs once against the bind-mounted `./prisma` volume.
 
-- [ ] **Step 1: Build the Docker image**
+- [ ] **Step 1: Add `migrate` stage to Dockerfile**
+
+Add after the `builder` stage, before the `runner` stage:
+
+```dockerfile
+# Migration / seed runner (has full node_modules + prisma CLI + tsx)
+FROM base AS migrate
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npx prisma generate
+ENTRYPOINT ["npx"]
+CMD ["prisma", "migrate", "deploy"]
+```
+
+This stage has the full `node_modules` (including `prisma`, `tsx`, `better-sqlite3`), the source code, and the generated Prisma client. The entrypoint defaults to `prisma migrate deploy` but can be overridden for seeding.
+
+- [ ] **Step 2: Add `migrate` service to docker-compose.yml**
+
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./prisma:/app/prisma
+      - ./logs:/app/logs
+    env_file:
+      - .env.local
+    restart: unless-stopped
+
+  migrate:
+    build:
+      context: .
+      target: migrate
+    volumes:
+      - ./prisma:/app/prisma
+    env_file:
+      - .env.local
+    profiles:
+      - tools
+```
+
+The `profiles: [tools]` means `migrate` does NOT start with `docker compose up` — it only runs when explicitly invoked:
+
+```bash
+# Run migrations
+docker compose run --rm migrate
+
+# Run seed (override CMD)
+docker compose run --rm migrate tsx prisma/seed.ts
+```
+
+- [ ] **Step 3: Build the Docker images**
 
 ```bash
 docker compose build
@@ -40,9 +98,23 @@ Watch for errors in:
 - `npm run build` (builder stage) — Next.js standalone build
 - COPY instructions in runner stage — `app/generated`, `prisma/`, `node_modules/.prisma`
 
-If the build fails on Prisma-related imports, the standalone output may not be bundling the generated client correctly. Check that `app/generated/prisma/client` exists in the builder stage.
+- [ ] **Step 4: Run migrations locally**
 
-- [ ] **Step 2: Start the container**
+```bash
+docker compose run --rm migrate
+```
+
+Expected: `prisma migrate deploy` output showing applied migrations.
+
+- [ ] **Step 5: Run seed locally**
+
+```bash
+docker compose run --rm migrate tsx prisma/seed.ts
+```
+
+Expected: Seed script output showing created records.
+
+- [ ] **Step 6: Start the app container**
 
 ```bash
 docker compose up -d
@@ -50,7 +122,7 @@ docker compose up -d
 
 Wait ~15 seconds for the health check start period.
 
-- [ ] **Step 3: Verify health endpoint**
+- [ ] **Step 7: Verify health endpoint**
 
 ```bash
 curl -s http://localhost:3000/api/health | jq .
@@ -60,7 +132,7 @@ Expected: `{"status":"healthy"}`
 
 If 503: check the error array — "Database unreachable" means the SQLite file isn't accessible (volume mount issue), "Audit log directory not writable" means the `logs/` mount has permission issues.
 
-- [ ] **Step 4: Verify Docker health status**
+- [ ] **Step 8: Verify Docker health status**
 
 ```bash
 docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q app)
@@ -70,26 +142,22 @@ Expected: `healthy`
 
 If `unhealthy`: check logs with `docker compose logs app` for startup errors.
 
-- [ ] **Step 5: Smoke test the UI**
+- [ ] **Step 9: Smoke test the UI**
 
 Open `http://localhost:3000/login` in a browser. Confirm the login page renders correctly.
 
-- [ ] **Step 6: Clean up**
+- [ ] **Step 10: Clean up**
 
 ```bash
 docker compose down
 ```
 
-- [ ] **Step 7: Commit any fixes**
-
-If the Dockerfile or docker-compose.yml needed changes to pass the build/test, commit them:
+- [ ] **Step 11: Commit**
 
 ```bash
 git add Dockerfile docker-compose.yml
-git commit -m "fix: Docker build/runtime issues found during local testing"
+git commit -m "feat: add migrate service for containerized migrations and seeding"
 ```
-
-Skip this step if no changes were needed.
 
 ---
 
@@ -421,15 +489,14 @@ pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && docker compose build 
 
 ### 5. Run database migrations and seed
 
-**Note:** The standalone Docker image does not include `devDependencies` (`tsx`, `prisma` CLI) or source files. Run migrations and seeding on CT 100 directly (outside Docker), since Node.js and the project source are available on the host filesystem. The Docker container accesses the SQLite DB via the bind-mounted `./prisma` volume.
+Uses the `migrate` service (built from the `migrate` Dockerfile stage) which has the full `node_modules`, `prisma` CLI, and `tsx`. No need to install Node.js on CT 100.
 
 ```bash
-# Install deps on CT 100 (first time only)
-pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && npm ci"
+# Run migrations
+pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && docker compose run --rm migrate"
 
-# Run migrations and seed on CT 100 host (not inside Docker)
-pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && npx prisma migrate deploy"
-pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && npm run seed"
+# Run seed
+pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && docker compose run --rm migrate tsx prisma/seed.ts"
 ```
 
 ### 6. Verify health
