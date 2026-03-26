@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server'
 import db from '@/lib/db'
 import { withRetry } from '@/lib/db-retry'
-import { verifySession } from '@/lib/dal'
+import { verifySessionForApi } from '@/lib/dal'
 import { auditLog } from '@/lib/logger'
 
 type RouteContext = { params: Promise<{ id: string }> }
@@ -12,12 +12,10 @@ type RouteContext = { params: Promise<{ id: string }> }
  * Atomically restores sender's BranchMagazine quantity and marks transfer CANCELLED.
  */
 export async function PUT(_request: NextRequest, { params }: RouteContext): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (session.role !== 'ADMIN') return Response.json({ error: 'Forbidden' }, { status: 403 })
   try {
-    const session = await verifySession()
-    if (session.role !== 'ADMIN') {
-      return Response.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
     const { id } = await params
 
     const transfer = await db.transfer.findUnique({

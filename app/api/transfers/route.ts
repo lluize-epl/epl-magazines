@@ -1,15 +1,10 @@
 import type { NextRequest } from 'next/server'
 import db from '@/lib/db'
 import { withRetry } from '@/lib/db-retry'
-import { verifySession } from '@/lib/dal'
+import { verifySessionForApi } from '@/lib/dal'
 import { resolveActiveBranchId } from '@/lib/branch'
 import { auditLog } from '@/lib/logger'
-
-interface InitiateTransferBody {
-  magazineId: string
-  toBranchId: string
-  quantity: number
-}
+import { createTransferSchema } from '@/lib/validations'
 
 /**
  * GET /api/transfers
@@ -17,8 +12,9 @@ interface InitiateTransferBody {
  * branchId matches transfers where fromBranchId OR toBranchId equals the value.
  */
 export async function GET(request: NextRequest): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
-    await verifySession()
     const { searchParams } = request.nextUrl
     const status = searchParams.get('status')
     const branchId = searchParams.get('branchId')
@@ -43,8 +39,9 @@ export async function GET(request: NextRequest): Promise<Response> {
     })
 
     return Response.json(transfers)
-  } catch {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  } catch (err) {
+    console.error('List transfers error:', err)
+    return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
@@ -55,18 +52,14 @@ export async function GET(request: NextRequest): Promise<Response> {
  * Atomically decrements sender's BranchMagazine.quantity and creates Transfer record.
  */
 export async function POST(request: NextRequest): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
-    const session = await verifySession()
     const fromBranchId = await resolveActiveBranchId()
-    const { magazineId, toBranchId, quantity } = (await request.json()) as InitiateTransferBody
-
-    // Validation
-    if (!magazineId || !toBranchId || !quantity) {
-      return Response.json({ error: 'magazineId, toBranchId, and quantity are required' }, { status: 400 })
-    }
-    if (quantity < 1) {
-      return Response.json({ error: 'Quantity must be at least 1' }, { status: 400 })
-    }
+    const body = await request.json()
+    const parsed = createTransferSchema.safeParse(body)
+    if (!parsed.success) return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
+    const { magazineId, toBranchId, quantity } = parsed.data
     if (fromBranchId === toBranchId) {
       return Response.json({ error: 'Cannot transfer to the same branch' }, { status: 400 })
     }

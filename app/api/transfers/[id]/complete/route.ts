@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server'
 import db from '@/lib/db'
 import { withRetry } from '@/lib/db-retry'
-import { verifySession } from '@/lib/dal'
+import { verifySessionForApi } from '@/lib/dal'
 import { resolveActiveBranchId } from '@/lib/branch'
 import { auditLog } from '@/lib/logger'
 
@@ -13,8 +13,9 @@ type RouteContext = { params: Promise<{ id: string }> }
  * Atomically: creates IssueReceipt, upserts BranchMagazine quantity, updates Transfer status.
  */
 export async function PUT(request: NextRequest, { params }: RouteContext): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
-    const session = await verifySession()
     const { id } = await params
     const activeBranchId = await resolveActiveBranchId()
 
