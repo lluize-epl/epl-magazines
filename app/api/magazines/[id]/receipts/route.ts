@@ -1,16 +1,11 @@
 import type { NextRequest } from 'next/server'
 import db from '@/lib/db'
 import { withRetry } from '@/lib/db-retry'
-import { verifySession } from '@/lib/dal'
+import { verifySessionForApi } from '@/lib/dal'
 import { auditLog } from '@/lib/logger'
+import { createReceiptSchema, updateReceiptSchema } from '@/lib/validations'
 
 type RouteContext = { params: Promise<{ id: string }> }
-
-interface CreateReceiptBody {
-  receivedDate: string
-  branchId: string
-  notes?: string
-}
 
 /**
  * GET /api/magazines/[id]/receipts
@@ -18,8 +13,9 @@ interface CreateReceiptBody {
  * Optionally filters by branchId query parameter.
  */
 export async function GET(request: NextRequest, { params }: RouteContext): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
-    await verifySession()
     const { id } = await params
     const branchId = request.nextUrl.searchParams.get('branchId')
 
@@ -35,8 +31,9 @@ export async function GET(request: NextRequest, { params }: RouteContext): Promi
       },
     })
     return Response.json(receipts)
-  } catch {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  } catch (err) {
+    console.error('List receipts error:', err)
+    return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
@@ -47,18 +44,14 @@ export async function GET(request: NextRequest, { params }: RouteContext): Promi
  * Returns 201 with the created receipt (including the receiver's name and branch info).
  */
 export async function POST(request: NextRequest, { params }: RouteContext): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
-    const session = await verifySession()
     const { id } = await params
-    const { receivedDate, branchId, notes } = (await request.json()) as CreateReceiptBody
-
-    if (!receivedDate) {
-      return Response.json({ error: 'receivedDate is required' }, { status: 400 })
-    }
-
-    if (!branchId) {
-      return Response.json({ error: 'branchId is required' }, { status: 400 })
-    }
+    const body = await request.json()
+    const parsed = createReceiptSchema.safeParse(body)
+    if (!parsed.success) return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
+    const { receivedDate, branchId, notes } = parsed.data
 
     const magazine = await db.magazine.findUnique({ where: { id } })
     if (!magazine) return Response.json({ error: 'Magazine not found' }, { status: 404 })
@@ -97,29 +90,21 @@ export async function POST(request: NextRequest, { params }: RouteContext): Prom
   }
 }
 
-interface UpdateReceiptBody {
-  receivedDate: string
-  branchId: string
-}
-
 /**
  * PUT /api/magazines/[id]/receipts
  * Updates the most recent receipt's receivedDate for a magazine at a branch.
  * Admin only. Body: { receivedDate: date string, branchId: string }.
  */
 export async function PUT(request: NextRequest, { params }: RouteContext): Promise<Response> {
+  const session = await verifySessionForApi()
+  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (session.role !== 'ADMIN') return Response.json({ error: 'Forbidden' }, { status: 403 })
   try {
-    const session = await verifySession()
-    if (session.role !== 'ADMIN') {
-      return Response.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
     const { id } = await params
-    const { receivedDate, branchId } = (await request.json()) as UpdateReceiptBody
-
-    if (!receivedDate || !branchId) {
-      return Response.json({ error: 'receivedDate and branchId are required' }, { status: 400 })
-    }
+    const body = await request.json()
+    const parsed = updateReceiptSchema.safeParse(body)
+    if (!parsed.success) return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
+    const { receivedDate, branchId } = parsed.data
 
     const lastReceipt = await db.issueReceipt.findFirst({
       where: { magazineId: id, branchId },
