@@ -445,4 +445,5 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - Recharts does not support oklch color values — use hex approximations (e.g. `#2d7a4f` for primary green `oklch(0.38 0.082 156)`)
 - Never use `verifySession()` in API route handlers — it throws `redirect()` which gets caught by catch blocks. Use `verifySessionForApi()` instead, which returns `null` for unauthenticated requests.
 - The logout route (`app/api/auth/logout/route.ts`) intentionally does NOT use `verifySessionForApi` — it must handle expired/invalid sessions gracefully
+- After changing `lib/` files imported by API routes, `rm -rf .next` before restarting dev — Next.js may serve stale compiled routes otherwise
 - **Git commits**: No `Co-Authored-By` signatures. Keep commit messages short — just describe what was added/changed/removed.
