@@ -21,6 +21,7 @@ Staff log when magazines arrive; the system tracks cadence, flags overdue issues
 | Database | SQLite via **Prisma ORM v7** (`prisma-client` generator + `@prisma/adapter-better-sqlite3`) | No extra server; file-based; easy Docker volume backup |
 | Auth | Custom session cookies with **jose** (JWT) + **bcrypt** | Simple, no OAuth needed; HTTP-only cookies |
 | Styling | **Tailwind CSS** + **shadcn/ui** | Fast to build clean internal UIs |
+| Validation | **Zod** | Runtime input validation for all API routes |
 | Audit logging | **Winston** → `logs/audit.log` (JSON lines) | File-based, no external dependency, mountable in Docker |
 
 ---
@@ -75,7 +76,7 @@ epl-magazines/
 │       ├── magazines/
 │       │   ├── route.ts           # GET list, POST create
 │       │   └── [id]/
-│       │       ├── route.ts       # GET, PUT, DELETE
+│       │       ├── route.ts       # GET, PUT (no DELETE — magazines are soft-deleted via active: false)
 │       │       └── receipts/
 │       │           └── route.ts   # POST mark-received, GET history
 │       ├── transfers/
@@ -94,7 +95,8 @@ epl-magazines/
 │   └── index.ts                   # Shared domain types (import from '@/types')
 ├── lib/
 │   ├── session.ts                 # encrypt/decrypt JWT, createSession, deleteSession
-│   ├── dal.ts                     # Data Access Layer: verifySession, getUser
+│   ├── dal.ts                     # Data Access Layer: verifySession, verifySessionForApi, getUser
+│   ├── validations.ts             # Zod schemas for all API input validation
 │   ├── logger.ts                  # Winston audit logger
 │   ├── branch.ts                  # Branch cookie helper: resolveActiveBranchId, getActiveBranches
 │   ├── cadence.ts                 # computeNextExpectedDate, isOverdue helpers
@@ -311,7 +313,7 @@ For each active magazine **subscribed at the active branch** (via `BranchMagazin
 | View dashboard | ✓ | ✓ |
 | Mark magazine received | ✓ | ✓ |
 | View receipt history | ✓ | ✓ |
-| Create / edit / delete magazine | ✗ | ✓ |
+| Create / edit / deactivate magazine | ✗ | ✓ |
 | Create / delete users | ✗ | ✓ |
 | View audit log | ✗ | ✓ |
 | View reports / export .xlsx | ✗ | ✓ |
@@ -422,6 +424,9 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - shadcn/ui components live in `components/ui/` — add with `npx shadcn@latest add <component>`
 - Audit log changes with before/after values: fetch record before update, log `field: old → new` (not just field names)
 - Magazine `language` field: free-text string (not enum) normalized to title case ("Hindi", not "hindi") in API routes. Default: "English"
+- **API route auth**: Use `verifySessionForApi()` from `lib/dal.ts` (returns `null`, no redirect). Reserve `verifySession()` for Server Components only.
+- **Zod validation**: All API route input is validated with Zod schemas from `lib/validations.ts`. Use `.safeParse(body)` and return first error message on failure.
+- **Magazine deletion**: Magazines are never hard-deleted. Use `PUT { active: false }` for soft-delete. Receipt and transfer history is always preserved for reports.
 
 ---
 
@@ -438,3 +443,5 @@ The singleton lives in `lib/db.ts`. Config is in `prisma.config.ts` (TypeScript,
 - SQLite WAL mode is enabled in `lib/db.ts` at startup — allows concurrent reads during writes. Do not change journal mode.
 - All DB write operations should use `withRetry()` from `lib/db-retry.ts` to handle transient `SQLITE_BUSY`/`SQLITE_LOCKED` errors
 - Recharts does not support oklch color values — use hex approximations (e.g. `#2d7a4f` for primary green `oklch(0.38 0.082 156)`)
+- Never use `verifySession()` in API route handlers — it throws `redirect()` which gets caught by catch blocks. Use `verifySessionForApi()` instead, which returns `null` for unauthenticated requests.
+- The logout route (`app/api/auth/logout/route.ts`) intentionally does NOT use `verifySessionForApi` — it must handle expired/invalid sessions gracefully

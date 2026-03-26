@@ -11,11 +11,14 @@
 ## 🌟 Highlights
 
 - Track periodical magazine receipts across multiple library branches
-- Automatic overdue detection based on each magazine's publication cadence (weekly, bi-weekly, monthly, bi-monthly, seasonal)
+- Automatic overdue detection based on each magazine's publication cadence (weekly, bi-weekly, monthly, bi-monthly, seasonal, yearly)
 - Dashboard view with at-a-glance status: overdue, expected this week, and upcoming
 - Role-based access control — staff mark receipts, admins manage magazines and users
 - Admin data reports: Oversight, Accountability, and Operations metrics
 - Full audit logging of every meaningful action
+- Inter-branch magazine transfers with full lifecycle tracking (pending, completed, cancelled)
+- Docker health monitoring with automatic container restart on failure
+- Safe database migration script with automatic backup and test-on-copy
 - Zero external dependencies beyond the app itself — SQLite database, file-based logs, no third-party services
 
 
@@ -34,6 +37,7 @@ The application is designed for internal LAN deployment only via Docker Compose.
 | Database | SQLite via Prisma ORM v7 |
 | Auth | JWT sessions with jose + bcrypt |
 | Styling | Tailwind CSS + shadcn/ui |
+| Validation | Zod (runtime input validation) |
 | Audit Log | Winston (JSON lines to file) |
 
 
@@ -79,7 +83,9 @@ The app will be available at `http://localhost:3000`.
 docker compose up -d
 ```
 
-This mounts `prisma/` (SQLite database) and `logs/` (audit log) as volumes for persistence. Back up by copying `prisma/dev.db` and `logs/audit.log`.
+This mounts `prisma/` (SQLite database) and `logs/` (audit log) as volumes for persistence. The container includes a health check that polls `/api/health` every 30 seconds and automatically restarts if unhealthy.
+
+Back up by copying `prisma/dev.db` and `logs/audit.log`. Before applying schema migrations, use `npm run migrate:safe` to automatically back up the database and test migrations on a copy first.
 
 
 ## 🚀 Usage
@@ -102,7 +108,8 @@ This mounts `prisma/` (SQLite database) and `logs/` (audit log) as volumes for p
 
 | Action | Where |
 |---|---|
-| Create, edit, or delete magazines | Admin > Magazines (`/admin/magazines`) |
+| Create, edit, or deactivate magazines | Admin > Magazines (`/admin/magazines`) |
+| Manage inter-branch transfers | Admin > Transfers (`/admin/transfers`) |
 | Manage users | Admin > Users (`/admin/users`) |
 | View audit log | Log (`/log`) |
 | View data reports (Oversight, Accountability, Operations) | Admin > Reports (`/admin/reports`) |
