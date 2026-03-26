@@ -29,8 +29,8 @@ export const dateStringSchema = z.string().refine(
 export const createMagazineSchema = z.object({
   name: z.string().min(1, 'Name is required').transform((s) => s.trim()),
   cadence: cadenceSchema,
-  language: z.string().optional(),
-  notes: z.string().optional(),
+  language: z.string().nullable().optional(),
+  notes: z.string().nullable().optional(),
 })
 
 /** PUT /api/magazines/[id] — partial update */
@@ -50,7 +50,7 @@ export const updateMagazineSchema = z.object({
 export const createReceiptSchema = z.object({
   receivedDate: dateStringSchema,
   branchId: z.string().min(1, 'branchId is required'),
-  notes: z.string().optional(),
+  notes: z.string().nullable().optional(),
 })
 
 /** PUT /api/magazines/[id]/receipts — update last receipt date */
