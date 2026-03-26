@@ -55,7 +55,7 @@ export default function MagazineDetailActions({ magazine, activeBranchId, pendin
     return (
       <>
         <Button
-          className="gap-2 flex-shrink-0 cursor-pointer"
+          className="gap-2 flex-shrink-0"
           onClick={() => setConfirmOpen(true)}
           style={{ backgroundColor: 'oklch(0.45 0.15 250)' }}
         >
