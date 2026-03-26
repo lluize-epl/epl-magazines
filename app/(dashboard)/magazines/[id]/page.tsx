@@ -57,6 +57,19 @@ export default async function MagazineDetailPage({ params }: PageProps) {
 
   if (!magazine) notFound()
 
+  // Check for the oldest pending transfer TO this branch for this magazine
+  const pendingTransfer = await db.transfer.findFirst({
+    where: {
+      magazineId: id,
+      toBranchId: activeBranchId,
+      status: 'PENDING',
+    },
+    orderBy: { createdAt: 'asc' },
+    include: {
+      fromBranch: { select: { name: true } },
+    },
+  })
+
   const lastReceipt = magazine.receipts[0] ?? null
   const lastReceivedDate = lastReceipt?.receivedDate ?? null
   const nextExpectedDate = computeNextExpectedDate(lastReceivedDate, magazine.cadence)
@@ -119,7 +132,15 @@ export default async function MagazineDetailPage({ params }: PageProps) {
             )}
           </div>
 
-          <MagazineDetailActions magazine={{ id: magazine.id, name: magazine.name }} activeBranchId={activeBranchId} />
+          <MagazineDetailActions
+            magazine={{ id: magazine.id, name: magazine.name }}
+            activeBranchId={activeBranchId}
+            pendingTransfer={pendingTransfer ? {
+              id: pendingTransfer.id,
+              quantity: pendingTransfer.quantity,
+              fromBranchName: pendingTransfer.fromBranch.name,
+            } : null}
+          />
         </div>
 
         {/* Stats row */}
