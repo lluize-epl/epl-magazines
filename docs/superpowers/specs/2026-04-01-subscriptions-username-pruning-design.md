@@ -40,9 +40,7 @@ model MagazineSubscription {
   period        SubscriptionPeriod @relation(fields: [periodId], references: [id])
   periodId      String
   issuesPerYear Int
-  coverageStart DateTime           // Per-magazine, defaults to period.startDate
-  coverageEnd   DateTime           // Per-magazine, defaults to period.endDate
-  active        Boolean            @default(true)
+  active        Boolean            @default(true)  // false = dropped from this period (treated as not_subscribed)
   createdAt     DateTime           @default(now())
 
   @@unique([magazineId, periodId])
@@ -74,6 +72,19 @@ model User {
 - `SubscriptionPeriod.name` is unique — prevents duplicate period names
 - `User.username` is unique — enforced at DB level
 - `active` on SubscriptionPeriod is a **UI default flag**, not a lifecycle gate. Multiple periods can coexist; the active one is what the app defaults to on login.
+- `active` on MagazineSubscription indicates whether the magazine is part of this period. Setting `active: false` means the title was dropped (treated as `not_subscribed` in status resolution). This preserves the record for audit/history rather than deleting it.
+
+### 2.4 Coverage Dates
+
+Coverage dates are derived from the parent `SubscriptionPeriod.startDate` / `endDate` — not stored per magazine. All titles in a period share the same coverage window (e.g., June 1 2025 – May 31 2026). This simplifies every query: receipt counting uses `period.startDate <= receivedDate <= period.endDate`.
+
+### 2.5 Relationship: MagazineSubscription vs BranchMagazine
+
+These are orthogonal:
+- **MagazineSubscription** answers: "Is this magazine part of this subscription period, and how many issues should we expect?" It is global — not branch-specific.
+- **BranchMagazine** answers: "Does this branch carry this magazine, and how many copies?" It is branch-specific.
+
+Both must be true for a magazine to appear on the dashboard for a given branch + period. A magazine with an active `MagazineSubscription` for the period but no `BranchMagazine` entry for the branch does not appear at that branch. A magazine with a `BranchMagazine` entry but no subscription for the selected period shows as `not_subscribed`.
 
 ---
 
@@ -90,8 +101,8 @@ type MagazineStatus = 'completed' | 'overdue' | 'this_week' | 'upcoming' | 'neve
 For a given magazine + branch + subscription period:
 
 1. Look up `MagazineSubscription` for this magazine and the selected period
-2. If no subscription exists → **`not_subscribed`**
-3. Count receipts at the active branch within `coverageStart–coverageEnd`
+2. If no subscription exists, or subscription `active = false` → **`not_subscribed`**
+3. Count receipts at the active branch within `period.startDate–period.endDate`
 4. If `receivedCount >= issuesPerYear` → **`completed`**
 5. If `receivedCount === 0` and any expected date has passed → **`never_received`**
 6. Otherwise, use existing cadence logic from last receipt date:
@@ -99,7 +110,7 @@ For a given magazine + branch + subscription period:
    - Next expected date falls within this week → **`this_week`**
    - Next expected date is future → **`upcoming`**
 
-**Initial anchor**: When `receivedCount === 0` and no expected dates have passed yet, the first expected date is derived from `coverageStart` + cadence interval. This ensures new-period magazines start with a meaningful `nextExpectedDate` from day one.
+**Initial anchor**: When `receivedCount === 0` and no expected dates have passed yet, the first expected date is derived from `period.startDate` + cadence interval. This ensures new-period magazines start with a meaningful `nextExpectedDate` from day one.
 
 ### 3.3 Dashboard Bucketing
 
@@ -123,7 +134,7 @@ For a given magazine + branch + subscription period:
 - **List view**: All periods with name, date range, active badge, count of active magazine subscriptions
 - **Create New Period**: Form with name, startDate, endDate
   - On creation: set `active: false` on the previously active period, create new period with `active: true`
-  - Bulk-copy all active MagazineSubscriptions from the previous period (same `issuesPerYear`, new coverage dates matching the new period's range)
+  - Bulk-copy all active MagazineSubscriptions from the previous period (same `issuesPerYear` values)
   - Admin then adjusts: deactivate dropped titles, add new ones, edit `issuesPerYear` where changed
 - **Period detail view**: Manage MagazineSubscriptions within a period (edit `issuesPerYear`, toggle `active`, add new subscriptions)
 
@@ -139,9 +150,10 @@ For a given magazine + branch + subscription period:
 
 Overlapping periods are expected and handled gracefully. When the new invoice arrives before the old period ends:
 - Both periods are fully functional
-- Receipts are attributed to whichever period's coverage window they fall within (date-range match)
+- Receipts are attributed by date: `receivedDate` is checked against each period's `startDate–endDate`. Since EBSCO coverage periods are sequential (not overlapping), a receipt date falls within exactly one period.
 - The global PeriodSelector lets staff switch between viewing either period
 - New-period magazines start arriving while old-period stragglers are still being received
+- **Constraint**: Period date ranges should not overlap. The admin UI validates this on creation.
 
 ---
 
@@ -193,7 +205,10 @@ Above the BranchSelector in the sidebar/nav — same pattern as branch selection
 
 ### 6.5 Reports (`/admin/reports`)
 
-- All report queries scoped to selected period's date range via global PeriodSelector
+- The global PeriodSelector sets the default date range for reports (`period.startDate` to `period.endDate`)
+- Existing report date presets (this_month, last_month, etc.) continue to work as further filters **within** the selected period
+- `ReportFilters` type gains an optional `periodId` field; when present, `from`/`to` default to the period's date range
+- The "Subscription Overview" report (already in `lib/reports.ts` as `getSubscriptionOverview`) should be updated to show `MagazineSubscription` data with `received/expected` counts per magazine for the selected period
 
 ### 6.6 Login Page
 
@@ -225,7 +240,7 @@ Same two-step pattern, identifier changes:
 | `lib/validations.ts` | Add `usernameSchema: z.string().regex(/^[A-Za-z]+$/).min(1).max(20)` |
 | `app/api/users/route.ts` | User creation: `email` → `username` |
 | `app/(dashboard)/admin/users/page.tsx` | Table column: email → username |
-| `types/index.ts` | `AuthUser.email` → `AuthUser.username` |
+| `types/index.ts` | `AuthUser.email` → `AuthUser.username`; add `completed` + `not_subscribed` to `MagazineStatus` type |
 | `lib/dal.ts` | `getUser()` returns `username` instead of `email` |
 | Audit logging | Log `username` instead of `email` in login events |
 
@@ -373,12 +388,37 @@ Extracted from `docs/0000.jpg` through `docs/0015.jpg`. Coverage: 06/01/2025–0
 
 ---
 
-## 10. Migration Strategy
+## 10. Audit Logging
 
-Single migration combining all schema changes:
-1. Add `SubscriptionPeriod` and `MagazineSubscription` tables
-2. Add `username` column to User (populated from email prefix or set directly)
-3. Remove `email` column from User
-4. Run `npm run migrate:safe` (backs up DB first)
+New admin actions that must be audit-logged (added to `AuditAction` type):
 
-After migration: re-seed with updated `prisma/seed.ts` that includes subscription period data and pruned receipts.
+| Action | Details |
+|--------|---------|
+| `PERIOD_CREATED` | Period name, startDate, endDate |
+| `PERIOD_UPDATED` | Period name, changed fields |
+| `SUBSCRIPTION_CREATED` | Magazine name, period name, issuesPerYear |
+| `SUBSCRIPTION_UPDATED` | Magazine name, period name, changed fields (e.g., issuesPerYear: 12 → 10) |
+| `SUBSCRIPTION_DEACTIVATED` | Magazine name, period name |
+| `SUBSCRIPTIONS_BULK_COPIED` | From period → to period, count of subscriptions copied |
+
+---
+
+## 11. Migration Strategy
+
+### 11.1 Fresh Installs (Development / New Deployments)
+
+Full reset and re-seed:
+1. Delete DB, run `prisma migrate dev` (creates all tables including new ones)
+2. Run updated `prisma/seed.ts` which creates the admin user with `username`, the 2025-2026 period, all MagazineSubscriptions, and pruned receipts
+
+### 11.2 Production (CT 100)
+
+Since the production database has real receipt data beyond what's in the seed:
+1. Run `npm run migrate:safe` (backs up DB first)
+2. Migration adds `SubscriptionPeriod` and `MagazineSubscription` tables
+3. Migration adds `username` column to User, populates from name or manually set
+4. Migration drops `email` column from User
+5. Post-migration script: create the 2025-2026 `SubscriptionPeriod` and `MagazineSubscription` records for all active magazines
+6. Production receipts before June 2025 are **not** deleted — they remain in the DB but are invisible when the 2025-2026 period is selected (date-range filter excludes them naturally)
+
+**Note**: Receipt pruning (section 8) only affects the seed data for fresh installs. Production receipt history is preserved — the PeriodSelector simply scopes visibility.
