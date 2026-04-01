@@ -146,14 +146,12 @@ For a given magazine + branch + subscription period:
 4. Admin reviews: deactivates dropped titles, adds new ones, updates `issuesPerYear` where changed
 5. Old period remains fully viewable — receipts, completion data, reports all preserved
 
-### 4.3 Overlapping Periods
+### 4.3 Concurrent Periods
 
-Overlapping periods are expected and handled gracefully. When the new invoice arrives before the old period ends:
-- Both periods are fully functional
-- Receipts are attributed by date: `receivedDate` is checked against each period's `startDate–endDate`. Since EBSCO coverage periods are sequential (not overlapping), a receipt date falls within exactly one period.
+Creating a new period before the current one ends is expected. Both periods are fully functional — their date ranges must not overlap (validated on creation).
+- Receipts are attributed by date: `receivedDate` is checked against each period's `startDate–endDate`. Since date ranges are sequential, a receipt maps to exactly one period.
 - The global PeriodSelector lets staff switch between viewing either period
 - New-period magazines start arriving while old-period stragglers are still being received
-- **Constraint**: Period date ranges should not overlap. The admin UI validates this on creation.
 
 ---
 
