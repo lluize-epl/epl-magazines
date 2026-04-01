@@ -259,7 +259,7 @@ async function main() {
         magazineId,
         branchId: bId,
         receivedById: admin.id,
-        receivedDate: new Date(r.date),
+        receivedDate: new Date(r.date + 'T12:00:00'),
         notes: (r.notes && r.notes.toLowerCase() !== 'x') ? r.notes : null,
       },
     })
