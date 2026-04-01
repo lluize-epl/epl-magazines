@@ -4,6 +4,7 @@ import LoginForm from '@/components/LoginForm'
 import type { Branch } from '@/types'
 
 export const metadata: Metadata = { title: 'Sign In — EPL Magazine Tracker' }
+export const dynamic = 'force-dynamic'
 
 export default async function LoginPage() {
   const branches = await db.branch.findMany({
