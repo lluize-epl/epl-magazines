@@ -20,11 +20,11 @@ export interface LoginFormProps {
   branches: Branch[]
 }
 
-/** Two-step login: (1) email + password, (2) branch selection */
+/** Two-step login: (1) username + password, (2) branch selection */
 export default function LoginForm({ branches }: LoginFormProps) {
   const router = useRouter()
   const [step, setStep] = useState<'credentials' | 'branch'>('credentials')
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [branchId, setBranchId] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -41,7 +41,7 @@ export default function LoginForm({ branches }: LoginFormProps) {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ username: username.trim(), password }),
       })
 
       const data = (await res.json()) as { error?: string }
@@ -145,17 +145,17 @@ export default function LoginForm({ branches }: LoginFormProps) {
       )}
 
       <div className="space-y-1.5">
-        <Label htmlFor="email" style={{ color: 'oklch(0.30 0.028 62)' }}>
-          Email address
+        <Label htmlFor="username" style={{ color: 'oklch(0.30 0.028 62)' }}>
+          Username
         </Label>
         <Input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@edisonpubliclibrary.org"
+          id="username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter username"
           required
-          autoComplete="email"
+          autoComplete="username"
           className="h-11"
         />
       </div>

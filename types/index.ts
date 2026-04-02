@@ -14,7 +14,7 @@ export type UserRole = 'ADMIN' | 'STAFF'
 export type CadenceType = 'WEEKLY' | 'BI_WEEKLY' | 'MONTHLY' | 'BI_MONTHLY' | 'SEASONAL' | 'YEARLY'
 
 /** Dashboard status bucket for a magazine */
-export type MagazineStatus = 'overdue' | 'this_week' | 'upcoming' | 'never_received'
+export type MagazineStatus = 'completed' | 'overdue' | 'this_week' | 'upcoming' | 'never_received' | 'not_subscribed'
 
 /** Dashboard-only status buckets (reduced from 4 to 2) */
 export type DashboardStatus = 'overdue' | 'this_week'
@@ -46,7 +46,7 @@ export interface SessionUser {
 export interface AuthUser {
   id: string
   name: string
-  email: string
+  username: string
   role: UserRole
   active: boolean
 }
@@ -156,6 +156,41 @@ export interface BranchWithCount extends Branch {
 }
 
 // ---------------------------------------------------------------------------
+// Subscription Periods
+// ---------------------------------------------------------------------------
+
+/** A subscription period representing an EBSCO billing cycle */
+export interface SubscriptionPeriod {
+  id: string
+  name: string
+  startDate: Date | string
+  endDate: Date | string
+  active: boolean
+  createdAt: Date | string
+}
+
+/** A magazine's subscription within a period */
+export interface MagazineSubscription {
+  id: string
+  magazineId: string
+  periodId: string
+  issuesPerYear: number
+  active: boolean
+  createdAt: Date | string
+}
+
+/** MagazineSubscription with related magazine data for admin views */
+export interface MagazineSubscriptionWithDetails extends MagazineSubscription {
+  magazine: { id: string; name: string; cadence: CadenceType; language: string; active: boolean }
+}
+
+/** Extended magazine status info including subscription data */
+export interface MagazineWithSubscriptionStatus extends MagazineWithStatus {
+  receivedCount: number
+  issuesPerYear: number | null
+}
+
+// ---------------------------------------------------------------------------
 // Transfers
 // ---------------------------------------------------------------------------
 
@@ -196,7 +231,7 @@ export interface TransferWithDetails extends Transfer {
 export interface AdminUser {
   id: string
   name: string
-  email: string
+  username: string
   role: UserRole
   active: boolean
   createdAt: Date
@@ -229,6 +264,12 @@ export type AuditAction =
   | 'TRANSFER_COMPLETED'
   | 'TRANSFER_CANCELLED'
   | 'REPORT_EXPORTED'
+  | 'PERIOD_CREATED'
+  | 'PERIOD_UPDATED'
+  | 'SUBSCRIPTION_CREATED'
+  | 'SUBSCRIPTION_UPDATED'
+  | 'SUBSCRIPTION_DEACTIVATED'
+  | 'SUBSCRIPTIONS_BULK_COPIED'
 
 /** Parsed JSON line from logs/audit.log */
 export interface AuditLogEntry {
@@ -257,6 +298,7 @@ export interface ReportFilters {
   to: Date
   branch: string
   language: string
+  periodId?: string
 }
 
 /** Row in the Receipt Summary report table */
@@ -304,6 +346,12 @@ export interface SubscriptionReportRow {
   cadence: CadenceType
   quantity: number
   active: boolean
+  /** Issues per year from MagazineSubscription; only present in period-scoped mode */
+  issuesPerYear?: number
+  /** Number of receipts recorded within the period; only present in period-scoped mode */
+  receivedCount?: number
+  /** Name of the subscription period; only present in period-scoped mode */
+  periodName?: string
 }
 
 /** Data point for the Receipt Timeline chart */

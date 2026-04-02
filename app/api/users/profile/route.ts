@@ -57,7 +57,7 @@ export async function PUT(request: NextRequest): Promise<Response> {
     const updated = await db.user.update({
       where: { id: session.userId },
       data: updates,
-      select: { id: true, name: true, email: true, role: true, active: true },
+      select: { id: true, name: true, username: true, role: true, active: true },
     })
 
     for (const detail of auditDetails) {

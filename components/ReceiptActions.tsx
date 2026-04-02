@@ -1,56 +1,34 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Pencil, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { format } from 'date-fns'
-import { toLocalDate } from '@/lib/utils'
-import { Pencil, Trash2, Loader2, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from '@/components/ui/dialog'
-import DeleteConfirmDialog from '@/components/DeleteConfirmDialog'
+import type { Branch } from '@/types'
 
-/** Branch option for the edit dialog dropdown */
-interface BranchOption {
-  id: string
-  name: string
-}
-
-/** Receipt data needed by the actions component */
 interface ReceiptData {
   id: string
   receivedDate: string
   branchId: string | null
-  branchName: string | null
   notes: string | null
 }
 
 export interface ReceiptActionsProps {
   receipt: ReceiptData
   magazineId: string
-  branches: BranchOption[]
+  branches: Branch[]
 }
 
-/**
- * Admin-only actions (edit / delete) for an individual receipt row.
- * Renders icon buttons that open edit and delete dialogs.
- */
+/** Edit/delete action buttons for a receipt row. Admin only. */
 export default function ReceiptActions({ receipt, magazineId, branches }: ReceiptActionsProps) {
   const router = useRouter()
   const [editOpen, setEditOpen] = useState(false)
@@ -58,160 +36,150 @@ export default function ReceiptActions({ receipt, magazineId, branches }: Receip
   const [loading, setLoading] = useState(false)
 
   // Edit form state
-  const localDate = toLocalDate(receipt.receivedDate)
-  const [receivedDate, setReceivedDate] = useState(
-    localDate ? format(localDate, 'yyyy-MM-dd') : ''
-  )
+  const [date, setDate] = useState(receipt.receivedDate.split('T')[0])
   const [branchId, setBranchId] = useState(receipt.branchId ?? '')
   const [notes, setNotes] = useState(receipt.notes ?? '')
 
-  function resetForm() {
-    const d = toLocalDate(receipt.receivedDate)
-    setReceivedDate(d ? format(d, 'yyyy-MM-dd') : '')
-    setBranchId(receipt.branchId ?? '')
-    setNotes(receipt.notes ?? '')
-  }
-
-  async function handleEdit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  async function handleEdit() {
     setLoading(true)
     try {
       const res = await fetch(`/api/magazines/${magazineId}/receipts/${receipt.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          receivedDate,
+          receivedDate: date,
           branchId: branchId || undefined,
-          notes: notes.trim() || null,
+          notes: notes || null,
         }),
       })
       if (!res.ok) {
-        const data = (await res.json()) as { error?: string }
-        toast.error(data.error || 'Failed to update receipt')
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error ?? 'Failed to update receipt')
         return
       }
       toast.success('Receipt updated')
       setEditOpen(false)
       router.refresh()
-    } catch {
-      toast.error('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
     }
   }
 
   async function handleDelete() {
-    const res = await fetch(`/api/magazines/${magazineId}/receipts/${receipt.id}`, {
-      method: 'DELETE',
-    })
-    if (!res.ok && res.status !== 204) {
-      const data = (await res.json()) as { error?: string }
-      toast.error(data.error || 'Failed to delete receipt')
-      return
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/magazines/${magazineId}/receipts/${receipt.id}`, {
+        method: 'DELETE',
+      })
+      if (!res.ok && res.status !== 204) {
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error ?? 'Failed to delete receipt')
+        return
+      }
+      toast.success('Receipt deleted')
+      setDeleteOpen(false)
+      router.refresh()
+    } finally {
+      setLoading(false)
     }
-    toast.success('Receipt deleted')
-    setDeleteOpen(false)
-    router.refresh()
   }
 
-  const displayDate = localDate ? format(localDate, 'MMM d, yyyy') : 'unknown date'
-
   return (
-    <>
-      <div className="flex items-center gap-1">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-7 w-7"
-          onClick={() => { resetForm(); setEditOpen(true) }}
-          title="Edit receipt"
-        >
-          <Pencil size={14} style={{ color: 'oklch(0.45 0.082 156)' }} />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-7 w-7"
-          onClick={() => setDeleteOpen(true)}
-          title="Delete receipt"
-        >
-          <Trash2 size={14} className="text-destructive" />
-        </Button>
-      </div>
+    <div className="flex items-center gap-1">
+      {/* Edit button */}
+      <button
+        onClick={() => setEditOpen(true)}
+        className="p-1.5 rounded-md transition-colors hover:bg-black/[0.06] cursor-pointer"
+        title="Edit receipt"
+      >
+        <Pencil size={14} style={{ color: 'oklch(0.45 0.082 156)' }} />
+      </button>
+
+      {/* Delete button */}
+      <button
+        onClick={() => setDeleteOpen(true)}
+        className="p-1.5 rounded-md transition-colors hover:bg-red-50 cursor-pointer"
+        title="Delete receipt"
+      >
+        <Trash2 size={14} style={{ color: 'oklch(0.55 0.18 27)' }} />
+      </button>
 
       {/* Edit Dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="sm:max-w-sm">
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle style={{ fontFamily: 'var(--font-playfair)' }}>Edit Receipt</DialogTitle>
+            <DialogTitle>Edit Receipt</DialogTitle>
+            <DialogDescription>Update the date, branch, or notes for this receipt.</DialogDescription>
           </DialogHeader>
-
-          <form onSubmit={handleEdit} className="space-y-4 pt-2">
-            <div className="space-y-1.5">
-              <Label>Date Received</Label>
-              <Input
+          <div className="space-y-4 py-2">
+            <div>
+              <label className="text-sm font-medium mb-1 block" style={{ color: 'oklch(0.30 0.028 62)' }}>
+                Date Received
+              </label>
+              <input
                 type="date"
-                value={receivedDate}
-                onChange={(e) => setReceivedDate(e.target.value)}
-                required
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full rounded-md border px-3 py-2 text-sm"
+                style={{ borderColor: 'oklch(0.876 0.016 88)' }}
               />
             </div>
-
-            <div className="space-y-1.5">
-              <Label>Branch</Label>
-              <Select value={branchId} onValueChange={(v) => setBranchId(v ?? '')}>
-                <SelectTrigger>
-                  <SelectValue>
-                    {branches.find((b) => b.id === branchId)?.name ?? 'Select branch'}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {branches.map((b) => (
-                    <SelectItem key={b.id} value={b.id}>{b.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div>
+              <label className="text-sm font-medium mb-1 block" style={{ color: 'oklch(0.30 0.028 62)' }}>
+                Branch
+              </label>
+              <select
+                value={branchId}
+                onChange={(e) => setBranchId(e.target.value)}
+                className="w-full rounded-md border px-3 py-2 text-sm"
+                style={{ borderColor: 'oklch(0.876 0.016 88)' }}
+              >
+                <option value="">— Select branch —</option>
+                {branches.map((b) => (
+                  <option key={b.id} value={b.id}>{b.name}</option>
+                ))}
+              </select>
             </div>
-
-            <div className="space-y-1.5">
-              <Label>Notes <span className="text-muted-foreground font-normal">(optional)</span></Label>
-              <Textarea
+            <div>
+              <label className="text-sm font-medium mb-1 block" style={{ color: 'oklch(0.30 0.028 62)' }}>
+                Notes
+              </label>
+              <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
+                className="w-full rounded-md border px-3 py-2 text-sm"
+                style={{ borderColor: 'oklch(0.876 0.016 88)' }}
                 rows={2}
-                placeholder="Optional notes..."
+                placeholder="Optional notes"
               />
             </div>
-
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setEditOpen(false)} disabled={loading}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={loading}
-                className="gap-2"
-                style={{ backgroundColor: 'oklch(0.38 0.082 156)' }}
-              >
-                {loading ? (
-                  <><Loader2 size={15} className="animate-spin" /> Saving...</>
-                ) : (
-                  <><Save size={15} /> Save Changes</>
-                )}
-              </Button>
-            </DialogFooter>
-          </form>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditOpen(false)} disabled={loading}>Cancel</Button>
+            <Button onClick={handleEdit} disabled={loading}>
+              {loading ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <DeleteConfirmDialog
-        open={deleteOpen}
-        onOpenChange={setDeleteOpen}
-        title="Delete Receipt"
-        description={`Delete this receipt from ${displayDate}? This cannot be undone.`}
-        onConfirm={handleDelete}
-      />
-    </>
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Delete Receipt</DialogTitle>
+            <DialogDescription>
+              Delete the receipt from {date}? This cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteOpen(false)} disabled={loading}>Cancel</Button>
+            <Button variant="destructive" onClick={handleDelete} disabled={loading}>
+              {loading ? 'Deleting...' : 'Delete'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   )
 }

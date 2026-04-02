@@ -3,11 +3,7 @@ import type { NextRequest } from 'next/server'
 import db from '@/lib/db'
 import { createSession } from '@/lib/session'
 import { auditLog } from '@/lib/logger'
-
-interface LoginBody {
-  email: string
-  password: string
-}
+import { loginSchema } from '@/lib/validations'
 
 /**
  * POST /api/auth/login
@@ -16,27 +12,29 @@ interface LoginBody {
  */
 export async function POST(request: NextRequest): Promise<Response> {
   try {
-    const { email, password } = (await request.json()) as LoginBody
-
-    if (!email || !password) {
-      return Response.json({ error: 'Email and password are required' }, { status: 400 })
+    const body: unknown = await request.json()
+    const parsed = loginSchema.safeParse(body)
+    if (!parsed.success) {
+      return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
     }
 
+    const { username, password } = parsed.data
+
     const user = await db.user.findUnique({
-      where: { email: email.toLowerCase().trim() },
+      where: { username: username.toLowerCase() },
     })
 
     if (!user || !user.active) {
-      return Response.json({ error: 'Invalid email or password' }, { status: 401 })
+      return Response.json({ error: 'Invalid username or password' }, { status: 401 })
     }
 
     const match = await bcrypt.compare(password, user.passwordHash)
     if (!match) {
-      return Response.json({ error: 'Invalid email or password' }, { status: 401 })
+      return Response.json({ error: 'Invalid username or password' }, { status: 401 })
     }
 
     await createSession(user.id, user.role)
-    auditLog(user.id, 'LOGIN', { email: user.email })
+    auditLog(user.id, 'LOGIN', { username: user.username })
 
     return Response.json({ success: true })
   } catch (err) {

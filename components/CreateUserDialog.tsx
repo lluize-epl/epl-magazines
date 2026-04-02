@@ -22,12 +22,12 @@ export interface CreateUserDialogProps {
 export default function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) {
   const router = useRouter()
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('STAFF')
   const [loading, setLoading] = useState(false)
 
-  function reset() { setName(''); setEmail(''); setPassword(''); setRole('STAFF') }
+  function reset() { setName(''); setUsername(''); setPassword(''); setRole('STAFF') }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -36,7 +36,7 @@ export default function CreateUserDialog({ open, onOpenChange }: CreateUserDialo
       const res = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), email: email.trim().toLowerCase(), password, role }),
+        body: JSON.stringify({ name: name.trim(), username: username.trim().toLowerCase(), password, role }),
       })
       const data = (await res.json()) as { error?: string }
       if (!res.ok) { toast.error(data.error || 'Failed to create user'); return }
@@ -65,8 +65,8 @@ export default function CreateUserDialog({ open, onOpenChange }: CreateUserDialo
             <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Jane Smith" required />
           </div>
           <div className="space-y-1.5">
-            <Label>Email Address</Label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="jane@library.org" required />
+            <Label>Username</Label>
+            <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="janesmith" required />
           </div>
           <div className="space-y-1.5">
             <Label>Password</Label>

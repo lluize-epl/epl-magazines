@@ -130,24 +130,50 @@ export async function GET(request: NextRequest): Promise<Response> {
 
       case 'subscriptions': {
         const rows = await getSubscriptionOverview(filters)
+        const isPeriodMode = rows.some((r) => r.issuesPerYear !== undefined)
         const sheet = workbook.addWorksheet('Subscriptions')
-        sheet.columns = [
-          { header: 'Branch', key: 'branch', width: 25 },
-          { header: 'Magazine', key: 'magazine', width: 30 },
-          { header: 'Language', key: 'language', width: 15 },
-          { header: 'Cadence', key: 'cadence', width: 15 },
-          { header: 'Qty', key: 'qty', width: 8 },
-          { header: 'Active', key: 'active', width: 10 },
-        ]
-        for (const row of rows) {
-          sheet.addRow({
-            branch: row.branchName,
-            magazine: row.magazineName,
-            language: row.language,
-            cadence: CADENCE_LABELS[row.cadence as CadenceType],
-            qty: row.quantity,
-            active: row.active ? 'Yes' : 'No',
-          })
+        if (isPeriodMode) {
+          sheet.columns = [
+            { header: 'Branch', key: 'branch', width: 25 },
+            { header: 'Magazine', key: 'magazine', width: 30 },
+            { header: 'Language', key: 'language', width: 15 },
+            { header: 'Cadence', key: 'cadence', width: 15 },
+            { header: 'Qty', key: 'qty', width: 8 },
+            { header: 'Received', key: 'received', width: 12 },
+            { header: 'Issues/Year', key: 'issuesPerYear', width: 14 },
+            { header: 'Active', key: 'active', width: 10 },
+          ]
+          for (const row of rows) {
+            sheet.addRow({
+              branch: row.branchName,
+              magazine: row.magazineName,
+              language: row.language,
+              cadence: CADENCE_LABELS[row.cadence as CadenceType],
+              qty: row.quantity,
+              received: row.receivedCount ?? 0,
+              issuesPerYear: row.issuesPerYear ?? '',
+              active: row.active ? 'Yes' : 'No',
+            })
+          }
+        } else {
+          sheet.columns = [
+            { header: 'Branch', key: 'branch', width: 25 },
+            { header: 'Magazine', key: 'magazine', width: 30 },
+            { header: 'Language', key: 'language', width: 15 },
+            { header: 'Cadence', key: 'cadence', width: 15 },
+            { header: 'Qty', key: 'qty', width: 8 },
+            { header: 'Active', key: 'active', width: 10 },
+          ]
+          for (const row of rows) {
+            sheet.addRow({
+              branch: row.branchName,
+              magazine: row.magazineName,
+              language: row.language,
+              cadence: CADENCE_LABELS[row.cadence as CadenceType],
+              qty: row.quantity,
+              active: row.active ? 'Yes' : 'No',
+            })
+          }
         }
         sheet.getRow(1).font = { bold: true }
         rowCount = rows.length

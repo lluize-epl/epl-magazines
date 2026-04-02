@@ -7,6 +7,7 @@ import { toLocalDate } from '@/lib/utils'
 import { Download } from 'lucide-react'
 import type {
   Branch,
+  SubscriptionPeriod,
   ReportFilters,
   ReportTab,
   ReportPeriod,
@@ -40,6 +41,8 @@ export interface ReportsClientProps {
   filters: ReportFilters
   /** Active branches for the branch filter dropdown. */
   branches: Branch[]
+  /** Subscription periods for the period filter dropdown. */
+  periods: SubscriptionPeriod[]
   /** Available magazine languages for the language filter dropdown. */
   languages: string[]
   /** Receipt summary rows (only populated when tab === 'receipts'). */
@@ -135,6 +138,7 @@ function fmt(date: Date | string | null): string {
 export default function ReportsClient({
   filters,
   branches,
+  periods,
   languages,
   receiptSummary,
   overdueReport,
@@ -156,9 +160,10 @@ export default function ReportsClient({
       period: filters.period,
       branch: filters.branch,
       language: filters.language,
+      ...(filters.periodId ? { periodId: filters.periodId } : {}),
       ...(filters.period === 'custom' ? {
-        from: format(filters.from, 'yyyy-MM-dd'),
-        to: format(filters.to, 'yyyy-MM-dd'),
+        from: filters.from.toISOString().split('T')[0],
+        to: filters.to.toISOString().split('T')[0],
       } : {}),
       ...overrides,
     }
@@ -182,6 +187,7 @@ export default function ReportsClient({
       params.set('from', format(filters.from, 'yyyy-MM-dd'))
       params.set('to', format(filters.to, 'yyyy-MM-dd'))
     }
+    if (filters.periodId) params.set('periodId', filters.periodId)
     return `/admin/reports/export?${params.toString()}`
   }
 
@@ -224,7 +230,7 @@ export default function ReportsClient({
           <button
             key={opt.value}
             onClick={() => router.push(buildUrl({ period: opt.value }))}
-            className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border"
+            className="px-3 py-1.5 rounded-full text-xs font-medium transition-all border cursor-pointer"
             style={{
               backgroundColor: filters.period === opt.value
                 ? 'oklch(0.38 0.082 156)'
@@ -248,8 +254,8 @@ export default function ReportsClient({
           <label className="text-sm" style={{ color: 'oklch(0.45 0.035 72)' }}>From</label>
           <Input
             type="date"
-            className="w-40"
-            value={format(filters.from, 'yyyy-MM-dd')}
+            className="w-40 cursor-pointer"
+            value={filters.from.toISOString().split('T')[0]}
             onChange={(e) => {
               if (e.target.value) {
                 router.push(buildUrl({ period: 'custom', from: e.target.value }))
@@ -259,8 +265,8 @@ export default function ReportsClient({
           <label className="text-sm" style={{ color: 'oklch(0.45 0.035 72)' }}>To</label>
           <Input
             type="date"
-            className="w-40"
-            value={format(filters.to, 'yyyy-MM-dd')}
+            className="w-40 cursor-pointer"
+            value={filters.to.toISOString().split('T')[0]}
             onChange={(e) => {
               if (e.target.value) {
                 router.push(buildUrl({ period: 'custom', to: e.target.value }))
@@ -270,13 +276,33 @@ export default function ReportsClient({
         </div>
       )}
 
-      {/* Branch + Language selects */}
+      {/* Subscription Period + Branch + Language selects */}
       <div className="flex items-center gap-3 mb-6">
+        {periods.length > 0 && (
+          <Select
+            value={filters.periodId ?? ''}
+            onValueChange={(v) => router.push(buildUrl({ periodId: v ?? '' }))}
+          >
+            <SelectTrigger className="cursor-pointer">
+              <SelectValue>
+                {filters.periodId
+                  ? periods.find((p) => p.id === filters.periodId)?.name ?? 'All Periods'
+                  : 'All Periods'}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {periods.map((p) => (
+                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+
         <Select
           value={filters.branch}
           onValueChange={(v) => router.push(buildUrl({ branch: v ?? 'all' }))}
         >
-          <SelectTrigger>
+          <SelectTrigger className="cursor-pointer">
             <SelectValue>
               {filters.branch === 'all'
                 ? 'All Branches'
@@ -295,7 +321,7 @@ export default function ReportsClient({
           value={filters.language}
           onValueChange={(v) => router.push(buildUrl({ language: v ?? 'all' }))}
         >
-          <SelectTrigger>
+          <SelectTrigger className="cursor-pointer">
             <SelectValue>
               {filters.language === 'all' ? 'All Languages' : filters.language}
             </SelectValue>
@@ -315,7 +341,7 @@ export default function ReportsClient({
           <button
             key={opt.value}
             onClick={() => router.push(buildUrl({ tab: opt.value }))}
-            className="px-4 py-2 text-sm font-medium transition-colors relative"
+            className="px-4 py-2 text-sm font-medium transition-colors relative cursor-pointer"
             style={{
               color: filters.tab === opt.value
                 ? 'oklch(0.38 0.082 156)'
@@ -651,21 +677,39 @@ function TransfersSection({ data }: { data: { rows: TransferReportRow[]; totalCo
   )
 }
 
-/** Renders the subscription overview table. */
+/** Renders the subscription overview table. Shows received/expected column in period mode. */
 function SubscriptionsTable({ rows }: { rows: SubscriptionReportRow[] | null }) {
   if (!rows || rows.length === 0) {
     return <EmptyState message="No subscriptions found" />
   }
+
+  // Detect period mode: any row has issuesPerYear set
+  const isPeriodMode = rows.some((r) => r.issuesPerYear !== undefined)
+  const headers = isPeriodMode
+    ? ['Branch', 'Magazine', 'Language', 'Cadence', 'Qty', 'Received / Expected', 'Status']
+    : ['Branch', 'Magazine', 'Language', 'Cadence', 'Qty', 'Status']
 
   return (
     <div
       className="rounded-lg border overflow-hidden"
       style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.978 0.009 88)' }}
     >
+      {isPeriodMode && rows[0]?.periodName && (
+        <div
+          className="px-4 py-2 text-xs font-medium border-b"
+          style={{
+            backgroundColor: 'oklch(0.963 0.012 91)',
+            borderColor: 'oklch(0.876 0.016 88)',
+            color: 'oklch(0.45 0.035 72)',
+          }}
+        >
+          Period: {rows[0].periodName}
+        </div>
+      )}
       <Table>
         <TableHeader>
           <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-            {['Branch', 'Magazine', 'Language', 'Cadence', 'Qty', 'Status'].map((h) => (
+            {headers.map((h) => (
               <TableHead key={h} className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>
                 {h}
               </TableHead>
@@ -711,6 +755,16 @@ function SubscriptionsTable({ rows }: { rows: SubscriptionReportRow[] | null }) 
                     {row.quantity}
                   </span>
                 </TableCell>
+                {isPeriodMode && (
+                  <TableCell>
+                    <span className="text-sm font-semibold" style={{ color: 'oklch(0.20 0.028 62)' }}>
+                      {row.receivedCount ?? 0}
+                    </span>
+                    <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
+                      {' '}/ {row.issuesPerYear ?? '?'}
+                    </span>
+                  </TableCell>
+                )}
                 <TableCell>
                   <Badge
                     variant="outline"

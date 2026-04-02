@@ -74,3 +74,38 @@ export function getMagazineStatus(
   if (isExpectedThisWeek(next)) return 'this_week'
   return 'upcoming'
 }
+
+/**
+ * Resolves magazine status considering subscription data.
+ * Priority: not_subscribed > completed > never_received > cadence-based status.
+ *
+ * @param lastReceivedDate - Most recent receipt date at the branch within the period
+ * @param cadence - Magazine's publication cadence
+ * @param receivedCount - Total receipts at the branch within the period's date range
+ * @param issuesPerYear - Expected issues from MagazineSubscription (null if not subscribed)
+ * @param periodStartDate - The subscription period's start date (used as initial anchor)
+ */
+export function getSubscriptionAwareStatus(
+  lastReceivedDate: Date | string | null,
+  cadence: CadenceType,
+  receivedCount: number,
+  issuesPerYear: number | null,
+  periodStartDate: Date | string,
+): MagazineStatus {
+  // No subscription for this period
+  if (issuesPerYear === null) return 'not_subscribed'
+
+  // All expected issues received
+  if (receivedCount >= issuesPerYear) return 'completed'
+
+  // Zero receipts — check if any expected date has passed
+  if (receivedCount === 0) {
+    const firstExpected = computeNextExpectedDate(periodStartDate, cadence)
+    if (firstExpected && isOverdue(firstExpected)) return 'never_received'
+    if (firstExpected && isExpectedThisWeek(firstExpected)) return 'this_week'
+    return 'upcoming'
+  }
+
+  // Has some receipts — use cadence from last receipt
+  return getMagazineStatus(lastReceivedDate, cadence)
+}

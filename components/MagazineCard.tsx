@@ -55,6 +55,20 @@ const STATUS_STYLES: Record<MagazineStatus, StatusStyle> = {
     icon: CalendarX,
     iconColor: 'oklch(0.65 0.020 72)',
   },
+  completed: {
+    border: 'oklch(0.80 0.08 155)',
+    bg: 'oklch(0.97 0.010 155)',
+    dot: 'oklch(0.45 0.10 155)',
+    icon: CalendarCheck,
+    iconColor: 'oklch(0.30 0.08 155)',
+  },
+  not_subscribed: {
+    border: 'oklch(0.876 0.016 88)',
+    bg: 'oklch(0.978 0.009 88)',
+    dot: 'oklch(0.70 0.020 88)',
+    icon: CalendarX,
+    iconColor: 'oklch(0.50 0.015 88)',
+  },
 }
 
 function fmt(date: Date | string | null): string {

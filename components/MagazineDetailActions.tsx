@@ -26,9 +26,13 @@ export interface MagazineDetailActionsProps {
   magazine: Pick<Magazine, 'id' | 'name'>
   activeBranchId: string
   pendingTransfer: PendingTransferInfo | null
+  /** Number of receipts recorded in the current period */
+  receivedCount: number
+  /** Expected issues from MagazineSubscription, or null if not subscribed */
+  issuesPerYear: number | null
 }
 
-export default function MagazineDetailActions({ magazine, activeBranchId, pendingTransfer }: MagazineDetailActionsProps) {
+export default function MagazineDetailActions({ magazine, activeBranchId, pendingTransfer, receivedCount, issuesPerYear }: MagazineDetailActionsProps) {
   const router = useRouter()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -103,7 +107,13 @@ export default function MagazineDetailActions({ magazine, activeBranchId, pendin
       >
         <CalendarCheck size={16} /> Mark Received
       </Button>
-      <MarkReceivedDialog magazine={magazine} activeBranchId={activeBranchId} open={dialogOpen} onOpenChange={setDialogOpen} />
+      <MarkReceivedDialog
+        magazine={magazine}
+        activeBranchId={activeBranchId}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        isCompleted={issuesPerYear !== null && receivedCount >= issuesPerYear}
+      />
     </>
   )
 }

@@ -4,7 +4,8 @@ import type { DashboardStatus, MagazineWithStatus, TransferWithDetails } from '@
 import { verifySession } from '@/lib/dal'
 import db from '@/lib/db'
 import { resolveActiveBranchId } from '@/lib/branch'
-import { computeNextExpectedDate, isOverdue, isExpectedThisWeek } from '@/lib/cadence'
+import { resolveActivePeriod } from '@/lib/period'
+import { computeNextExpectedDate, getSubscriptionAwareStatus } from '@/lib/cadence'
 import MagazineCard from '@/components/MagazineCard'
 import TransferCard from '@/components/TransferCard'
 import { AlertTriangle, Clock, BookOpen } from 'lucide-react'
@@ -46,7 +47,10 @@ type Buckets = Record<DashboardStatus, MagazineWithStatus[]>
 export default async function DashboardPage() {
   await verifySession()
 
-  const activeBranchId = await resolveActiveBranchId()
+  const [activeBranchId, activePeriod] = await Promise.all([
+    resolveActiveBranchId(),
+    resolveActivePeriod(),
+  ])
 
   // Fetch branch name for title
   const currentBranch = await db.branch.findUnique({
@@ -77,7 +81,7 @@ export default async function DashboardPage() {
   })
   const subscribedMagazineIds = branchSubscriptions.map((s) => s.magazineId)
 
-  // Fetch only those magazines with branch-specific receipts
+  // Fetch only those magazines with branch-specific receipts (most recent)
   const magazines = await db.magazine.findMany({
     where: {
       id: { in: subscribedMagazineIds },
@@ -94,22 +98,62 @@ export default async function DashboardPage() {
     orderBy: { name: 'asc' },
   })
 
-  const processed = magazines
-    .filter((mag) => !suppressedMagazineIds.has(mag.id))
-    .map((mag) => {
+  // Period date boundaries
+  const periodStart = new Date(activePeriod.startDate)
+  const periodEnd = new Date(activePeriod.endDate)
+
+  // Build per-magazine status using subscription-aware logic
+  const processed: MagazineWithStatus[] = []
+  let completedCount = 0
+  let totalSubscribed = 0
+
+  for (const mag of magazines) {
+    if (suppressedMagazineIds.has(mag.id)) continue
+
+    // Fetch subscription for this magazine in the active period
+    const subscription = await db.magazineSubscription.findUnique({
+      where: { magazineId_periodId: { magazineId: mag.id, periodId: activePeriod.id } },
+      select: { issuesPerYear: true, active: true },
+    })
+
+    // Count receipts within the period's date range
+    const periodReceipts = await db.issueReceipt.count({
+      where: {
+        magazineId: mag.id,
+        branchId: activeBranchId,
+        receivedDate: { gte: periodStart, lte: periodEnd },
+      },
+    })
+
+    const issuesPerYear = subscription?.active ? subscription.issuesPerYear : null
+
+    // Track totals for progress bar (only magazines with active subscriptions)
+    if (issuesPerYear !== null) {
+      totalSubscribed++
       const lastReceipt = mag.receipts[0] ?? null
       const lastReceivedDate = lastReceipt?.receivedDate ?? null
-      const nextExpectedDate = computeNextExpectedDate(lastReceivedDate, mag.cadence)
-      const status = isOverdue(nextExpectedDate)
-        ? 'overdue' as const
-        : isExpectedThisWeek(nextExpectedDate)
-          ? 'this_week' as const
-          : null
-      if (!status) return null
-      const { receipts: _receipts, ...rest } = mag
-      return { ...rest, lastReceivedDate, nextExpectedDate, status } as MagazineWithStatus
-    })
-    .filter((m): m is MagazineWithStatus => m !== null)
+      const status = getSubscriptionAwareStatus(
+        lastReceivedDate,
+        mag.cadence,
+        periodReceipts,
+        issuesPerYear,
+        activePeriod.startDate,
+      )
+
+      if (status === 'completed') {
+        completedCount++
+        continue // Don't show completed on dashboard
+      }
+
+      if (status === 'overdue' || status === 'this_week') {
+        const anchor = lastReceivedDate ?? activePeriod.startDate
+        const nextExpectedDate = computeNextExpectedDate(anchor, mag.cadence)
+        const { receipts: _receipts, ...rest } = mag
+        processed.push({ ...rest, lastReceivedDate, nextExpectedDate, status })
+      }
+      // 'upcoming', 'never_received', 'not_subscribed' are excluded from dashboard
+    }
+  }
 
   const buckets: Buckets = {
     this_week: processed.filter((m) => m.status === 'this_week'),
@@ -145,6 +189,27 @@ export default async function DashboardPage() {
             </span>
           )}
         </p>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mb-6 rounded-xl border p-4" style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.978 0.009 88)' }}>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-medium" style={{ color: 'oklch(0.30 0.028 62)' }}>
+            Subscription Progress — {activePeriod.name}
+          </span>
+          <span className="text-sm font-bold" style={{ color: 'oklch(0.38 0.082 156)' }}>
+            {completedCount}/{totalSubscribed}
+          </span>
+        </div>
+        <div className="w-full h-2 rounded-full" style={{ backgroundColor: 'oklch(0.90 0.012 88)' }}>
+          <div
+            className="h-2 rounded-full transition-all"
+            style={{
+              width: `${totalSubscribed > 0 ? (completedCount / totalSubscribed) * 100 : 0}%`,
+              backgroundColor: 'oklch(0.38 0.082 156)',
+            }}
+          />
+        </div>
       </div>
 
       {/* Summary pills */}

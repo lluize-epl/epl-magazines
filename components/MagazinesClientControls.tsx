@@ -34,6 +34,8 @@ const FILTER_OPTIONS = [
   { value: 'this_week', label: 'This Week' },
   { value: 'upcoming', label: 'Upcoming' },
   { value: 'never_received', label: 'Never Received' },
+  { value: 'completed', label: 'Completed' },
+  { value: 'not_subscribed', label: 'Not Subscribed' },
 ] as const
 
 function FilterBar({ currentFilter }: { currentFilter: string }) {

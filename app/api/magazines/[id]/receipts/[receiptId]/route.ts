@@ -9,8 +9,7 @@ type RouteContext = { params: Promise<{ id: string; receiptId: string }> }
 
 /**
  * PUT /api/magazines/[id]/receipts/[receiptId]
- * Edits a specific receipt. Admin only.
- * Body: { receivedDate?: string, branchId?: string, notes?: string | null }
+ * Edit a specific receipt's date, branch, or notes. Admin only.
  */
 export async function PUT(request: NextRequest, { params }: RouteContext): Promise<Response> {
   const session = await verifySessionForApi()
@@ -23,78 +22,63 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
     const parsed = editReceiptSchema.safeParse(body)
     if (!parsed.success) return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
 
-    const data = parsed.data
-
-    // Fetch the existing receipt, verify it belongs to this magazine
     const receipt = await db.issueReceipt.findUnique({
       where: { id: receiptId },
-      include: {
-        magazine: { select: { name: true } },
-        branch: { select: { name: true } },
-      },
+      include: { branch: { select: { name: true } }, magazine: { select: { name: true } } },
     })
     if (!receipt || receipt.magazineId !== id) {
       return Response.json({ error: 'Receipt not found' }, { status: 404 })
     }
 
-    // If branchId is provided, verify the branch exists
-    let newBranchName: string | null = null
-    if (data.branchId) {
-      const branch = await db.branch.findUnique({ where: { id: data.branchId }, select: { name: true } })
-      if (!branch) return Response.json({ error: 'Branch not found' }, { status: 404 })
-      newBranchName = branch.name
+    const data: Record<string, unknown> = {}
+    const changes: string[] = []
+
+    if (parsed.data.receivedDate !== undefined) {
+      const dateStr = parsed.data.receivedDate.split('T')[0]
+      const newDate = new Date(dateStr + 'T12:00:00Z')
+      const oldDate = receipt.receivedDate.toISOString().split('T')[0]
+      const newDateStr = newDate.toISOString().split('T')[0]
+      if (oldDate !== newDateStr) {
+        data.receivedDate = newDate
+        changes.push(`receivedDate: ${oldDate} → ${newDateStr}`)
+      }
     }
 
-    // Build update payload
-    const updateData: { receivedDate?: Date; branchId?: string; notes?: string | null } = {}
-    if (data.receivedDate !== undefined) {
-      const dateStr = data.receivedDate
-      updateData.receivedDate = dateStr.includes('T')
-        ? new Date(dateStr)
-        : new Date(dateStr + 'T12:00:00Z')
+    if (parsed.data.branchId !== undefined && parsed.data.branchId !== receipt.branchId) {
+      const branch = await db.branch.findUnique({ where: { id: parsed.data.branchId }, select: { name: true } })
+      if (!branch) return Response.json({ error: 'Branch not found' }, { status: 404 })
+      data.branchId = parsed.data.branchId
+      changes.push(`branch: ${receipt.branch?.name ?? '—'} → ${branch.name}`)
     }
-    if (data.branchId !== undefined) updateData.branchId = data.branchId
-    if (data.notes !== undefined) updateData.notes = data.notes?.trim() || null
+
+    if (parsed.data.notes !== undefined) {
+      const newNotes = parsed.data.notes?.trim() || null
+      if (newNotes !== receipt.notes) {
+        data.notes = newNotes
+        changes.push(`notes: ${receipt.notes ?? '—'} → ${newNotes ?? '—'}`)
+      }
+    }
+
+    if (Object.keys(data).length === 0) {
+      return Response.json({ message: 'No changes' })
+    }
 
     const updated = await withRetry(() => db.issueReceipt.update({
       where: { id: receiptId },
-      data: updateData,
+      data,
       include: {
         receivedBy: { select: { name: true } },
         branch: { select: { name: true, code: true } },
       },
     }))
 
-    // Build audit changes string
-    const changes: string[] = []
-    if (data.receivedDate !== undefined) {
-      const oldDate = receipt.receivedDate.toISOString().split('T')[0]
-      const newDate = data.receivedDate.split('T')[0]
-      if (oldDate !== newDate) changes.push(`receivedDate: ${oldDate} \u2192 ${newDate}`)
-    }
-    if (data.branchId !== undefined && data.branchId !== receipt.branchId) {
-      const oldBranch = receipt.branch?.name ?? 'none'
-      changes.push(`branch: ${oldBranch} \u2192 ${newBranchName}`)
-    }
-    if (data.notes !== undefined) {
-      const oldNotes = receipt.notes ?? 'null'
-      const newNotes = data.notes?.trim() || 'null'
-      if (oldNotes !== newNotes) changes.push(`notes: ${oldNotes} \u2192 ${newNotes}`)
-    }
-
-    if (changes.length > 0) {
-      auditLog(session.userId, 'RECEIPT_EDITED', {
-        magazineName: receipt.magazine.name,
-        changes: changes.join(', '),
-      })
-    }
+    auditLog(session.userId, 'RECEIPT_EDITED', {
+      magazineName: receipt.magazine.name,
+      changes: changes.join(', '),
+    })
 
     return Response.json(updated)
   } catch (err) {
-    const e = err as { code?: string; message?: string }
-    if (e?.code === 'SQLITE_BUSY' || e?.code === 'SQLITE_LOCKED' || (e?.message ?? '').includes('database is locked')) {
-      return Response.json({ error: 'Database is busy, please try again' }, { status: 503 })
-    }
     console.error('Edit receipt error:', err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
@@ -102,8 +86,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
 
 /**
  * DELETE /api/magazines/[id]/receipts/[receiptId]
- * Deletes a specific receipt. Admin only.
- * Returns 204 on success.
+ * Delete a specific receipt. Admin only.
  */
 export async function DELETE(_request: NextRequest, { params }: RouteContext): Promise<Response> {
   const session = await verifySessionForApi()
@@ -113,7 +96,6 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext): P
   try {
     const { id, receiptId } = await params
 
-    // Fetch the receipt, verify it belongs to this magazine
     const receipt = await db.issueReceipt.findUnique({
       where: { id: receiptId },
       include: {
@@ -130,15 +112,11 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext): P
     auditLog(session.userId, 'RECEIPT_DELETED', {
       magazineName: receipt.magazine.name,
       receivedDate: receipt.receivedDate.toISOString().split('T')[0],
-      branchName: receipt.branch?.name ?? 'unknown',
+      branchName: receipt.branch?.name ?? '—',
     })
 
     return new Response(null, { status: 204 })
   } catch (err) {
-    const e = err as { code?: string; message?: string }
-    if (e?.code === 'SQLITE_BUSY' || e?.code === 'SQLITE_LOCKED' || (e?.message ?? '').includes('database is locked')) {
-      return Response.json({ error: 'Database is busy, please try again' }, { status: 503 })
-    }
     console.error('Delete receipt error:', err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }

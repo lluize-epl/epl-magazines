@@ -419,7 +419,7 @@ async function main() {
   const admin = await db.user.create({
     data: {
       name: 'Library Admin',
-      email: 'admin@library.org',
+      username: 'admin',
       passwordHash: adminHash,
       role: 'ADMIN',
     },
@@ -429,13 +429,13 @@ async function main() {
   const staff = await db.user.create({
     data: {
       name: 'Jane Smith',
-      email: 'staff@library.org',
+      username: 'janesmith',
       passwordHash: staffHash,
       role: 'STAFF',
     },
   })
   const users = [admin, staff]
-  console.log('Users: admin@library.org / admin1234, staff@library.org / staff1234')
+  console.log('Users: admin / admin1234, janesmith / staff1234')
 
   // ---- Step 2: Branches ----
 

@@ -26,6 +26,9 @@ export interface AdminMagazinesClientProps {
   branchId: string
   branches: Branch[]
   search?: string
+  /** Magazine IDs that have an active MagazineSubscription for the selected period */
+
+  /** Human-readable name of the active subscription period */
 }
 
 export default function AdminMagazinesClient({ magazines, branchId, branches, search }: AdminMagazinesClientProps) {

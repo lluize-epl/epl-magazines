@@ -10,7 +10,7 @@ datasource db {
 model User {
   id           String         @id @default(cuid())
   name         String
-  email        String         @unique
+  username     String         @unique
   passwordHash String
   role         Role           @default(STAFF)
   active       Boolean        @default(true)
@@ -35,9 +35,10 @@ model Magazine {
   notes     String?
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
-  receipts  IssueReceipt[]
-  branches  BranchMagazine[]
-  transfers Transfer[]
+  receipts      IssueReceipt[]
+  branches      BranchMagazine[]
+  transfers     Transfer[]
+  subscriptions MagazineSubscription[]
 }
 
 enum Cadence {
@@ -112,4 +113,27 @@ model Transfer {
   createdAt      DateTime       @default(now())
   completedAt    DateTime?
   cancelledAt    DateTime?
+}
+
+model SubscriptionPeriod {
+  id            String                 @id @default(cuid())
+  name          String                 @unique
+  startDate     DateTime
+  endDate       DateTime
+  active        Boolean                @default(true)
+  createdAt     DateTime               @default(now())
+  subscriptions MagazineSubscription[]
+}
+
+model MagazineSubscription {
+  id            String             @id @default(cuid())
+  magazine      Magazine           @relation(fields: [magazineId], references: [id])
+  magazineId    String
+  period        SubscriptionPeriod @relation(fields: [periodId], references: [id])
+  periodId      String
+  issuesPerYear Int
+  active        Boolean            @default(true)
+  createdAt     DateTime           @default(now())
+
+  @@unique([magazineId, periodId])
 }

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/dal'
 import { getActiveBranches, resolveActiveBranchId } from '@/lib/branch'
+import { getSubscriptionPeriods, resolveActivePeriodId } from '@/lib/period'
 import Sidebar from '@/components/Sidebar'
 
 interface LayoutProps {
@@ -9,10 +10,12 @@ interface LayoutProps {
 }
 
 export default async function DashboardLayout({ children }: LayoutProps) {
-  const [user, branches, activeBranchId, cookieStore] = await Promise.all([
+  const [user, branches, activeBranchId, periods, activePeriodId, cookieStore] = await Promise.all([
     getUser(),
     getActiveBranches(),
     resolveActiveBranchId(),
+    getSubscriptionPeriods(),
+    resolveActivePeriodId(),
     cookies(),
   ])
 
@@ -24,6 +27,8 @@ export default async function DashboardLayout({ children }: LayoutProps) {
         user={user}
         branches={branches}
         activeBranchId={activeBranchId}
+        periods={periods}
+        activePeriodId={activePeriodId}
         defaultCollapsed={sidebarCollapsed}
       />
       <main

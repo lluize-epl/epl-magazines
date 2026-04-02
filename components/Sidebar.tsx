@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
-import type { AuthUser, Branch } from '@/types'
+import type { AuthUser, Branch, SubscriptionPeriod } from '@/types'
 import BranchSelector from './BranchSelector'
+import PeriodSelector from './PeriodSelector'
 import {
   LayoutDashboard,
   BookOpen,
@@ -17,6 +18,7 @@ import {
   BookMarked,
   ArrowLeftRight,
   BarChart3,
+  CalendarRange,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -26,6 +28,8 @@ export interface SidebarProps {
   user: AuthUser
   branches: Branch[]
   activeBranchId: string
+  periods: SubscriptionPeriod[]
+  activePeriodId: string
   defaultCollapsed?: boolean
 }
 
@@ -47,6 +51,7 @@ const navItems: NavItem[] = [
 ]
 
 const adminItems: NavItem[] = [
+  { href: '/admin/subscriptions', label: 'Subscriptions', icon: CalendarRange },
   { href: '/admin/magazines', label: 'Manage Magazines', icon: BookMarked },
   { href: '/admin/transfers', label: 'Transfers', icon: ArrowLeftRight },
   { href: '/admin/reports', label: 'Reports', icon: BarChart3 },
@@ -54,7 +59,7 @@ const adminItems: NavItem[] = [
   { href: '/log', label: 'Audit Log', icon: ScrollText },
 ]
 
-export default function Sidebar({ user, branches, activeBranchId, defaultCollapsed }: SidebarProps) {
+export default function Sidebar({ user, branches, activeBranchId, periods, activePeriodId, defaultCollapsed }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(defaultCollapsed ?? false)
@@ -204,9 +209,10 @@ export default function Sidebar({ user, branches, activeBranchId, defaultCollaps
       </nav>
       </TooltipProvider>
 
-      {/* Branch selector + user info + logout */}
+      {/* Period selector + Branch selector */}
       {!collapsed && (
         <div className="border-t mt-auto" style={{ borderColor: 'oklch(0.30 0.04 158)' }}>
+          <PeriodSelector periods={periods} activePeriodId={activePeriodId} />
           <BranchSelector branches={branches} activeBranchId={activeBranchId} />
         </div>
       )}

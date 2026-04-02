@@ -925,6 +925,12 @@ def main():
             # Likely a typo: fix year to 2025
             r["date"] = "2025" + r["date"][4:]
 
+    # Filter out receipts before the subscription start date (2025-06-01)
+    from datetime import date as date_type
+    SUBSCRIPTION_START = date_type(2025, 6, 1)
+    deduped = [r for r in deduped if r['date'] >= SUBSCRIPTION_START.isoformat()]
+    print(f"After filtering >= {SUBSCRIPTION_START}: {len(deduped)} receipts")
+
     # Sort by date, then magazine, then branch
     deduped.sort(key=lambda r: (r["date"], r["magazine"], r["branch"]))
 

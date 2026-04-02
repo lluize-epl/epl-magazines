@@ -53,7 +53,7 @@ export const getUser = cache(async (): Promise<AuthUser> => {
     select: {
       id: true,
       name: true,
-      email: true,
+      username: true,
       role: true,
       active: true,
     },

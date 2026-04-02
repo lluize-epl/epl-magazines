@@ -24,9 +24,11 @@ export interface MarkReceivedDialogProps {
   activeBranchId: string
   open: boolean
   onOpenChange: (open: boolean) => void
+  /** Whether all expected issues for the period have been received */
+  isCompleted?: boolean
 }
 
-export default function MarkReceivedDialog({ magazine, activeBranchId, open, onOpenChange }: MarkReceivedDialogProps) {
+export default function MarkReceivedDialog({ magazine, activeBranchId, open, onOpenChange, isCompleted = false }: MarkReceivedDialogProps) {
   const router = useRouter()
   const today = format(new Date(), 'yyyy-MM-dd')
   const [receivedDate, setReceivedDate] = useState(today)
@@ -102,6 +104,12 @@ export default function MarkReceivedDialog({ magazine, activeBranchId, open, onO
               rows={3}
             />
           </div>
+
+          {isCompleted && (
+            <div className="rounded-md p-3 mb-4 text-sm" style={{ backgroundColor: 'oklch(0.95 0.06 85 / 0.3)', color: 'oklch(0.35 0.06 85)' }}>
+              All expected issues for this period have been received. Is this an extra or replacement copy?
+            </div>
+          )}
 
           <DialogFooter>
             <Button
