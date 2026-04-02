@@ -70,6 +70,20 @@ export default async function SubscriptionPeriodDetailPage({ params, searchParam
   })
   const allMagazineNames = allSubMagazines.map((s) => s.magazine)
 
+  // Build branch map for each subscribed magazine: magazineId → ["ML", "NE", ...]
+  const branchMagazines = await db.branchMagazine.findMany({
+    where: {
+      magazineId: { in: subscriptions.map((s) => s.magazineId) },
+      active: true,
+    },
+    select: { magazineId: true, branch: { select: { code: true } } },
+  })
+  const branchesPerMagazine: Record<string, string[]> = {}
+  for (const bm of branchMagazines) {
+    if (!branchesPerMagazine[bm.magazineId]) branchesPerMagazine[bm.magazineId] = []
+    branchesPerMagazine[bm.magazineId].push(bm.branch.code)
+  }
+
   // Magazines available to add (active, not yet in this period)
   const subscribedMagazineIds = await db.magazineSubscription.findMany({
     where: { periodId: id },
@@ -151,6 +165,7 @@ export default async function SubscriptionPeriodDetailPage({ params, searchParam
         subscriptions={subscriptions}
         availableMagazines={availableMagazines}
         search={search}
+        branchesPerMagazine={branchesPerMagazine}
       />
 
       {/* Pagination */}

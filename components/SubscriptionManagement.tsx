@@ -37,6 +37,8 @@ export interface SubscriptionManagementProps {
   availableMagazines: MagazineOption[]
   /** Current search term */
   search: string
+  /** Map of magazineId → branch codes (e.g., ["MAIN", "NORTH"]) */
+  branchesPerMagazine: Record<string, string[]>
 }
 
 /** Client component for managing magazine subscriptions within a period. */
@@ -45,6 +47,7 @@ export default function SubscriptionManagement({
   subscriptions,
   availableMagazines,
   search,
+  branchesPerMagazine,
 }: SubscriptionManagementProps) {
   const router = useRouter()
 
@@ -173,7 +176,7 @@ export default function SubscriptionManagement({
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                {['Magazine', 'Language', 'Cadence', 'Issues/Year', 'Status', 'Actions'].map((h) => (
+                {['Magazine', 'Language', 'Cadence', 'At Branches', 'Issues/Year', 'Status', 'Actions'].map((h) => (
                   <TableHead
                     key={h}
                     className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
@@ -207,6 +210,13 @@ export default function SubscriptionManagement({
                   <TableCell style={{ opacity: sub.active ? 1 : 0.55 }}>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
                       {CADENCE_LABELS[sub.magazine.cadence as CadenceType] ?? sub.magazine.cadence}
+                    </span>
+                  </TableCell>
+                  <TableCell style={{ opacity: sub.active ? 1 : 0.55 }}>
+                    <span className="text-xs font-mono" style={{ color: 'oklch(0.45 0.035 72)' }}>
+                      {(branchesPerMagazine[sub.magazineId] ?? [])
+                        .map((c) => c === 'MAIN' ? 'ML' : c === 'NORTH' ? 'NE' : c)
+                        .join(' | ') || '—'}
                     </span>
                   </TableCell>
                   <TableCell style={{ opacity: sub.active ? 1 : 0.55 }}>
