@@ -174,11 +174,11 @@ async function main() {
   // Users — single admin for initial deployment
   const adminHash = await bcrypt.hash('magTech', 10)
   const admin = await db.user.upsert({
-    where: { email: 'magapp@edisonpubliclibrary.org' },
+    where: { username: 'magapp' },
     update: {},
     create: {
       name: 'Tech Admin',
-      email: 'magapp@edisonpubliclibrary.org',
+      username: 'magapp',
       passwordHash: adminHash,
       role: 'ADMIN',
     },

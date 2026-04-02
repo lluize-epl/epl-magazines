@@ -99,7 +99,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
         </div>
         <div>
           <p className="text-lg font-medium" style={{ color: 'oklch(0.15 0.028 62)' }}>{user.name}</p>
-          <p className="text-sm" style={{ color: 'oklch(0.50 0.035 72)' }}>{user.email}</p>
+          <p className="text-sm" style={{ color: 'oklch(0.50 0.035 72)' }}>{user.username}</p>
           <Badge
             variant="outline"
             className="text-xs mt-1 border-0"

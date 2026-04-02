@@ -28,7 +28,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
     ? {
         OR: [
           { name: { contains: search } },
-          { email: { contains: search } },
+          { username: { contains: search } },
         ],
       }
     : {}
@@ -46,7 +46,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
     select: {
       id: true,
       name: true,
-      email: true,
+      username: true,
       role: true,
       active: true,
       createdAt: true,

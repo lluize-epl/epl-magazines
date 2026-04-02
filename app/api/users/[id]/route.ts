@@ -28,9 +28,9 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
     if (!parsed.success) return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
     const validFields = parsed.data
 
-    const targetUser = await db.user.findUnique({ where: { id }, select: { name: true, email: true } })
+    const targetUser = await db.user.findUnique({ where: { id }, select: { name: true, username: true } })
     await withRetry(() => db.user.update({ where: { id }, data: validFields }))
-    auditLog(session.userId, 'USER_UPDATED', { targetUserName: targetUser?.name, targetEmail: targetUser?.email, changes: Object.keys(validFields).join(',') })
+    auditLog(session.userId, 'USER_UPDATED', { targetUserName: targetUser?.name, targetUsername: targetUser?.username, changes: Object.keys(validFields).join(',') })
     return Response.json({ success: true })
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
@@ -61,7 +61,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext): P
     }
 
     const user = await withRetry(() => db.user.delete({ where: { id } }))
-    auditLog(session.userId, 'USER_DELETED', { deletedUserName: user.name, email: user.email })
+    auditLog(session.userId, 'USER_DELETED', { deletedUserName: user.name, username: user.username })
     return Response.json({ success: true })
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {

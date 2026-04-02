@@ -103,7 +103,7 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                {['Name', 'Email', 'Role', 'Receipts', 'Joined', 'Actions'].map((h) => (
+                {['Name', 'Username', 'Role', 'Receipts', 'Joined', 'Actions'].map((h) => (
                   <TableHead
                     key={h}
                     className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
@@ -144,7 +144,7 @@ export default function AdminUsersClient({ users, currentUserId, search }: Admin
                     </div>
                   </TableCell>
                   <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
-                    <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>{user.email}</span>
+                    <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>{user.username}</span>
                   </TableCell>
                   <TableCell style={{ opacity: user.active ? 1 : 0.55 }}>
                     <Badge
