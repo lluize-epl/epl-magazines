@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { addDays } from 'date-fns'
 import { getUser } from '@/lib/dal'
 import { getActiveBranchId, getActiveBranches } from '@/lib/branch'
-import { resolveActivePeriod } from '@/lib/period'
+
 import db from '@/lib/db'
 import { computeNextExpectedDate } from '@/lib/cadence'
 import AdminMagazinesClient from '@/components/AdminMagazinesClient'
@@ -39,15 +39,6 @@ export default async function AdminMagazinesPage({ searchParams }: PageProps) {
 
   const branches = await getActiveBranches()
   const currentBranch = branches.find((b) => b.id === branchId)
-
-  const activePeriod = await resolveActivePeriod()
-
-  // Fetch all magazine IDs with an active MagazineSubscription for the current period
-  const periodSubscriptions = await db.magazineSubscription.findMany({
-    where: { periodId: activePeriod.id, active: true },
-    select: { magazineId: true },
-  })
-  const subscribedMagazineIds = new Set(periodSubscriptions.map((s) => s.magazineId))
 
   // Build combined magazine where clause
   const magazineWhere: Record<string, unknown> = {}
@@ -235,8 +226,6 @@ export default async function AdminMagazinesPage({ searchParams }: PageProps) {
         branchId={branchId}
         branches={branches}
         search={search}
-        subscribedMagazineIds={[...subscribedMagazineIds]}
-        periodName={activePeriod.name}
       />
 
       {/* Pagination */}

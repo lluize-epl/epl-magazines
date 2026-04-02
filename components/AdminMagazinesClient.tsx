@@ -27,13 +27,11 @@ export interface AdminMagazinesClientProps {
   branches: Branch[]
   search?: string
   /** Magazine IDs that have an active MagazineSubscription for the selected period */
-  subscribedMagazineIds?: string[]
+
   /** Human-readable name of the active subscription period */
-  periodName?: string
 }
 
-export default function AdminMagazinesClient({ magazines, branchId, branches, search, subscribedMagazineIds, periodName }: AdminMagazinesClientProps) {
-  const subscribedSet = new Set(subscribedMagazineIds ?? [])
+export default function AdminMagazinesClient({ magazines, branchId, branches, search }: AdminMagazinesClientProps) {
   const router = useRouter()
   const [createOpen, setCreateOpen] = useState(false)
   const [editTarget, setEditTarget] = useState<BranchMagazineWithDetails | null>(null)
@@ -99,7 +97,7 @@ export default function AdminMagazinesClient({ magazines, branchId, branches, se
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                {['Name', 'Cadence', 'Qty', 'Total Deliveries', 'Last Received', 'Next Expected', 'Notes', periodName ?? 'Period', 'Status', 'Actions'].map((h) => (
+                {['Name', 'Cadence', 'Qty', 'Total Deliveries', 'Last Received', 'Next Expected', 'Notes', 'Status', 'Actions'].map((h) => (
                   <TableHead
                     key={h}
                     className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
@@ -170,33 +168,6 @@ export default function AdminMagazinesClient({ magazines, branchId, branches, se
                     <span className="text-sm italic" style={{ color: 'oklch(0.55 0.030 72)' }}>
                       {sub.magazine.notes || '—'}
                     </span>
-                  </TableCell>
-                  <TableCell>
-                    {subscribedSet.has(sub.magazineId) ? (
-                      <Badge
-                        variant="outline"
-                        className="text-xs"
-                        style={{
-                          backgroundColor: 'oklch(0.38 0.082 156 / 0.10)',
-                          color: 'oklch(0.30 0.082 156)',
-                          borderColor: 'oklch(0.38 0.082 156 / 0.30)',
-                        }}
-                      >
-                        Subscribed
-                      </Badge>
-                    ) : (
-                      <Badge
-                        variant="outline"
-                        className="text-xs"
-                        style={{
-                          backgroundColor: 'oklch(0.94 0.006 88)',
-                          color: 'oklch(0.55 0.025 72)',
-                          borderColor: 'oklch(0.80 0.012 88)',
-                        }}
-                      >
-                        Not Subscribed
-                      </Badge>
-                    )}
                   </TableCell>
                   <TableCell>
                     <TooltipProvider>
