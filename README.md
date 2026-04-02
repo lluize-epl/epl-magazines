@@ -11,12 +11,15 @@
 ## 🌟 Highlights
 
 - Track periodical magazine receipts across multiple library branches
-- Automatic overdue detection based on each magazine's publication cadence (weekly, bi-weekly, monthly, bi-monthly, seasonal, yearly)
-- Dashboard view with at-a-glance status: overdue, expected this week, and upcoming
-- Role-based access control — staff mark receipts, admins manage magazines and users
-- Admin data reports: Oversight, Accountability, and Operations metrics
+- **Subscription period tracking** — manage EBSCO billing cycles with issues/year per magazine
+- **Subscription-aware status** — completed, overdue, expected this week, upcoming, never received, not subscribed
+- **Dashboard progress bar** — see "87/124 complete for 2025-2026" at a glance
+- Automatic overdue detection based on each magazine's publication cadence
+- Role-based access control — staff mark receipts, admins manage magazines, subscriptions, and users
+- Admin data reports with subscription period filtering and .xlsx export
 - Full audit logging of every meaningful action
 - Inter-branch magazine transfers with full lifecycle tracking (pending, completed, cancelled)
+- Receipt edit/delete for admins — correct dates, branches, or notes directly from the UI
 - Docker health monitoring with automatic container restart on failure
 - Safe database migration script with automatic backup and test-on-copy
 - Zero external dependencies beyond the app itself — SQLite database, file-based logs, no third-party services
@@ -90,11 +93,11 @@ Back up by copying `prisma/dev.db` and `logs/audit.log`. Before applying schema 
 
 ## 🚀 Usage
 
-1. **Log in** with your credentials at `/login`
-2. **Select your branch** from the branch selector in the sidebar
-3. **View the dashboard** to see overdue, expected this week, and upcoming magazines
-4. **Mark a magazine as received** from the magazines list when it arrives
-5. **Admin users** can manage magazines, users, and view the audit log from the admin panel
+1. **Log in** with your username and password at `/login`
+2. **Select your subscription period** and **branch** from the sidebar selectors
+3. **View the dashboard** to see the progress bar, overdue, and expected this week
+4. **Mark a magazine as received** from the magazines list or magazine detail page
+5. **Admin users** can manage magazines, subscriptions, users, and view reports from the admin panel
 
 ### Staff Workflow
 
@@ -109,12 +112,15 @@ Back up by copying `prisma/dev.db` and `logs/audit.log`. Before applying schema 
 
 | Action | Where |
 |---|---|
+| Create/manage subscription periods | Admin > Subscriptions (`/admin/subscriptions`) |
+| Manage magazine subscriptions per period | Admin > Subscriptions > [Period] (`/admin/subscriptions/[id]`) |
 | Create, edit, or deactivate magazines | Admin > Magazines (`/admin/magazines`) |
 | Filter magazines by cadence, language, or status | Admin > Magazines (`/admin/magazines`) |
+| Edit or delete receipt records | Magazine detail (`/magazines/[id]`) — pencil/trash icons |
 | Manage inter-branch transfers | Admin > Transfers (`/admin/transfers`) |
 | Manage users | Admin > Users (`/admin/users`) |
 | View audit log | Log (`/log`) |
-| View data reports (Oversight, Accountability, Operations) | Admin > Reports (`/admin/reports`) |
+| View period-scoped reports with .xlsx export | Admin > Reports (`/admin/reports`) |
 
 
 ## ✍️ Authors
