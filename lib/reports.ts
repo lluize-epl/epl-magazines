@@ -127,10 +127,10 @@ export function parseReportFilters(
   // Parse custom date range if provided; fall back to current month boundaries
   const now = new Date()
   const customFrom = params['from']
-    ? new Date(params['from'] as string)
+    ? new Date((params['from'] as string).split('T')[0] + 'T12:00:00Z')
     : startOfMonth(now)
   const customTo = params['to']
-    ? new Date(params['to'] as string)
+    ? new Date((params['to'] as string).split('T')[0] + 'T12:00:00Z')
     : endOfMonth(now)
 
   const { from, to } = resolveDateRange(period, customFrom, customTo)

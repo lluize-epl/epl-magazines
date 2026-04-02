@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { getUser } from '@/lib/dal'
 import { getActiveBranches } from '@/lib/branch'
-import { resolveActivePeriodId } from '@/lib/period'
+import { resolveActivePeriodId, getSubscriptionPeriods } from '@/lib/period'
 import {
   parseReportFilters,
   getReceiptSummary,
@@ -33,17 +33,20 @@ export default async function AdminReportsPage({ searchParams }: PageProps) {
 
   const params = await searchParams
 
-  // Resolve the active subscription period and inject it into filters
-  // so all report queries default to the period's date range.
-  let activePeriodId: string | undefined
-  try {
-    activePeriodId = await resolveActivePeriodId()
-  } catch {
-    // No periods exist yet — fall back to date-preset-only mode
-    activePeriodId = undefined
+  // Resolve subscription periods for the dropdown
+  const periods = await getSubscriptionPeriods()
+  let selectedPeriodId: string | undefined
+  if (typeof params['periodId'] === 'string' && periods.some((p) => p.id === params['periodId'])) {
+    selectedPeriodId = params['periodId'] as string
+  } else {
+    try {
+      selectedPeriodId = await resolveActivePeriodId()
+    } catch {
+      selectedPeriodId = undefined
+    }
   }
 
-  const filters = parseReportFilters({ ...params, periodId: activePeriodId })
+  const filters = parseReportFilters({ ...params, periodId: selectedPeriodId })
   const branches = await getActiveBranches()
   const languages = await getAvailableLanguages()
 
@@ -78,6 +81,7 @@ export default async function AdminReportsPage({ searchParams }: PageProps) {
         filters={filters}
         branches={branches}
         languages={languages}
+        periods={periods}
         receiptSummary={receiptSummary}
         overdueReport={overdueReport}
         transferReport={transferReport}

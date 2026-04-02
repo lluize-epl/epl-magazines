@@ -7,6 +7,7 @@ import { toLocalDate } from '@/lib/utils'
 import { Download } from 'lucide-react'
 import type {
   Branch,
+  SubscriptionPeriod,
   ReportFilters,
   ReportTab,
   ReportPeriod,
@@ -40,6 +41,8 @@ export interface ReportsClientProps {
   filters: ReportFilters
   /** Active branches for the branch filter dropdown. */
   branches: Branch[]
+  /** Subscription periods for the period filter dropdown. */
+  periods: SubscriptionPeriod[]
   /** Available magazine languages for the language filter dropdown. */
   languages: string[]
   /** Receipt summary rows (only populated when tab === 'receipts'). */
@@ -135,6 +138,7 @@ function fmt(date: Date | string | null): string {
 export default function ReportsClient({
   filters,
   branches,
+  periods,
   languages,
   receiptSummary,
   overdueReport,
@@ -156,9 +160,10 @@ export default function ReportsClient({
       period: filters.period,
       branch: filters.branch,
       language: filters.language,
+      ...(filters.periodId ? { periodId: filters.periodId } : {}),
       ...(filters.period === 'custom' ? {
-        from: format(filters.from, 'yyyy-MM-dd'),
-        to: format(filters.to, 'yyyy-MM-dd'),
+        from: filters.from.toISOString().split('T')[0],
+        to: filters.to.toISOString().split('T')[0],
       } : {}),
       ...overrides,
     }
@@ -250,7 +255,7 @@ export default function ReportsClient({
           <Input
             type="date"
             className="w-40"
-            value={format(filters.from, 'yyyy-MM-dd')}
+            value={filters.from.toISOString().split('T')[0]}
             onChange={(e) => {
               if (e.target.value) {
                 router.push(buildUrl({ period: 'custom', from: e.target.value }))
@@ -261,7 +266,7 @@ export default function ReportsClient({
           <Input
             type="date"
             className="w-40"
-            value={format(filters.to, 'yyyy-MM-dd')}
+            value={filters.to.toISOString().split('T')[0]}
             onChange={(e) => {
               if (e.target.value) {
                 router.push(buildUrl({ period: 'custom', to: e.target.value }))
@@ -271,8 +276,28 @@ export default function ReportsClient({
         </div>
       )}
 
-      {/* Branch + Language selects */}
+      {/* Subscription Period + Branch + Language selects */}
       <div className="flex items-center gap-3 mb-6">
+        {periods.length > 0 && (
+          <Select
+            value={filters.periodId ?? ''}
+            onValueChange={(v) => router.push(buildUrl({ periodId: v ?? '' }))}
+          >
+            <SelectTrigger>
+              <SelectValue>
+                {filters.periodId
+                  ? periods.find((p) => p.id === filters.periodId)?.name ?? 'All Periods'
+                  : 'All Periods'}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {periods.map((p) => (
+                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+
         <Select
           value={filters.branch}
           onValueChange={(v) => router.push(buildUrl({ branch: v ?? 'all' }))}
