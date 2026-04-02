@@ -34,8 +34,8 @@ export async function PUT(request: NextRequest, { params }: RouteContext): Promi
     const changes: string[] = []
 
     if (parsed.data.receivedDate !== undefined) {
-      const dateStr = parsed.data.receivedDate
-      const newDate = dateStr.includes('T') ? new Date(dateStr) : new Date(dateStr + 'T12:00:00Z')
+      const dateStr = parsed.data.receivedDate.split('T')[0]
+      const newDate = new Date(dateStr + 'T12:00:00Z')
       const oldDate = receipt.receivedDate.toISOString().split('T')[0]
       const newDateStr = newDate.toISOString().split('T')[0]
       if (oldDate !== newDateStr) {
