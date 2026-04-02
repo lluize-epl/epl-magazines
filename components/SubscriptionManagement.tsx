@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { toast } from 'sonner'
 import { Loader2, Plus, Pencil, Search } from 'lucide-react'
 import type { MagazineSubscriptionWithDetails, CadenceType } from '@/types'
@@ -195,12 +196,13 @@ export default function SubscriptionManagement({
                   style={{ borderColor: 'oklch(0.900 0.012 88)' }}
                 >
                   <TableCell style={{ opacity: sub.active ? 1 : 0.55 }}>
-                    <span
-                      className="font-medium"
+                    <Link
+                      href={`/magazines/${sub.magazine.id}`}
+                      className="font-medium hover:underline cursor-pointer"
                       style={{ fontFamily: 'var(--font-playfair)', color: 'oklch(0.15 0.028 62)' }}
                     >
                       {sub.magazine.name}
-                    </span>
+                    </Link>
                   </TableCell>
                   <TableCell style={{ opacity: sub.active ? 1 : 0.55 }}>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
