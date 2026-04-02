@@ -231,7 +231,152 @@ async function main() {
     }
   }
 
-  console.log(`✓ ${magCount} magazines, ${subCount} subscriptions`)
+  console.log(`✓ ${magCount} magazines, ${subCount} branch subscriptions`)
+
+  // EBSCO invoice data — issues per year (keys must match seed MAGAZINES names exactly)
+  const EBSCO_ISSUES: Record<string, number> = {
+    'AARP Bulletin': 10,
+    'AARP The Magazine': 6,
+    'All Recipes Magazine': 5,
+    'American Association of Retired Persons Membership': 6,
+    'Ananda Vikatan': 52,
+    'Architectural Digest': 11,
+    'Artists Magazine': 6,
+    'Ask': 9,
+    'Astronomy': 12,
+    'Atlantic Monthly': 12,
+    'Babybug': 9,
+    'Better Homes and Gardens': 10,
+    'Bon Appetit': 10,
+    'Car and Driver': 6,
+    'China Today - Chinese Ed': 12,
+    'Chirp': 10,
+    'Consumer Reports': 13,
+    'Consumer Reports Buying Guide': 1,
+    'Cooks Illustrated': 6,
+    'Cosmopolitan': 4,
+    'Country Living': 6,
+    'Crossword Puzzles Only': 13,
+    'Discover': 6,
+    'Economist': 50,
+    'Elle - American Ed': 10,
+    'Entrepreneur': 6,
+    'Esquire': 6,
+    'Essence': 6,
+    'Family Handyman': 7,
+    'Family Tree Magazine': 6,
+    'Fine Gardening': 4,
+    'First for Women': 26,
+    'Food Network Magazine': 6,
+    'Food & Wine': 11,
+    'Forbes': 8,
+    'Fortune - Domestic Ed': 6,
+    'Fun for Kidz': 6,
+    'Golf Digest': 11,
+    'Good Housekeeping': 6,
+    'GQ - US Edition': 8,
+    'Harpers Bazaar': 10,
+    'Harvard Business Review': 12,
+    'Harvard Health Letter': 12,
+    'HGTV Magazine': 6,
+    'Highlights for Children': 12,
+    'Highlights High Five': 12,
+    'Hockey News': 14,
+    'Home & Design Magazine': 6,
+    'House Beautiful': 6,
+    'Humpty Dumpty Magazine': 6,
+    'Inc': 5,
+    'Inc 500': 1,
+    'Kiplingers Personal Finance': 12,
+    'Ladybug': 9,
+    'Library Journal': 12,
+    'Magnolia Journal': 4,
+    'Make': 4,
+    'Mens Health': 6,
+    'Mother Earth News': 6,
+    'Muse': 9,
+    'National Geographic': 12,
+    'National Geographic History': 6,
+    'National Geographic Kids': 10,
+    'National Geographic Little Kids': 6,
+    'New Jersey Monthly': 12,
+    'New York': 26,
+    'New Yorker': 47,
+    'Out': 6,
+    'Pastel Journal': 4,
+    'People': 48,
+    'Pioneer Woman': 4,
+    'Poetry': 10,
+    'Poets & Writers Magazine': 6,
+    'Popular Mechanics': 6,
+    'Prevention': 12,
+    'Psychology Today': 6,
+    'Publishers Weekly': 46,
+    'Ranger Rick': 10,
+    'Ranger Rick Jr': 10,
+    'Readers Digest - US Ed': 8,
+    'Readers Digest - Large Print': 8,
+    'Real Simple': 6,
+    'Runners World': 4,
+    'School Library Journal': 12,
+    'Science News': 12,
+    'Scientific American': 12,
+    'Scout Life': 10,
+    'Series Made Simple': 1,
+    'Smithsonian': 12,
+    'Spider': 9,
+    'Sports Illustrated': 12,
+    'Sports Illustrated Kids': 6,
+    'Taste of Home': 4,
+    'Threads': 4,
+    'Time Magazine': 44,
+    'Town & Country': 9,
+    'Travel & Leisure': 11,
+    'US Weekly': 52,
+    'Vanity Fair - American Ed': 12,
+    'VegNews Magazine': 4,
+    'Veranda': 6,
+    'Vogue': 10,
+    'The Week - US Edition': 52,
+    'The Week Junior': 48,
+    'Wired': 12,
+    'Womens Health': 4,
+    'Zoobooks': 9,
+  }
+
+  // Cadence-based fallback for magazines not in EBSCO data
+  const CADENCE_FALLBACK: Record<string, number> = {
+    WEEKLY: 52, BI_WEEKLY: 26, MONTHLY: 12,
+    BI_MONTHLY: 6, SEASONAL: 4, YEARLY: 1,
+  }
+
+  // Create 2025-2026 subscription period
+  const period = await db.subscriptionPeriod.create({
+    data: {
+      name: '2025-2026',
+      startDate: new Date('2025-06-01T12:00:00Z'),
+      endDate: new Date('2026-05-31T12:00:00Z'),
+      active: true,
+    },
+  })
+  console.log('✓ Subscription period 2025-2026 created')
+
+  // Create MagazineSubscriptions
+  let magazineSubscriptionCount = 0
+  for (const mag of await db.magazine.findMany({ select: { id: true, name: true, cadence: true } })) {
+    const issuesPerYear = EBSCO_ISSUES[mag.name] ?? CADENCE_FALLBACK[mag.cadence]
+    if (issuesPerYear) {
+      await db.magazineSubscription.create({
+        data: {
+          magazineId: mag.id,
+          periodId: period.id,
+          issuesPerYear,
+        },
+      })
+      magazineSubscriptionCount++
+    }
+  }
+  console.log(`✓ ${magazineSubscriptionCount} magazine subscriptions created`)
 
   // Import historical receipts
   const receiptsPath = new URL('seed-receipts.json', import.meta.url).pathname
@@ -268,7 +413,7 @@ async function main() {
   console.log(`✓ ${receiptCount} historical receipts imported`)
 
   console.log('✓ Seed complete')
-  console.log('  Admin: magapp@edisonpubliclibrary.org / magTech')
+  console.log('  Admin: magadmin / magTech')
 }
 
 main()
