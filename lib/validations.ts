@@ -59,6 +59,13 @@ export const updateReceiptSchema = z.object({
   branchId: z.string().min(1, 'branchId is required'),
 })
 
+/** PUT /api/magazines/[id]/receipts/[receiptId] — edit a specific receipt */
+export const editReceiptSchema = z.object({
+  receivedDate: dateStringSchema.optional(),
+  branchId: z.string().min(1).optional(),
+  notes: z.string().nullable().optional(),
+})
+
 // ---------------------------------------------------------------------------
 // Transfer schemas
 // ---------------------------------------------------------------------------

@@ -216,6 +216,7 @@ export type AuditAction =
   | 'MAGAZINE_DELETED'
   | 'RECEIPT_CREATED'
   | 'RECEIPT_EDITED'
+  | 'RECEIPT_DELETED'
   | 'USER_CREATED'
   | 'USER_UPDATED'
   | 'USER_DELETED'

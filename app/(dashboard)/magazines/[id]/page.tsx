@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import Link from 'next/link'
 import MagazineStatusBadge from '@/components/MagazineStatusBadge'
 import MagazineDetailActions from '@/components/MagazineDetailActions'
-import { resolveActiveBranchId } from '@/lib/branch'
+import { resolveActiveBranchId, getActiveBranches } from '@/lib/branch'
 import { ArrowLeft, BookOpen } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import ReceiptActions from '@/components/ReceiptActions'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -37,9 +38,11 @@ function fmt(date: Date | string | null, includeTime = false): string {
 }
 
 export default async function MagazineDetailPage({ params }: PageProps) {
-  await verifySession()
+  const session = await verifySession()
   const { id } = await params
   const activeBranchId = await resolveActiveBranchId()
+  const isAdmin = session.role === 'ADMIN'
+  const branches = isAdmin ? await getActiveBranches() : []
 
   const magazine = await db.magazine.findUnique({
     where: { id },
@@ -200,6 +203,9 @@ export default async function MagazineDetailPage({ params }: PageProps) {
                 <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Received By</TableHead>
                 <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Notes</TableHead>
                 <TableHead className="font-semibold" style={{ color: 'oklch(0.30 0.028 62)' }}>Logged At</TableHead>
+                {isAdmin && (
+                  <TableHead className="font-semibold text-right" style={{ color: 'oklch(0.30 0.028 62)' }}>Actions</TableHead>
+                )}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -241,6 +247,23 @@ export default async function MagazineDetailPage({ params }: PageProps) {
                       {fmt(receipt.createdAt, true)}
                     </span>
                   </TableCell>
+                  {isAdmin && (
+                    <TableCell className="text-right">
+                      <ReceiptActions
+                        receipt={{
+                          id: receipt.id,
+                          receivedDate: receipt.receivedDate instanceof Date
+                            ? receipt.receivedDate.toISOString()
+                            : String(receipt.receivedDate),
+                          branchId: receipt.branchId ?? null,
+                          branchName: receipt.branch?.name ?? null,
+                          notes: receipt.notes,
+                        }}
+                        magazineId={magazine.id}
+                        branches={branches.map((b) => ({ id: b.id, name: b.name }))}
+                      />
+                    </TableCell>
+                  )}
                 </TableRow>
               ))}
             </TableBody>
