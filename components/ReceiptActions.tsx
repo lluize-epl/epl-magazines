@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Pencil, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -52,10 +53,11 @@ export default function ReceiptActions({ receipt, magazineId, branches }: Receip
         }),
       })
       if (!res.ok) {
-        const data = await res.json()
-        alert(data.error ?? 'Failed to update receipt')
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error ?? 'Failed to update receipt')
         return
       }
+      toast.success('Receipt updated')
       setEditOpen(false)
       router.refresh()
     } finally {
@@ -70,10 +72,11 @@ export default function ReceiptActions({ receipt, magazineId, branches }: Receip
         method: 'DELETE',
       })
       if (!res.ok && res.status !== 204) {
-        const data = await res.json()
-        alert(data.error ?? 'Failed to delete receipt')
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error ?? 'Failed to delete receipt')
         return
       }
+      toast.success('Receipt deleted')
       setDeleteOpen(false)
       router.refresh()
     } finally {
