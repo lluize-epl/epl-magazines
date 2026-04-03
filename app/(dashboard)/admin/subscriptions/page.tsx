@@ -39,7 +39,7 @@ export default async function AdminSubscriptionsPage() {
       </div>
 
       <div className="flex justify-end mb-4">
-        <CreatePeriodDialog />
+        <CreatePeriodDialog periods={periods} />
       </div>
 
       {periods.length === 0 ? (
