@@ -37,9 +37,11 @@ NAME_MAP = {
     "ASTRONOMY - PRINT + ONLINE": "Astronomy",
     "ATLANTIC MONTHLY": "Atlantic Monthly",
     "ATLANTIC": "Atlantic Monthly",
+    "THE ATLANTIC": "Atlantic Monthly",
     "BABYBUG": "Babybug",
     "BETTER HOMES & GARDEN": "Better Homes and Gardens",
     "BETTER HOMES AND GARDENS": "Better Homes and Gardens",
+    "BETTER HOMES": "Better Homes and Gardens",
     "BEANZ": "Beanz",
     "BEANZ - PRINT + ONLINE": "Beanz",
     "BLOOMBERG BUSINESSWEEK": "Bloomberg Businessweek",
@@ -60,14 +62,19 @@ NAME_MAP = {
     "CONSUMER REPORTS BUYING GUIDE": "Consumer Reports Buying Guide",
     "CONSUMER REPORTS BUYING GUIDE - ONLINE": "Consumer Reports Buying Guide",
     "CONSUMER REPORTS ON HEALTH": "Consumer Reports on Health",
+    "CONSUMER REPORT HEALTH": "Consumer Reports on Health",
     "COOK'S COUNTY": "Cook's Country",
     "COOKS COUNTRY": "Cook's Country",
     "COOKS ILLUSTRATED": "Cooks Illustrated",
+    "COOK'S ILLUSTRATED": "Cooks Illustrated",
+    "COOK\u2019S ILLUSTRATED": "Cooks Illustrated",
+    "COOKS ILLUS.": "Cooks Illustrated",
     "COSMOPOLITAN": "Cosmopolitan",
     "COUNTRY LIVING": "Country Living",
     "COUNTRY LIVING - NY": "Country Living",
     "CROSSWORD PUZZLE ONLY": "Crossword Puzzles Only",
     "CROSSWORD PUZZLES ONLY": "Crossword Puzzles Only",
+    "HERALD TRIBUNE CROSSWORD PUZZLES ONLY": "Crossword Puzzles Only",
     "DISCOVER": "Discover",
     "DISCOVER - PRINT + ONLINE": "Discover",
     "ECONOMIST - US ED": "Economist",
@@ -82,6 +89,7 @@ NAME_MAP = {
     "ESSENCE - 1 YEAR": "Essence",
     "FAMILY HANDYMAN": "Family Handyman",
     "FAMILY TREE MAGAZINE": "Family Tree Magazine",
+    "FAMILY TREE": "Family Tree Magazine",
     "FINE GARDENING": "Fine Gardening",
     "FIRST": "First for Women",
     "FIRST FOR WOMEN": "First for Women",
@@ -100,6 +108,8 @@ NAME_MAP = {
     "GRIHSHOBHA(TELUGU)": "GrihShobha (Telugu)",
     "GQ - US ED": "GQ - US Edition",
     "GQ - US EDITION": "GQ - US Edition",
+    "GQ": "GQ - US Edition",
+    "BAZAAR": "Harpers Bazaar",
     "HARPERS BAZAAR": "Harpers Bazaar",
     "HARVARD BUSINESS REVIEW": "Harvard Business Review",
     "HARVARD BUSINESS REVIEW - P + O + D": "Harvard Business Review",
@@ -113,6 +123,7 @@ NAME_MAP = {
     "HOCKEY NEWS": "Hockey News",
     "HOCKEY NEWS - CANADA": "Hockey News",
     "HOME & DESIGN MAGAZINE": "Home & Design Magazine",
+    "HOME AND DESIGN": "Home & Design Magazine",
     "HOUSE BEAUTIFUL": "House Beautiful",
     "HUMPTY DUMPTY": "Humpty Dumpty Magazine",
     "HUMPTY DUMPTY MAGAZINE": "Humpty Dumpty Magazine",
@@ -121,6 +132,7 @@ NAME_MAP = {
     "INC 500": "Inc 500",
     "INC 5000 FALL 2025": "Inc 500",
     "KIPLINGERS PERSONAL FINANCE": "Kiplingers Personal Finance",
+    "KIPLINGER": "Kiplingers Personal Finance",
     "KIRKUS REVIEWS": "Kirkus Reviews",
     "KIRKUS REVIEWS - PRINT + ONLINE - SINGLE USER": "Kirkus Reviews",
     "LADYBUG": "Ladybug",
@@ -131,6 +143,8 @@ NAME_MAP = {
     "MAGNOLIA": "Magnolia Journal",
     "MENS HEALTH": "Mens Health",
     "MENS HEALTH - PA": "Mens Health",
+    "MEN'S HEALTH": "Mens Health",
+    "MEN\u2019S HEALTH": "Mens Health",
     "MINDFUL": "Mindful",
     "MINDFUL - ELECTRONIC MAIL": "Mindful",
     "MOTHER EARTH NEWS": "Mother Earth News",
@@ -144,7 +158,9 @@ NAME_MAP = {
     "NATIONAL GEOGRAPHIC - LITTLE KIDS": "National Geographic Little Kids",
     "NATIONAL GEOGRAPHIC LITTLE KIDS": "National Geographic Little Kids",
     "NATIONAL GEOGRAPHIC SOCIETY MEMBERSHIP": "National Geographic",
+    "NAT GEO HISTORY": "National Geographic History",
     "NEW JERSEY MONTHLY": "New Jersey Monthly",
+    "NJ MONTHLY": "New Jersey Monthly",
     "NEW YORK": "New York",
     "NEW YORKER": "New Yorker",
     "OUT": "Out",
@@ -168,10 +184,16 @@ NAME_MAP = {
     "RANGER RICK JR.": "Ranger Rick Jr",
     "READERS DIGEST - LARGE PRINT FOR EASIER READING": "Readers Digest - Large Print",
     "READERS DIGEST - LARGE PRINT": "Readers Digest - Large Print",
+    "READER'S DIGEST LP": "Readers Digest - Large Print",
+    "READER\u2019S DIGEST LP": "Readers Digest - Large Print",
     "READERS DIGEST - US ED(1)": "Readers Digest - US Ed",
     "READERS DIGEST - US ED": "Readers Digest - US Ed",
+    "READER'S DIGEST": "Readers Digest - US Ed",
+    "READER\u2019S DIGEST": "Readers Digest - US Ed",
     "REAL SIMPLE": "Real Simple",
     "RUNNERS WORLD": "Runners World",
+    "RUNNER'S WORLD": "Runners World",
+    "RUNNER\u2019S WORLD": "Runners World",
     "SARAS SALIL(HINDI)": "Saras Salil (Hindi Edition)",
     "SARAS SALIL": "Saras Salil (Hindi Edition)",
     "SARITA(HINDI)": "Sarita (Hindi)",
@@ -200,6 +222,7 @@ NAME_MAP = {
     "US WEEKLY": "US Weekly",
     "VANITY FAIR - AMERICAN ED": "Vanity Fair - American Ed",
     "VEGNEWS MAGAZINE": "VegNews Magazine",
+    "VEG NEWS": "VegNews Magazine",
     "VERANDA": "Veranda",
     "VOGUE": "Vogue",
     "THE WEEK - US ED": "The Week - US Edition",
@@ -209,6 +232,7 @@ NAME_MAP = {
     "WIRED": "Wired",
     "WOMAN'S HEALTH": "Womens Health",
     "WOMEN'S HEALTH": "Womens Health",
+    "WOMEN\u2019S HEALTH": "Womens Health",
     "WOMENS HEALTH": "Womens Health",
     "WOMENS HEALTH - PA": "Womens Health",
     "ZOOKBOOK": "Zoobooks",
@@ -734,6 +758,29 @@ def _parse_single_part(s: str, col_month: int, col_year: int) -> list[str]:
         m2 = MONTH_NAMES.get(m.group(2).upper())
         if m1 and m2:
             return [date(col_year, m1, 1).isoformat()]
+
+    # "SEP & OCT", "AUG & SEP", "SEPT & OCT" -> use first month
+    m = re.match(r'^([A-Z]+)\s*&\s*([A-Z]+)$', s, re.IGNORECASE)
+    if m:
+        m1 = MONTH_NAMES.get(m.group(1).upper())
+        m2 = MONTH_NAMES.get(m.group(2).upper())
+        if m1 and m2:
+            return [date(col_year, m1, 1).isoformat()]
+
+    # "WIN 25" -> WINTER shorthand
+    m = re.match(r'^WIN\s*(\d{2,4})$', s, re.IGNORECASE)
+    if m:
+        y = int(m.group(1))
+        if y < 100:
+            y += 2000
+        return [date(y, 12, 1).isoformat()]
+
+    # "12/15/2025 dec" -> full date with trailing month name
+    m = re.match(r'^(\d{1,2})/(\d{1,2})/(\d{4})\s+[A-Za-z]+$', s)
+    if m:
+        mo, d, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if 2024 <= y <= 2027:
+            return [date(y, mo, d).isoformat()]
 
     # "SPRINF 2026" (typo for SPRING)
     m = re.match(r'^SPRINF\s+(\d{4})$', s, re.IGNORECASE)

@@ -1,5 +1,4985 @@
 [
   {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "1/1,1/8,1/15,1/22,1/29"
+  },
+  {
+    "magazine": "Architectural Digest",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Chirp",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Chirp",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB *2"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN 2025,"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN 25"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024- JAN 2025,"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN 25"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 21ST - JAN 3RD 2025,1/11-17,1/18-1/24,1/25-1/31,"
+  },
+  {
+    "magazine": "Entrepreneur",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Entrepreneur",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Food Network Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Food Network Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN*2"
+  },
+  {
+    "magazine": "Fortune - Domestic Ed",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Fortune - Domestic Ed",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN*2"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Harvard Health Letter",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "VOL:78 NO.05"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "House Beautiful",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Inc",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Inc 500",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024 / JAN 2025"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN 25"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN 2025"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN*2"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 30 - JAN 12 2025,1/13-1/26,1/27-2/9,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 30 2024 & JAN 6 2025,1/13,"
+  },
+  {
+    "magazine": "Out",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Out",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Poetry",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Poetry",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Poets & Writers Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 2024/JAN 2025,"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scout Life",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "DEC 27 2024- JAN 3RD 2025,1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "VegNews Magazine",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "VegNews Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB*2"
+  },
+  {
+    "magazine": "Wired",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Wired",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Womens Health",
+    "branch": "NORTH",
+    "date": "2025-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "MAIN",
+    "date": "2025-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-01-04",
+    "notes": "1/4-1/10*2"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-01-06",
+    "notes": "12/30 & 1/6"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-01-06",
+    "notes": "1/6,1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-01-06",
+    "notes": "2025-01-06 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-01-08",
+    "notes": "1/1,1/8,1/15,1/22,1/29"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-01-11",
+    "notes": "DEC 21ST - JAN 3RD 2025,1/11-17,1/18-1/24,1/25-1/31,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-01-11",
+    "notes": "1/11-1/17"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-01-13",
+    "notes": "1/13,1/27,"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-01-13",
+    "notes": "2025-01-13 00:00:00"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-01-13",
+    "notes": "DEC 30 - JAN 12 2025,1/13-1/26,1/27-2/9,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-01-13",
+    "notes": "1/13-1/26"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-01-13",
+    "notes": "DEC 30 2024 & JAN 6 2025,1/13,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-01-13",
+    "notes": "2025-01-13 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-01-13",
+    "notes": "1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-01-13",
+    "notes": "1/13/2025*2"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-01-13",
+    "notes": "1/6,1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-01-13",
+    "notes": "2025-01-13 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-01-15",
+    "notes": "1/1,1/8,1/15,1/22,1/29"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-01-17",
+    "notes": "DEC 27 2024- JAN 3RD 2025,1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-01-17",
+    "notes": "2025-01-17 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-01-17",
+    "notes": "2025-01-17 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-01-17",
+    "notes": "1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-01-17",
+    "notes": "2025-01-17 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-01-18",
+    "notes": "DEC 21ST - JAN 3RD 2025,1/11-17,1/18-1/24,1/25-1/31,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-01-18",
+    "notes": "1/18-1/24"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-01-20",
+    "notes": "1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-01-20",
+    "notes": "1/20/2025*2"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-01-20",
+    "notes": "1/6,1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-01-20",
+    "notes": "2025-01-20 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-01-22",
+    "notes": "1/1,1/8,1/15,1/22,1/29"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-01-24",
+    "notes": "DEC 27 2024- JAN 3RD 2025,1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-01-24",
+    "notes": "2025-01-24 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-01-24",
+    "notes": "2025-01-24 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-01-24",
+    "notes": "1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-01-24",
+    "notes": "2025-01-24 00:00:00"
+  },
+  {
+    "magazine": "Architectural Digest",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2024-01-25 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-01-25",
+    "notes": "DEC 21ST - JAN 3RD 2025,1/11-17,1/18-1/24,1/25-1/31,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "1/25-1/31"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2024-01-25 00:00:00"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2024-01-25 00:00:00"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "NORTH",
+    "date": "2025-01-25",
+    "notes": "2025-01-25 00:00:00"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-01-27",
+    "notes": "1/13,1/27,"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "2025-01-27 00:00:00"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-01-27",
+    "notes": "DEC 30 - JAN 12 2025,1/13-1/26,1/27-2/9,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "1/27-2/9"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "2025-01-27 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-01-27",
+    "notes": "1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "2025-01-27 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-01-27",
+    "notes": "1/27,"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "2025-01-27 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-01-27",
+    "notes": "1/6,1/13,1/20,1/27,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-01-27",
+    "notes": "2025-01-27 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-01-29",
+    "notes": "1/1,1/8,1/15,1/22,1/29"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-01-31",
+    "notes": "DEC 27 2024- JAN 3RD 2025,1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-01-31",
+    "notes": "2025-01-31 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-01-31",
+    "notes": "2025-01-31 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-01-31",
+    "notes": "1/17,1/24,1/31,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-01-31",
+    "notes": "2025-01-31 00:00:00"
+  },
+  {
+    "magazine": "Architectural Digest",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ask",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "2/1-2/7,2/8-2/14,2/15-2/21,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "2/1-2/7"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Food Network Magazine",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Food Network Magazine",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Food Network Magazine",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Fortune - Domestic Ed",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Fortune - Domestic Ed",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR*2"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Harvard Health Letter",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Harvard Health Letter",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "VOL.78 NO.06"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Psychology Today",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Psychology Today",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB/MAR*2"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "MAIN",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "NORTH",
+    "date": "2025-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-02-03",
+    "notes": "2/3,2/10,2/17-2/24,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-02-03",
+    "notes": "2025-02-03 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-02-03",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-02-03",
+    "notes": "2025-02-03 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-02-03",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-02-03",
+    "notes": "2025-02-03 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-02-05",
+    "notes": "2/5,2/12,2/19,2/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-02-07",
+    "notes": "2/7,2/14,2/21,2/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-02-07",
+    "notes": "2025-02-07 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-02-07",
+    "notes": "2025-02-07 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-02-07",
+    "notes": "2/7,2/14,2/21,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-02-07",
+    "notes": "2025-02-07 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-02-08",
+    "notes": "2/1-2/7,2/8-2/14,2/15-2/21,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-02-08",
+    "notes": "2/8-2/14"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/10,2/24,"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2025-02-10 00:00:00"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/10-2/23,2/24-3/9"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2/10-2/23"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/3,2/10,2/17-2/24,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2025-02-10 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2025-02-10 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/10,2/24,"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2025-02-10 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-02-10",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-02-10",
+    "notes": "2025-02-10 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-02-12",
+    "notes": "2/5,2/12,2/19,2/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-02-14",
+    "notes": "2/7,2/14,2/21,2/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-02-14",
+    "notes": "2025-02-14 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-02-14",
+    "notes": "2025-02-14 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-02-14",
+    "notes": "2/7,2/14,2/21,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-02-14",
+    "notes": "2025-02-14 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-02-15",
+    "notes": "2/1-2/7,2/8-2/14,2/15-2/21,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-02-15",
+    "notes": "2/15-2/21"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-02-17",
+    "notes": "2/3,2/10,2/17-2/24,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-02-17",
+    "notes": "2/17 & 2/24"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-02-17",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-02-17",
+    "notes": "2025-02-17 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-02-17",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-02-17",
+    "notes": "2025-02-17 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-02-19",
+    "notes": "2/5,2/12,2/19,2/26,"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-02-21",
+    "notes": "2025-02-21 00:00:00"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "NORTH",
+    "date": "2025-02-21",
+    "notes": "2/21/2025*2"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-02-21",
+    "notes": "2/7,2/14,2/21,2/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-02-21",
+    "notes": "2025-02-21 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "CB",
+    "date": "2025-02-21",
+    "notes": "2025-02-21 00:00:00"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "MAIN",
+    "date": "2025-02-21",
+    "notes": "2/7,2/14,2/21,"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-02-21",
+    "notes": "2025-02-21 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-02-22",
+    "notes": "2/22-2/28*2"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-02-24",
+    "notes": "2/10,2/24,"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-02-24",
+    "notes": "2025-02-24 00:00:00"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-02-24",
+    "notes": "2/10-2/23,2/24-3/9"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-02-24",
+    "notes": "2/17 & 2/24"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-02-24",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-02-24",
+    "notes": "2025-02-24 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-02-24",
+    "notes": "2/10,2/24,"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "NORTH",
+    "date": "2025-02-24",
+    "notes": "2025-02-24 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-02-24",
+    "notes": "2/3,2/10,2/17,2/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-02-24",
+    "notes": "2025-02-24 00:00:00"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "CB",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Make",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "NORTH",
+    "date": "2025-02-25",
+    "notes": "2025-02-25 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-02-26",
+    "notes": "2/5,2/12,2/19,2/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-02-28",
+    "notes": "2/7,2/14,2/21,2/28,"
+  },
+  {
+    "magazine": "All Recipes Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Babybug",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Chirp",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Chirp",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "3/1-3/7,3/8-3/14,3/15-21,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "3/1-3/7, 3/29-4/4"
+  },
+  {
+    "magazine": "Elle Decor",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Elle Decor",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Entrepreneur",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Entrepreneur",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "SPRING 25"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "SPRING 25"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Golf Digest",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "VOL.78 NO.07"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "SPRING"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Home & Design Magazine",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "SPR 25"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Inc",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Inc",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "Spring 25"
+  },
+  {
+    "magazine": "Inc 500",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "SPR 25"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Magnolia Journal",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Make",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "SPR"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "3/10-3/23,SPRING 2025,3/24-4/6"
+  },
+  {
+    "magazine": "Out",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Out",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Pastel Journal",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Pastel Journal",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "Spring 25"
+  },
+  {
+    "magazine": "Poetry",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Runners World",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Runners World",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "Spring 25"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Scout Life",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "Spring"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Threads",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "SPRING 2025"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "VegNews Magazine",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "Spring"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "MAR/APR 25"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "MAIN",
+    "date": "2025-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "NORTH",
+    "date": "2025-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-03-03",
+    "notes": "3/3,"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-03-03",
+    "notes": "3/3,3/10,3/17,3/31,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-03-03",
+    "notes": "2025-03-03 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-03-03",
+    "notes": "3/3,3/10,3/17,3/24,3/31,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-03-03",
+    "notes": "2025-03-03 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-03-05",
+    "notes": "3/5,3/12,3/19,3/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-03-07",
+    "notes": "3/7,3/14,3/21,3/28,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-03-08",
+    "notes": "3/1-3/7,3/8-3/14,3/15-21,"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-03-10",
+    "notes": "3/10,3/24,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-03-10",
+    "notes": "3/10-3/23,SPRING 2025,3/24-4/6"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-03-10",
+    "notes": "3/3,3/10,3/17,3/31,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-03-10",
+    "notes": "2025-03-10 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-10",
+    "notes": "3/10,3/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-03-10",
+    "notes": "3/3,3/10,3/17,3/24,3/31,"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-03-12",
+    "notes": "3/5,3/12,3/19,3/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-03-14",
+    "notes": "3/7,3/14,3/21,3/28,"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "MAIN",
+    "date": "2025-03-15",
+    "notes": "3/1-3/7,3/8-3/14,3/15-21,"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-03-17",
+    "notes": "3/3,3/10,3/17,3/31,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-03-17",
+    "notes": "3/3,3/10,3/17,3/24,3/31,"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-03-19",
+    "notes": "3/5,3/12,3/19,3/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-03-21",
+    "notes": "3/7,3/14,3/21,3/28,"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-03-22",
+    "notes": "2025-03-22 00:00:00"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "NORTH",
+    "date": "2025-03-22",
+    "notes": "2025-03-22 00:00:00"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-03-24",
+    "notes": "3/10,3/24,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-03-24",
+    "notes": "3/10-3/23,SPRING 2025,3/24-4/6"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-03-24",
+    "notes": "3/10,3/24,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-03-24",
+    "notes": "3/3,3/10,3/17,3/24,3/31,"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "3/25/2025*2"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Elle Decor",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Harvard Health Letter",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Poetry",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Runners World",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Threads",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "NORTH",
+    "date": "2025-03-25",
+    "notes": "2025-03-25 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-03-26",
+    "notes": "3/5,3/12,3/19,3/26,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-03-28",
+    "notes": "3/7,3/14,3/21,3/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-03-28",
+    "notes": "2025-03-28 00:00:00"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-03-29",
+    "notes": "3/1-3/7, 3/29-4/4"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-03-31",
+    "notes": "3/3,3/10,3/17,3/31,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-03-31",
+    "notes": "3/3,3/10,3/17,3/24,3/31,"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "China Today - Chinese Ed",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Consumer Reports on Health",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Cook's Country",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "APR/MAY 25"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Country Living",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "APR/MAY 25"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Harvard Health Letter",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "VOL.78 NO.08"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "APR/MAY 25"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Poetry",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scout Life",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "apr/may"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "APR/MAY"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "APR/MAY 25"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "MAIN",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Travel & Leisure",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "NORTH",
+    "date": "2025-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-04-02",
+    "notes": "4/2,4/9,4/16,4/23,4/30,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-04-04",
+    "notes": "4/04,4/11,4/18,4/25,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-04-04",
+    "notes": "4/4,4/11,4/18,4/25"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-04-05",
+    "notes": "4/5-4/19"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-04-07",
+    "notes": "4/7,4/21"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-04-07",
+    "notes": "4/7,4/21"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-04-07",
+    "notes": "4/7-4/20,4/21-5/4,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-04-07",
+    "notes": "4/7-20, 4/21-5/4"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-04-07",
+    "notes": "4/7,4/14,4/21"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-04-07",
+    "notes": "4/7,4/14,4/21,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-04-07",
+    "notes": "4/7,4/14,4/21,4/28"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-04-09",
+    "notes": "4/2,4/9,4/16,4/23,4/30,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-04-11",
+    "notes": "4/04,4/11,4/18,4/25,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-04-11",
+    "notes": "4/4,4/11,4/18,4/25"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-04-14",
+    "notes": "4/7,4/14,4/21"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-04-14",
+    "notes": "4/7,4/14,4/21,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-04-14",
+    "notes": "4/7,4/14,4/21,4/28"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-04-16",
+    "notes": "4/2,4/9,4/16,4/23,4/30,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-04-18",
+    "notes": "4/04,4/11,4/18,4/25,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-04-18",
+    "notes": "4/4,4/11,4/18,4/25"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-04-21",
+    "notes": "4/7,4/21"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-04-21",
+    "notes": "4/7,4/21"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-04-21",
+    "notes": "4/7-4/20,4/21-5/4,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-04-21",
+    "notes": "4/7-20, 4/21-5/4"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-04-21",
+    "notes": "4/7,4/14,4/21"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-04-21",
+    "notes": "4/7,4/14,4/21,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-04-21",
+    "notes": "4/7,4/14,4/21,4/28"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-04-23",
+    "notes": "4/2,4/9,4/16,4/23,4/30,"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-04-23",
+    "notes": "2025-04-23 00:00:00"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "NORTH",
+    "date": "2025-04-25",
+    "notes": "2025-04-25 00:00:00"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "NORTH",
+    "date": "2025-04-25",
+    "notes": "2025-04-25 00:00:00"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-04-25",
+    "notes": "4/04,4/11,4/18,4/25,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-04-25",
+    "notes": "4/4,4/11,4/18,4/25"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-04-26",
+    "notes": "4/26-5/2"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-04-28",
+    "notes": "4/7,4/14,4/21,4/28"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-04-30",
+    "notes": "4/2,4/9,4/16,4/23,4/30,"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Artists Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "may/june"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Bloomberg Businessweek",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Car and Driver",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Elle Decor",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Esquire",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Essence",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Fun for Kidz",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Harpers Bazaar",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN 25"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Harvard Business Review",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "VOL.78 NO.09"
+  },
+  {
+    "magazine": "Hockey News",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "House Beautiful",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "House Beautiful",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "House Beautiful",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "may/jun"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "MAY/JUNE 25"
+  },
+  {
+    "magazine": "Muse",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Out",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Out",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Poets & Writers Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Popular Mechanics",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Scientific American",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Spider",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "The Week Junior",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Town & Country",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vanity Fair - American Ed",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Veranda",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "MAY/JUNE 25"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Wired",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/.JUN"
+  },
+  {
+    "magazine": "Wired",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "MAIN",
+    "date": "2025-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "NORTH",
+    "date": "2025-05-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Economist",
+    "branch": "NORTH",
+    "date": "2025-05-03",
+    "notes": "5/3-5/9"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-05-05",
+    "notes": "5/5,5/19,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-05-05",
+    "notes": "5/5-5/18,5/19-6/1,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-05-05",
+    "notes": "5/5,5/12-5/19,5/26,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-05-05",
+    "notes": "2025-05-05 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-05-05",
+    "notes": "2025-05-05 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-05-05",
+    "notes": "5/5,5/12(2 COPIES),5/19,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-05-05",
+    "notes": "2025-05-05 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-05-07",
+    "notes": "5/7,5/14,5/21,5/28,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-05-08",
+    "notes": "2025-05-08 00:00:00"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-05-09",
+    "notes": "5/9,5/16,5/23"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-05-12",
+    "notes": "5/5,5/12-5/19,5/26,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-05-12",
+    "notes": "12-19 May"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-05-12",
+    "notes": "5/12,5/19,5/26,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-05-12",
+    "notes": "2025-05-12 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-12",
+    "notes": "5/12,5/26,"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-12",
+    "notes": "2025-05-12 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-05-12",
+    "notes": "5/5,5/12(2 COPIES),5/19,"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-05-14",
+    "notes": "5/7,5/14,5/21,5/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-05-16",
+    "notes": "5/16,5/23,5/30,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-05-16",
+    "notes": "5/9,5/16,5/23"
+  },
+  {
+    "magazine": "First for Women",
+    "branch": "MAIN",
+    "date": "2025-05-19",
+    "notes": "5/5,5/19,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "MAIN",
+    "date": "2025-05-19",
+    "notes": "5/5-5/18,5/19-6/1,"
+  },
+  {
+    "magazine": "New York",
+    "branch": "NORTH",
+    "date": "2025-05-19",
+    "notes": "2025-05-19 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-05-19",
+    "notes": "5/12,5/19,5/26,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-05-19",
+    "notes": "2025-05-19 00:00:00"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "MAIN",
+    "date": "2025-05-19",
+    "notes": "5/5,5/12(2 COPIES),5/19,"
+  },
+  {
+    "magazine": "US Weekly",
+    "branch": "NORTH",
+    "date": "2025-05-19",
+    "notes": "2025-05-19 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-05-21",
+    "notes": "5/7,5/14,5/21,5/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-05-23",
+    "notes": "5/16,5/23,5/30,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "NORTH",
+    "date": "2025-05-23",
+    "notes": "5/9,5/16,5/23"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-05-24",
+    "notes": "2025-05-24 00:00:00"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "MAIN",
+    "date": "2025-05-26",
+    "notes": "5/5,5/12-5/19,5/26,"
+  },
+  {
+    "magazine": "New Yorker",
+    "branch": "NORTH",
+    "date": "2025-05-26",
+    "notes": "2025-05-26 00:00:00"
+  },
+  {
+    "magazine": "People",
+    "branch": "MAIN",
+    "date": "2025-05-26",
+    "notes": "5/12,5/19,5/26,"
+  },
+  {
+    "magazine": "People",
+    "branch": "NORTH",
+    "date": "2025-05-26",
+    "notes": "2025-05-26 00:00:00"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "MAIN",
+    "date": "2025-05-26",
+    "notes": "5/12,5/26,"
+  },
+  {
+    "magazine": "Time Magazine",
+    "branch": "NORTH",
+    "date": "2025-05-26",
+    "notes": "2025-05-26 00:00:00"
+  },
+  {
+    "magazine": "Ananda Vikatan",
+    "branch": "MAIN",
+    "date": "2025-05-28",
+    "notes": "5/7,5/14,5/21,5/28,"
+  },
+  {
+    "magazine": "The Week - US Edition",
+    "branch": "MAIN",
+    "date": "2025-05-30",
+    "notes": "5/16,5/23,5/30,"
+  },
+  {
     "magazine": "AARP The Magazine",
     "branch": "MAIN",
     "date": "2025-06-01",
@@ -31,6 +5011,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "X"
@@ -43,6 +5029,12 @@
   },
   {
     "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "X"
@@ -64,6 +5056,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
   },
   {
     "magazine": "Bon Appetit",
@@ -100,6 +5098,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "summer"
+  },
+  {
+    "magazine": "Cosmopolitan",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
   },
   {
     "magazine": "Cosmopolitan",
@@ -145,6 +5149,12 @@
   },
   {
     "magazine": "Family Handyman",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
+  },
+  {
+    "magazine": "Family Handyman",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "JUN/JUL"
@@ -169,6 +5179,12 @@
   },
   {
     "magazine": "Food Network Magazine",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
+  },
+  {
+    "magazine": "Food Network Magazine",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "JUN/JUL"
@@ -178,6 +5194,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
   },
   {
     "magazine": "Forbes",
@@ -196,6 +5218,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "X"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "Summer 25"
   },
   {
     "magazine": "GQ - US Edition",
@@ -265,6 +5293,12 @@
   },
   {
     "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
+  },
+  {
+    "magazine": "Home & Design Magazine",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "SUMMER 2025"
@@ -300,6 +5334,18 @@
     "notes": "SUMMER"
   },
   {
+    "magazine": "Inc 500",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN"
+  },
+  {
     "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-06-01",
@@ -331,6 +5377,12 @@
   },
   {
     "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
+  },
+  {
+    "magazine": "Mother Earth News",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "JUN/JUL"
@@ -343,6 +5395,12 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "X"
@@ -352,6 +5410,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "x"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
   },
   {
     "magazine": "National Geographic Kids",
@@ -391,6 +5455,12 @@
   },
   {
     "magazine": "Pioneer Woman",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER 25"
+  },
+  {
+    "magazine": "Pioneer Woman",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "SUMMER 2025"
@@ -421,6 +5491,12 @@
   },
   {
     "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Prevention",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "X"
@@ -445,9 +5521,21 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUN/JUL"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -463,6 +5551,12 @@
   },
   {
     "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
+  },
+  {
+    "magazine": "Real Simple",
     "branch": "MAIN",
     "date": "2025-06-01",
     "notes": "SUMMER 2025"
@@ -484,6 +5578,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "SUMMER 25"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "X"
   },
   {
     "magazine": "Science News",
@@ -511,9 +5611,21 @@
   },
   {
     "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Smithsonian",
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "JUNE"
   },
   {
     "magazine": "Sports Illustrated",
@@ -538,6 +5650,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
   },
   {
     "magazine": "Taste of Home",
@@ -577,6 +5695,12 @@
   },
   {
     "magazine": "VegNews Magazine",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
+  },
+  {
+    "magazine": "VegNews Magazine",
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "SUMMER 2025"
@@ -592,6 +5716,12 @@
     "branch": "NORTH",
     "date": "2025-06-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Womens Health",
+    "branch": "CB",
+    "date": "2025-06-01",
+    "notes": "SUMMER"
   },
   {
     "magazine": "Womens Health",
@@ -840,6 +5970,18 @@
     "notes": "2025-06-23 00:00:00"
   },
   {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-06-25",
+    "notes": "2025-06-25 00:00:00"
+  },
+  {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-06-25",
+    "notes": "2025-06-25 00:00:00"
+  },
+  {
     "magazine": "The Week - US Edition",
     "branch": "MAIN",
     "date": "2025-06-27",
@@ -931,6 +6073,12 @@
   },
   {
     "magazine": "Ask",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Ask",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -949,9 +6097,21 @@
   },
   {
     "magazine": "Babybug",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Babybug",
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
   },
   {
     "magazine": "Better Homes and Gardens",
@@ -1003,6 +6163,12 @@
   },
   {
     "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Consumer Reports",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1012,6 +6178,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "JUL/AUG 25"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "x"
   },
   {
     "magazine": "Crossword Puzzles Only",
@@ -1048,6 +6220,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
   },
   {
     "magazine": "Family Tree Magazine",
@@ -1099,6 +6277,12 @@
   },
   {
     "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Good Housekeeping",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1108,6 +6292,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "x"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
   },
   {
     "magazine": "HGTV Magazine",
@@ -1123,6 +6313,12 @@
   },
   {
     "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Harvard Business Review",
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "x"
@@ -1135,9 +6331,21 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL"
   },
   {
     "magazine": "Highlights for Children",
@@ -1153,6 +6361,12 @@
   },
   {
     "magazine": "House Beautiful",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "House Beautiful",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1165,6 +6379,12 @@
   },
   {
     "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1177,6 +6397,12 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "X"
@@ -1189,6 +6415,12 @@
   },
   {
     "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Ladybug",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1198,6 +6430,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL.AUG"
   },
   {
     "magazine": "Mens Health",
@@ -1231,6 +6469,12 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "X"
@@ -1255,9 +6499,21 @@
   },
   {
     "magazine": "National Geographic Little Kids",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "X"
   },
   {
     "magazine": "New Jersey Monthly",
@@ -1309,6 +6565,12 @@
   },
   {
     "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Popular Mechanics",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1339,6 +6601,12 @@
   },
   {
     "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "X"
@@ -1348,6 +6616,12 @@
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL"
   },
   {
     "magazine": "Science News",
@@ -1364,6 +6638,12 @@
   {
     "magazine": "Scientific American",
     "branch": "MAIN",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "CB",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
   },
@@ -1396,6 +6676,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
   },
   {
     "magazine": "Sports Illustrated Kids",
@@ -1447,6 +6733,12 @@
   },
   {
     "magazine": "Wired",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
+  },
+  {
+    "magazine": "Wired",
     "branch": "MAIN",
     "date": "2025-07-01",
     "notes": "JUL/AUG"
@@ -1456,6 +6748,12 @@
     "branch": "NORTH",
     "date": "2025-07-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-07-01",
+    "notes": "JUL/AUG"
   },
   {
     "magazine": "Zoobooks",
@@ -1650,6 +6948,12 @@
     "notes": "7/5-7/11,7/12-7/18,7/19-7/25,7/26-8/8,"
   },
   {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-07-26",
+    "notes": "2025-07-26 00:00:00"
+  },
+  {
     "magazine": "New York",
     "branch": "MAIN",
     "date": "2025-07-28",
@@ -1710,10 +7014,22 @@
     "notes": "X"
   },
   {
+    "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "x"
+  },
+  {
     "magazine": "Bloomberg Businessweek",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "X"
   },
   {
     "magazine": "Bon Appetit",
@@ -1735,9 +7051,21 @@
   },
   {
     "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Family Handyman",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG & SEP"
   },
   {
     "magazine": "Family Handyman",
@@ -1753,9 +7081,21 @@
   },
   {
     "magazine": "Food Network Magazine",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG & SEP"
+  },
+  {
+    "magazine": "Food Network Magazine",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "AUG/SEP"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG & SEP"
   },
   {
     "magazine": "Forbes",
@@ -1777,7 +7117,19 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
+    "date": "2025-08-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
     "date": "2025-08-01",
     "notes": "X"
   },
@@ -1795,9 +7147,21 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG/SEP"
   },
   {
     "magazine": "Mother Earth News",
@@ -1807,9 +7171,21 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "x"
   },
   {
     "magazine": "National Geographic Kids",
@@ -1819,9 +7195,21 @@
   },
   {
     "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG"
   },
   {
     "magazine": "Prevention",
@@ -1837,9 +7225,21 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "x"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -1849,7 +7249,19 @@
   },
   {
     "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG & SEP"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
     "branch": "MAIN",
+    "date": "2025-08-01",
+    "notes": "AUG/SEP"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "CB",
     "date": "2025-08-01",
     "notes": "AUG/SEP"
   },
@@ -1873,6 +7285,12 @@
   },
   {
     "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
@@ -1888,6 +7306,12 @@
     "branch": "MAIN",
     "date": "2025-08-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-08-01",
+    "notes": "AUG"
   },
   {
     "magazine": "Vogue",
@@ -2034,6 +7458,12 @@
     "notes": "8/6,8/13,8/20,8/27,"
   },
   {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-08-27",
+    "notes": "2025-08-27 00:00:00"
+  },
+  {
     "magazine": "The Week - US Edition",
     "branch": "MAIN",
     "date": "2025-08-29",
@@ -2077,6 +7507,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2108,6 +7544,12 @@
   {
     "magazine": "Bloomberg Businessweek",
     "branch": "NORTH",
+    "date": "2025-09-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
     "date": "2025-09-01",
     "notes": "x"
   },
@@ -2149,6 +7591,12 @@
   },
   {
     "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP & OCT"
+  },
+  {
+    "magazine": "Consumer Reports",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2158,6 +7606,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEPT & OCT"
   },
   {
     "magazine": "Cooks Illustrated",
@@ -2173,6 +7627,12 @@
   },
   {
     "magazine": "Cosmopolitan",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "FALL"
+  },
+  {
+    "magazine": "Cosmopolitan",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "FALL 2005"
@@ -2182,6 +7642,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "Fall 2025"
+  },
+  {
+    "magazine": "Crossword Puzzles Only",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "X"
   },
   {
     "magazine": "Crossword Puzzles Only",
@@ -2245,6 +7711,12 @@
   },
   {
     "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEPT/OCT"
+  },
+  {
+    "magazine": "Family Tree Magazine",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2254,6 +7726,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Fine Gardening",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "FALL"
   },
   {
     "magazine": "Fine Gardening",
@@ -2299,6 +7777,12 @@
   },
   {
     "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP"
+  },
+  {
+    "magazine": "GQ - US Edition",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2323,6 +7807,12 @@
   },
   {
     "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Good Housekeeping",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2332,6 +7822,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "x"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
   },
   {
     "magazine": "HGTV Magazine",
@@ -2353,6 +7849,12 @@
   },
   {
     "magazine": "Harvard Business Review",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Harvard Business Review",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2371,6 +7873,12 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2380,6 +7888,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "X"
   },
   {
     "magazine": "Highlights for Children",
@@ -2401,6 +7915,12 @@
   },
   {
     "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "FALL"
+  },
+  {
+    "magazine": "Home & Design Magazine",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "FALL 2025"
@@ -2413,6 +7933,12 @@
   },
   {
     "magazine": "House Beautiful",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP & OCT"
+  },
+  {
+    "magazine": "House Beautiful",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2422,6 +7948,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
   },
   {
     "magazine": "Humpty Dumpty Magazine",
@@ -2448,6 +7980,18 @@
     "notes": "Fall 2025"
   },
   {
+    "magazine": "Inc 500",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "Fall 25"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "Sept"
+  },
+  {
     "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-09-01",
@@ -2458,6 +8002,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
   },
   {
     "magazine": "Ladybug",
@@ -2476,6 +8026,18 @@
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "FALL 2025"
+  },
+  {
+    "magazine": "Make",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "Fall 25"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
   },
   {
     "magazine": "Mens Health",
@@ -2497,6 +8059,12 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2509,6 +8077,12 @@
   },
   {
     "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP & OCT"
+  },
+  {
+    "magazine": "National Geographic History",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2516,6 +8090,12 @@
   {
     "magazine": "National Geographic History",
     "branch": "NORTH",
+    "date": "2025-09-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
     "date": "2025-09-01",
     "notes": "X"
   },
@@ -2536,6 +8116,12 @@
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP"
   },
   {
     "magazine": "New Jersey Monthly",
@@ -2617,6 +8203,12 @@
   },
   {
     "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Popular Mechanics",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2629,6 +8221,12 @@
   },
   {
     "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Prevention",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2641,6 +8239,12 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2650,6 +8254,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "X"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -2668,6 +8278,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP"
   },
   {
     "magazine": "Real Simple",
@@ -2695,6 +8311,12 @@
   },
   {
     "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP"
+  },
+  {
+    "magazine": "Science News",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2731,6 +8353,12 @@
   },
   {
     "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Smithsonian",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2749,6 +8377,12 @@
   },
   {
     "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
@@ -2764,6 +8398,12 @@
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "FALL"
   },
   {
     "magazine": "Taste of Home",
@@ -2845,6 +8485,12 @@
   },
   {
     "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "SEP"
+  },
+  {
+    "magazine": "Vogue",
     "branch": "MAIN",
     "date": "2025-09-01",
     "notes": "X"
@@ -2866,6 +8512,12 @@
     "branch": "NORTH",
     "date": "2025-09-01",
     "notes": "SEP/OCT"
+  },
+  {
+    "magazine": "Womens Health",
+    "branch": "CB",
+    "date": "2025-09-01",
+    "notes": "FALL"
   },
   {
     "magazine": "Womens Health",
@@ -3114,6 +8766,12 @@
     "notes": "9/06-9/12,9/13-9/19,9/20-9/26,9/27-10/3,"
   },
   {
+    "magazine": "Superman",
+    "branch": "CB",
+    "date": "2025-09-28",
+    "notes": "2025-09-28 00:00:00"
+  },
+  {
     "magazine": "New Yorker",
     "branch": "MAIN",
     "date": "2025-09-29",
@@ -3187,6 +8845,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3199,6 +8863,12 @@
   },
   {
     "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3220,6 +8890,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
   },
   {
     "magazine": "Bon Appetit",
@@ -3307,6 +8983,12 @@
   },
   {
     "magazine": "Family Handyman",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT/NOV"
+  },
+  {
+    "magazine": "Family Handyman",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "OCT/NOV"
@@ -3325,6 +9007,12 @@
   },
   {
     "magazine": "Food Network Magazine",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT/NOV"
+  },
+  {
+    "magazine": "Food Network Magazine",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "OCT/NOV"
@@ -3334,6 +9022,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT/NOV"
   },
   {
     "magazine": "Forbes",
@@ -3364,6 +9058,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "x"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
   },
   {
     "magazine": "GQ - US Edition",
@@ -3433,6 +9133,12 @@
   },
   {
     "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights for Children",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3475,6 +9181,12 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3487,6 +9199,12 @@
   },
   {
     "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT/NOV"
+  },
+  {
+    "magazine": "Mother Earth News",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "OCT/NOV"
@@ -3494,6 +9212,12 @@
   {
     "magazine": "Mother Earth News",
     "branch": "NORTH",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
     "date": "2025-10-01",
     "notes": "X"
   },
@@ -3511,6 +9235,12 @@
   },
   {
     "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3523,6 +9253,12 @@
   },
   {
     "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT"
+  },
+  {
+    "magazine": "New Jersey Monthly",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3547,6 +9283,12 @@
   },
   {
     "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3571,6 +9313,12 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3583,6 +9331,12 @@
   },
   {
     "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3592,6 +9346,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "OCT/NOV"
   },
   {
     "magazine": "Readers Digest - Large Print",
@@ -3613,6 +9373,12 @@
   },
   {
     "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Real Simple",
     "branch": "MAIN",
     "date": "2025-10-01",
     "notes": "X"
@@ -3622,6 +9388,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
   },
   {
     "magazine": "Science News",
@@ -3662,6 +9434,12 @@
   {
     "magazine": "Smithsonian",
     "branch": "NORTH",
+    "date": "2025-10-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
     "date": "2025-10-01",
     "notes": "X"
   },
@@ -3724,6 +9502,12 @@
     "branch": "NORTH",
     "date": "2025-10-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-10-01",
+    "notes": "X"
   },
   {
     "magazine": "Vogue",
@@ -4093,6 +9877,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "x"
@@ -4114,6 +9904,12 @@
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
   },
   {
     "magazine": "Bon Appetit",
@@ -4153,6 +9949,12 @@
   },
   {
     "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Consumer Reports",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4162,6 +9964,12 @@
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
   },
   {
     "magazine": "Cooks Illustrated",
@@ -4225,6 +10033,12 @@
   },
   {
     "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Family Tree Magazine",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4249,6 +10063,12 @@
   },
   {
     "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "GQ - US Edition",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4261,6 +10081,12 @@
   },
   {
     "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "nov/dec"
+  },
+  {
+    "magazine": "Good Housekeeping",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4270,6 +10096,12 @@
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "Nov-Dec"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "nov/dec"
   },
   {
     "magazine": "HGTV Magazine",
@@ -4315,9 +10147,21 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
   },
   {
     "magazine": "Highlights for Children",
@@ -4345,6 +10189,12 @@
   },
   {
     "magazine": "House Beautiful",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "House Beautiful",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4357,6 +10207,12 @@
   },
   {
     "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4369,6 +10225,12 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4381,6 +10243,12 @@
   },
   {
     "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Ladybug",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4390,6 +10258,12 @@
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
   },
   {
     "magazine": "Mens Health",
@@ -4411,6 +10285,12 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4420,6 +10300,12 @@
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "X"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
   },
   {
     "magazine": "National Geographic History",
@@ -4435,9 +10321,21 @@
   },
   {
     "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "National Geographic Kids",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
   },
   {
     "magazine": "National Geographic Little Kids",
@@ -4447,6 +10345,12 @@
   },
   {
     "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV"
+  },
+  {
+    "magazine": "New Jersey Monthly",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4495,6 +10399,12 @@
   },
   {
     "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Popular Mechanics",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4504,6 +10414,12 @@
     "branch": "NORTH",
     "date": "2025-11-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
   },
   {
     "magazine": "Prevention",
@@ -4519,9 +10435,21 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "x"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -4537,6 +10465,12 @@
   },
   {
     "magazine": "Real Simple",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Real Simple",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4549,6 +10483,12 @@
   },
   {
     "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Science News",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4585,6 +10525,12 @@
   },
   {
     "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Smithsonian",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4597,6 +10543,12 @@
   },
   {
     "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4669,6 +10621,12 @@
   },
   {
     "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Vogue",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "X"
@@ -4681,6 +10639,12 @@
   },
   {
     "magazine": "Wired",
+    "branch": "CB",
+    "date": "2025-11-01",
+    "notes": "NOV/DEC"
+  },
+  {
+    "magazine": "Wired",
     "branch": "MAIN",
     "date": "2025-11-01",
     "notes": "NOV/DEC"
@@ -4688,6 +10652,12 @@
   {
     "magazine": "Wired",
     "branch": "NORTH",
+    "date": "2025-11-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
     "date": "2025-11-01",
     "notes": "X"
   },
@@ -5047,6 +11017,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2025-12-01",
     "notes": "X"
@@ -5054,6 +11030,12 @@
   {
     "magazine": "Atlantic Monthly",
     "branch": "NORTH",
+    "date": "2025-12-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
     "date": "2025-12-01",
     "notes": "X"
   },
@@ -5233,6 +11215,12 @@
   },
   {
     "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "DEC"
+  },
+  {
+    "magazine": "Highlights for Children",
     "branch": "MAIN",
     "date": "2025-12-01",
     "notes": "X"
@@ -5287,6 +11275,12 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "NORTH",
     "date": "2025-12-01",
     "notes": "x"
@@ -5298,6 +11292,12 @@
     "notes": "WINTER 2025"
   },
   {
+    "magazine": "Make",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "WIN 25"
+  },
+  {
     "magazine": "Mens Health",
     "branch": "NORTH",
     "date": "2025-12-01",
@@ -5306,6 +11306,12 @@
   {
     "magazine": "Mother Earth News",
     "branch": "NORTH",
+    "date": "2025-12-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
     "date": "2025-12-01",
     "notes": "X"
   },
@@ -5371,6 +11377,12 @@
   },
   {
     "magazine": "Pioneer Woman",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "HOLIDAY 25"
+  },
+  {
+    "magazine": "Pioneer Woman",
     "branch": "MAIN",
     "date": "2025-12-01",
     "notes": "WINTER 2025"
@@ -5398,6 +11410,12 @@
     "branch": "NORTH",
     "date": "2025-12-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "X"
   },
   {
     "magazine": "Prevention",
@@ -5473,6 +11491,12 @@
   },
   {
     "magazine": "Science News",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Science News",
     "branch": "MAIN",
     "date": "2025-12-01",
     "notes": "X"
@@ -5506,6 +11530,12 @@
     "branch": "NORTH",
     "date": "2025-12-01",
     "notes": "x"
+  },
+  {
+    "magazine": "Smithsonian",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "X"
   },
   {
     "magazine": "Smithsonian",
@@ -5580,6 +11610,12 @@
     "notes": "x"
   },
   {
+    "magazine": "VegNews Magazine",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "HOLIDAY"
+  },
+  {
     "magazine": "Veranda",
     "branch": "MAIN",
     "date": "2025-12-01",
@@ -5588,6 +11624,12 @@
   {
     "magazine": "Veranda",
     "branch": "NORTH",
+    "date": "2025-12-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
     "date": "2025-12-01",
     "notes": "x"
   },
@@ -5614,6 +11656,12 @@
     "branch": "MAIN",
     "date": "2025-12-01",
     "notes": "WINTER 2025"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2025-12-01",
+    "notes": "DEC"
   },
   {
     "magazine": "Zoobooks",
@@ -5758,6 +11806,12 @@
     "branch": "NORTH",
     "date": "2025-12-15",
     "notes": "2025-12-15 00:00:00"
+  },
+  {
+    "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2025-12-15",
+    "notes": "12/15/2025 dec"
   },
   {
     "magazine": "US Weekly",
@@ -5947,6 +12001,12 @@
   },
   {
     "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
@@ -6001,7 +12061,19 @@
   },
   {
     "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Consumer Reports",
     "branch": "MAIN",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
   },
@@ -6037,6 +12109,12 @@
   },
   {
     "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Family Tree Magazine",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
@@ -6052,6 +12130,12 @@
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "DEC 2025/JAN 2026"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
   },
   {
     "magazine": "Forbes",
@@ -6073,6 +12157,12 @@
   },
   {
     "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "GQ - US Edition",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "DEC 2025/JAN 2026"
@@ -6082,6 +12172,12 @@
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "DEC 2025/JAN 2026"
+  },
+  {
+    "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
   },
   {
     "magazine": "Good Housekeeping",
@@ -6115,6 +12211,12 @@
   },
   {
     "magazine": "HGTV Magazine",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "HGTV Magazine",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
@@ -6139,7 +12241,19 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
+    "date": "2026-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
     "date": "2026-01-01",
     "notes": "X"
   },
@@ -6163,15 +12277,33 @@
   },
   {
     "magazine": "Humpty Dumpty Magazine",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Humpty Dumpty Magazine",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
   },
   {
     "magazine": "Ladybug",
@@ -6187,9 +12319,21 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "X"
+  },
+  {
+    "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
   },
   {
     "magazine": "National Geographic History",
@@ -6199,9 +12343,21 @@
   },
   {
     "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
+  },
+  {
+    "magazine": "National Geographic Kids",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "DEC 2025/ JAN 2026"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
   },
   {
     "magazine": "National Geographic Little Kids",
@@ -6235,15 +12391,39 @@
   },
   {
     "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Popular Mechanics",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
   },
   {
     "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "DEC 2025/ JAN 2026"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -6277,6 +12457,12 @@
   },
   {
     "magazine": "Science News",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Science News",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "X"
@@ -6301,6 +12487,12 @@
   },
   {
     "magazine": "Spider",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Spider",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
@@ -6313,9 +12505,21 @@
   },
   {
     "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "jan/feb"
+  },
+  {
+    "magazine": "Taste of Home",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "DEC/JAN"
   },
   {
     "magazine": "Town & Country",
@@ -6331,9 +12535,21 @@
   },
   {
     "magazine": "Wired",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Wired",
     "branch": "MAIN",
     "date": "2026-01-01",
     "notes": "JAN/FEB"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2026-01-01",
+    "notes": "X"
   },
   {
     "magazine": "Zoobooks",
@@ -6547,6 +12763,12 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "X"
@@ -6589,13 +12811,31 @@
   },
   {
     "magazine": "Family Handyman",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Family Handyman",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "FEB/MAR"
   },
   {
     "magazine": "Food Network Magazine",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Food Network Magazine",
     "branch": "MAIN",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Forbes",
+    "branch": "CB",
     "date": "2026-02-01",
     "notes": "FEB/MAR"
   },
@@ -6636,8 +12876,20 @@
     "notes": "X"
   },
   {
+    "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "x"
+  },
+  {
     "magazine": "Highlights for Children",
     "branch": "MAIN",
+    "date": "2026-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
     "date": "2026-02-01",
     "notes": "X"
   },
@@ -6649,13 +12901,31 @@
   },
   {
     "magazine": "Mother Earth News",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Mother Earth News",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "FEB/MAR"
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
+    "date": "2026-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
     "date": "2026-02-01",
     "notes": "X"
   },
@@ -6667,9 +12937,21 @@
   },
   {
     "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "x"
   },
   {
     "magazine": "Prevention",
@@ -6685,9 +12967,21 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -6697,7 +12991,19 @@
   },
   {
     "magazine": "Readers Digest - Large Print",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Readers Digest - Large Print",
     "branch": "MAIN",
+    "date": "2026-02-01",
+    "notes": "FEB/MAR"
+  },
+  {
+    "magazine": "Readers Digest - US Ed",
+    "branch": "CB",
     "date": "2026-02-01",
     "notes": "FEB/MAR"
   },
@@ -6727,6 +13033,12 @@
   },
   {
     "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Sports Illustrated",
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "X"
@@ -6742,6 +13054,12 @@
     "branch": "MAIN",
     "date": "2026-02-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
+    "date": "2026-02-01",
+    "notes": "FEB"
   },
   {
     "magazine": "Zoobooks",
@@ -6931,6 +13249,12 @@
   },
   {
     "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
@@ -6955,7 +13279,19 @@
   },
   {
     "magazine": "Consumer Reports",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Consumer Reports",
     "branch": "MAIN",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
     "date": "2026-03-01",
     "notes": "MAR/APR"
   },
@@ -6964,6 +13300,12 @@
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Cosmopolitan",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "SPRING"
   },
   {
     "magazine": "Cosmopolitan",
@@ -6985,6 +13327,12 @@
   },
   {
     "magazine": "Family Tree Magazine",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Family Tree Magazine",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "MAR/APR"
@@ -6994,6 +13342,12 @@
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
+  },
+  {
+    "magazine": "GQ - US Edition",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
   },
   {
     "magazine": "GQ - US Edition",
@@ -7009,7 +13363,19 @@
   },
   {
     "magazine": "Good Housekeeping",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Good Housekeeping",
     "branch": "MAIN",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "HGTV Magazine",
+    "branch": "CB",
     "date": "2026-03-01",
     "notes": "MAR/APR"
   },
@@ -7039,9 +13405,21 @@
   },
   {
     "magazine": "Highlights High Five",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Highlights High Five",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Highlights for Children",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "x"
   },
   {
     "magazine": "Highlights for Children",
@@ -7057,6 +13435,12 @@
   },
   {
     "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "SPRING"
+  },
+  {
+    "magazine": "Home & Design Magazine",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "SPRING 2026"
@@ -7069,9 +13453,21 @@
   },
   {
     "magazine": "Kiplingers Personal Finance",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "X"
+  },
+  {
+    "magazine": "Kiplingers Personal Finance",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ladybug",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
   },
   {
     "magazine": "Ladybug",
@@ -7081,9 +13477,21 @@
   },
   {
     "magazine": "Make",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "SPR"
+  },
+  {
+    "magazine": "Make",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "SPRINF 2026"
+  },
+  {
+    "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "X"
   },
   {
     "magazine": "National Geographic",
@@ -7093,9 +13501,21 @@
   },
   {
     "magazine": "National Geographic History",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "National Geographic History",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "MAR/APR"
+  },
+  {
+    "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
   },
   {
     "magazine": "National Geographic Kids",
@@ -7105,9 +13525,21 @@
   },
   {
     "magazine": "National Geographic Little Kids",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "National Geographic Little Kids",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "MAR/APR"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "x"
   },
   {
     "magazine": "New Jersey Monthly",
@@ -7129,6 +13561,12 @@
   },
   {
     "magazine": "Pioneer Woman",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "SPRING"
+  },
+  {
+    "magazine": "Pioneer Woman",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "SPRING 2026"
@@ -7147,9 +13585,21 @@
   },
   {
     "magazine": "Popular Mechanics",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Popular Mechanics",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "x"
   },
   {
     "magazine": "Prevention",
@@ -7159,15 +13609,33 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
   },
   {
     "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Science News",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
   },
   {
     "magazine": "Science News",
@@ -7189,9 +13657,21 @@
   },
   {
     "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR"
+  },
+  {
+    "magazine": "Sports Illustrated",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Sports Illustrated Kids",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
   },
   {
     "magazine": "Sports Illustrated Kids",
@@ -7237,13 +13717,31 @@
   },
   {
     "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "SPRING 2026"
+  },
+  {
+    "magazine": "Vogue",
     "branch": "MAIN",
     "date": "2026-03-01",
     "notes": "SPRING 2026"
   },
   {
     "magazine": "Wired",
+    "branch": "CB",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Wired",
     "branch": "MAIN",
+    "date": "2026-03-01",
+    "notes": "MAR/APR"
+  },
+  {
+    "magazine": "Zoobooks",
+    "branch": "CB",
     "date": "2026-03-01",
     "notes": "MAR/APR"
   },
@@ -7435,9 +13933,21 @@
   },
   {
     "magazine": "Atlantic Monthly",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "x"
+  },
+  {
+    "magazine": "Atlantic Monthly",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Better Homes and Gardens",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
   },
   {
     "magazine": "Country Living",
@@ -7477,15 +13987,33 @@
   },
   {
     "magazine": "National Geographic",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "National Geographic",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "x"
   },
   {
     "magazine": "National Geographic Kids",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "National Geographic Kids",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
+  },
+  {
+    "magazine": "New Jersey Monthly",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
   },
   {
     "magazine": "New Jersey Monthly",
@@ -7501,6 +14029,12 @@
   },
   {
     "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "Prevention",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
@@ -7513,9 +14047,21 @@
   },
   {
     "magazine": "Ranger Rick",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "Ranger Rick",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Ranger Rick Jr",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
   },
   {
     "magazine": "Ranger Rick Jr",
@@ -7525,15 +14071,51 @@
   },
   {
     "magazine": "Science News",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "Science News",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
   },
   {
     "magazine": "Sports Illustrated",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "Sports Illustrated",
     "branch": "MAIN",
     "date": "2026-04-01",
     "notes": "X"
+  },
+  {
+    "magazine": "Vogue",
+    "branch": "CB",
+    "date": "2026-04-01",
+    "notes": "APR"
+  },
+  {
+    "magazine": "Cooks Illustrated",
+    "branch": "CB",
+    "date": "2026-05-01",
+    "notes": "MAY/JUN"
+  },
+  {
+    "magazine": "Prevention",
+    "branch": "CB",
+    "date": "2026-05-01",
+    "notes": "MAY"
+  },
+  {
+    "magazine": "Bon Appetit",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER 2026"
   },
   {
     "magazine": "Bon Appetit",
@@ -7549,15 +14131,33 @@
   },
   {
     "magazine": "Fine Gardening",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER"
+  },
+  {
+    "magazine": "Fine Gardening",
     "branch": "MAIN",
     "date": "2026-12-01",
     "notes": "WINTER 2026"
   },
   {
     "magazine": "Home & Design Magazine",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER"
+  },
+  {
+    "magazine": "Home & Design Magazine",
     "branch": "MAIN",
     "date": "2026-12-01",
     "notes": "Winter 2026"
+  },
+  {
+    "magazine": "Mens Health",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER 26"
   },
   {
     "magazine": "Mens Health",
@@ -7588,6 +14188,18 @@
     "branch": "MAIN",
     "date": "2026-12-01",
     "notes": "WINTER 2026"
+  },
+  {
+    "magazine": "VegNews Magazine",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER 2026"
+  },
+  {
+    "magazine": "Womens Health",
+    "branch": "CB",
+    "date": "2026-12-01",
+    "notes": "WINTER 26"
   },
   {
     "magazine": "Womens Health",
