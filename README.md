@@ -11,15 +11,18 @@
 ## 🌟 Highlights
 
 - Track periodical magazine receipts across multiple library branches
-- **Subscription period tracking** — manage EBSCO billing cycles with issues/year per magazine
+- **Multi-vendor subscription periods** — run EBSCO (Jun-May) and calendar-year (Jan-Dec) periods in parallel, one per magazine
 - **Subscription-aware status** — completed, overdue, expected this week, upcoming, never received, not subscribed
-- **Dashboard progress bar** — see "87/124 complete for 2025-2026" at a glance
+- **Multi-period dashboard** — progress bars per active period, combined overdue/expected cards with period badges
+- **Auto-deactivation** — periods automatically deactivate when their end date passes
 - Automatic overdue detection based on each magazine's publication cadence
 - Role-based access control — staff mark receipts, admins manage magazines, subscriptions, and users
-- Admin data reports with subscription period filtering and .xlsx export
+- Admin data reports with period, branch, and magazine name filtering + .xlsx export
 - Full audit logging of every meaningful action
 - Inter-branch magazine transfers with full lifecycle tracking (pending, completed, cancelled)
 - Receipt edit/delete for admins — correct dates, branches, or notes directly from the UI
+- "Same as" period creation — copy subscriptions from an existing period with one click
+- Period activation with conflict detection — prevents double-assigning magazines
 - Docker health monitoring with automatic container restart on failure
 - Safe database migration script with automatic backup and test-on-copy
 - Zero external dependencies beyond the app itself — SQLite database, file-based logs, no third-party services
@@ -94,8 +97,8 @@ Back up by copying `prisma/dev.db` and `logs/audit.log`. Before applying schema 
 ## 🚀 Usage
 
 1. **Log in** with your username and password at `/login`
-2. **Select your subscription period** and **branch** from the sidebar selectors
-3. **View the dashboard** to see the progress bar, overdue, and expected this week
+2. **Select your branch** from the sidebar selector
+3. **View the dashboard** to see progress bars per active subscription period, overdue, and expected this week
 4. **Mark a magazine as received** from the magazines list or magazine detail page
 5. **Admin users** can manage magazines, subscriptions, users, and view reports from the admin panel
 

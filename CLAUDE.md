@@ -99,8 +99,9 @@ epl-magazines/
 │   ├── validations.ts             # Zod schemas for all API input validation
 │   ├── logger.ts                  # Winston audit logger
 │   ├── branch.ts                  # Branch cookie helper: resolveActiveBranchId, getActiveBranches
+│   ├── period.ts                  # Multi-period lifecycle: getActivePeriods, deactivateExpiredPeriods, checkPeriodActivationConflicts
 │   ├── cadence.ts                 # computeNextExpectedDate, isOverdue helpers
-│   ├── reports.ts                 # Report data queries (5 report types)
+│   ├── reports.ts                 # Report data queries (5 report types, magazine name filter)
 │   ├── db-retry.ts                # withRetry() for transient SQLite BUSY/LOCKED errors
 │   ├── utils.ts                   # cn() helper for Tailwind class merging
 │   └── db.ts                      # Prisma client singleton
@@ -135,7 +136,7 @@ epl-magazines/
 model User {
   id           String         @id @default(cuid())
   name         String
-  email        String         @unique
+  username     String         @unique
   passwordHash String
   role         Role           @default(STAFF)
   active       Boolean        @default(true)
@@ -284,15 +285,30 @@ export function isOverdue(nextExpectedDate) {
 
 If a magazine has **no receipts at all**, it shows in the dashboard as "Never received — status unknown".
 
+### Multi-Vendor Subscription Periods
+
+The system supports N parallel active subscription periods (e.g., "Ebsco-25/26" Jun–May and "Wtcox-25" Jan–Dec).
+
+**Key constraints:**
+- A magazine can only be active in **one subscription period** at a time (application-level enforcement)
+- Periods auto-deactivate when `endDate < today` (checked on every page load in `(dashboard)/layout.tsx`)
+- Period activation is all-or-nothing: if any magazine conflicts with another active period, activation is blocked
+- Period deactivation bulk-deactivates all its `MagazineSubscription` records
+- "Same as" period creation copies subscriptions from an existing period (all as inactive)
+
+**Period lifecycle functions** in `lib/period.ts`:
+- `getActivePeriods()` — all active periods
+- `deactivateExpiredPeriods()` — auto-deactivation, uses `withRetry()`
+- `checkPeriodActivationConflicts(periodId)` — returns conflicting magazines
+
 ### Dashboard Logic
 
-For each active magazine **subscribed at the active branch** (via `BranchMagazine`):
-1. Fetch most recent `IssueReceipt` **for that branch** → `lastReceivedDate`
-2. Compute `nextExpectedDate = computeNextExpectedDate(lastReceivedDate, cadence)`
-3. Bucket into:
-   - **Overdue / Missing**: `nextExpectedDate < today`
-   - **Expected this week**: `today ≤ nextExpectedDate ≤ today + 7`
-   - **Upcoming**: `nextExpectedDate > today + 7`
+For each **active subscription period**, fetch magazines subscribed at the active branch (via `MagazineSubscription` + `BranchMagazine`):
+1. Compute progress: receipts received within period date range vs `issuesPerYear`
+2. Compute per-magazine status via `getSubscriptionAwareStatus()` using each magazine's own period `startDate`
+3. Show progress bars per active period at the top
+4. Combine overdue and expected-this-week cards from all periods with period badges
+5. Each magazine appears at most once (guaranteed by one-active-period-per-magazine constraint)
 
 ### Magazine Detail — Transfer-Aware Receive
 
