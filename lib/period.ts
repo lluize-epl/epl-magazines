@@ -1,21 +1,11 @@
-import { cookies } from 'next/headers'
 import db from './db'
-import type { SubscriptionPeriod } from '@/types'
-
-const PERIOD_COOKIE = 'epl-active-period'
-
-/**
- * Reads the active period ID from the cookie.
- * Returns null if not set.
- */
-export async function getActivePeriodId(): Promise<string | null> {
-  const cookieStore = await cookies()
-  return cookieStore.get(PERIOD_COOKIE)?.value ?? null
-}
+import { withRetry } from '@/lib/db-retry'
+import { auditLog } from '@/lib/logger'
+import type { AuditAction, SubscriptionPeriod } from '@/types'
 
 /**
  * Returns all subscription periods ordered by startDate descending.
- * Used by server components that need the period list (e.g., Sidebar).
+ * Used by server components that need the period list.
  */
 export async function getSubscriptionPeriods(): Promise<SubscriptionPeriod[]> {
   const periods = await db.subscriptionPeriod.findMany({
@@ -26,43 +16,84 @@ export async function getSubscriptionPeriods(): Promise<SubscriptionPeriod[]> {
 }
 
 /**
- * Resolves the active period. If cookie is set and valid, returns that period ID.
- * Falls back to the period with active=true, then the most recent period.
+ * Returns all currently active subscription periods.
+ * Used by dashboard and layout for multi-period display.
  */
-export async function resolveActivePeriodId(): Promise<string> {
-  const cookiePeriodId = await getActivePeriodId()
-
-  if (cookiePeriodId) {
-    const period = await db.subscriptionPeriod.findUnique({
-      where: { id: cookiePeriodId },
-      select: { id: true },
-    })
-    if (period) return period.id
-  }
-
-  const fallback = await db.subscriptionPeriod.findFirst({
+export async function getActivePeriods(): Promise<SubscriptionPeriod[]> {
+  const periods = await db.subscriptionPeriod.findMany({
     where: { active: true },
-    select: { id: true },
-  }) ?? await db.subscriptionPeriod.findFirst({
     orderBy: { startDate: 'desc' },
-    select: { id: true },
+    select: { id: true, name: true, startDate: true, endDate: true, active: true, createdAt: true },
   })
-
-  if (!fallback) throw new Error('No subscription periods in database')
-  return fallback.id
+  return periods as SubscriptionPeriod[]
 }
 
 /**
- * Resolves the full active period record.
- * Needed for date range filtering in queries.
+ * Auto-deactivates periods whose endDate has passed.
+ * Also bulk-deactivates all MagazineSubscription records for those periods.
+ * Called in dashboard layout before data fetching.
  */
-export async function resolveActivePeriod(): Promise<SubscriptionPeriod> {
-  const periodId = await resolveActivePeriodId()
-  const period = await db.subscriptionPeriod.findUniqueOrThrow({
-    where: { id: periodId },
-    select: { id: true, name: true, startDate: true, endDate: true, active: true, createdAt: true },
+export async function deactivateExpiredPeriods(): Promise<void> {
+  const now = new Date()
+  const expired = await db.subscriptionPeriod.findMany({
+    where: { active: true, endDate: { lt: now } },
+    select: { id: true, name: true, endDate: true },
   })
-  return period as SubscriptionPeriod
+
+  for (const period of expired) {
+    await withRetry(async () => {
+      await db.$transaction([
+        db.subscriptionPeriod.update({
+          where: { id: period.id },
+          data: { active: false },
+        }),
+        db.magazineSubscription.updateMany({
+          where: { periodId: period.id },
+          data: { active: false },
+        }),
+      ])
+    })
+    auditLog('system', 'PERIOD_AUTO_DEACTIVATED' as AuditAction, {
+      periodName: period.name,
+      periodId: period.id,
+      endDate: period.endDate,
+    })
+  }
 }
 
-export { PERIOD_COOKIE }
+/**
+ * Checks if any magazines in a period conflict with other active periods.
+ * A conflict means the magazine already has an active MagazineSubscription
+ * in another active SubscriptionPeriod.
+ * Returns array of conflicts (empty if none).
+ */
+export async function checkPeriodActivationConflicts(periodId: string): Promise<
+  { magazineId: string; magazineName: string; conflictingPeriodName: string }[]
+> {
+  const subscriptions = await db.magazineSubscription.findMany({
+    where: { periodId },
+    include: { magazine: { select: { id: true, name: true } } },
+  })
+
+  const conflicts: { magazineId: string; magazineName: string; conflictingPeriodName: string }[] = []
+
+  for (const sub of subscriptions) {
+    const existing = await db.magazineSubscription.findFirst({
+      where: {
+        magazineId: sub.magazineId,
+        active: true,
+        period: { active: true },
+        NOT: { periodId },
+      },
+      include: { period: { select: { name: true } } },
+    })
+    if (existing) {
+      conflicts.push({
+        magazineId: sub.magazineId,
+        magazineName: sub.magazine.name,
+        conflictingPeriodName: existing.period.name,
+      })
+    }
+  }
+  return conflicts
+}
