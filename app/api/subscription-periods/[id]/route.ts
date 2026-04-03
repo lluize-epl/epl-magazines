@@ -4,6 +4,7 @@ import { withRetry } from '@/lib/db-retry'
 import { verifySessionForApi } from '@/lib/dal'
 import { auditLog } from '@/lib/logger'
 import { updateSubscriptionPeriodSchema } from '@/lib/validations'
+import { checkPeriodActivationConflicts } from '@/lib/period'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -36,7 +37,14 @@ export async function GET(
 /**
  * PUT /api/subscription-periods/[id]
  * Updates a subscription period. ADMIN only.
- * If setting active: true, deactivates any other active period in the same transaction.
+ *
+ * Activation (`active: true`):
+ *   - Checks for per-magazine conflicts with other active periods.
+ *   - Returns 409 with conflict list if any magazine is already active in another period.
+ *   - On success: sets period active and bulk-activates all its MagazineSubscription records.
+ *
+ * Deactivation (`active: false`):
+ *   - Sets period inactive and bulk-deactivates all its MagazineSubscription records.
  */
 export async function PUT(
   request: NextRequest,
@@ -63,41 +71,63 @@ export async function PUT(
     if (parsed.data.endDate !== undefined) data.endDate = new Date(parsed.data.endDate + 'T12:00:00Z')
     if (parsed.data.active !== undefined) data.active = parsed.data.active
 
-    // Validate date order if both dates are being set or one is changed
+    // Validate date order if either date is being changed
     const newStart = (data.startDate as Date | undefined) ?? existing.startDate
     const newEnd = (data.endDate as Date | undefined) ?? existing.endDate
     if (new Date(newEnd) <= new Date(newStart)) {
       return Response.json({ error: 'End date must be after start date' }, { status: 400 })
     }
 
+    // Activation path: check per-magazine conflicts before committing
+    if (parsed.data.active === true && !existing.active) {
+      const conflicts = await checkPeriodActivationConflicts(id)
+      if (conflicts.length > 0) {
+        return Response.json(
+          { error: 'Activation blocked', conflicts },
+          { status: 409 },
+        )
+      }
+    }
+
     const updated = await withRetry(() => db.$transaction(async (tx) => {
-      // If setting active: true, deactivate all other periods
-      if (parsed.data.active === true) {
-        await tx.subscriptionPeriod.updateMany({
-          where: { active: true, id: { not: id } },
+      const period = await tx.subscriptionPeriod.update({
+        where: { id },
+        data,
+      })
+
+      if (parsed.data.active === true && !existing.active) {
+        // Activating: bulk-activate all subscriptions in this period
+        await tx.magazineSubscription.updateMany({
+          where: { periodId: id },
+          data: { active: true },
+        })
+      } else if (parsed.data.active === false && existing.active) {
+        // Deactivating: bulk-deactivate all subscriptions in this period
+        await tx.magazineSubscription.updateMany({
+          where: { periodId: id },
           data: { active: false },
         })
       }
 
-      return tx.subscriptionPeriod.update({
-        where: { id },
-        data,
-      })
+      return period
     }))
 
-    // Build change log
-    const changes: Record<string, string> = {}
-    if (parsed.data.name !== undefined && parsed.data.name !== existing.name) {
-      changes.name = `${existing.name} -> ${updated.name}`
+    // Emit targeted audit events for activation/deactivation
+    if (parsed.data.active === true && !existing.active) {
+      auditLog(session.userId, 'PERIOD_ACTIVATED', { periodName: updated.name })
+    } else if (parsed.data.active === false && existing.active) {
+      auditLog(session.userId, 'PERIOD_DEACTIVATED', { periodName: updated.name })
+    } else {
+      // Other field updates (name, dates)
+      const changes: Record<string, string> = {}
+      if (parsed.data.name !== undefined && parsed.data.name !== existing.name) {
+        changes.name = `${existing.name} -> ${updated.name}`
+      }
+      auditLog(session.userId, 'PERIOD_UPDATED', {
+        periodName: updated.name,
+        ...changes,
+      })
     }
-    if (parsed.data.active !== undefined && parsed.data.active !== existing.active) {
-      changes.active = `${existing.active} -> ${updated.active}`
-    }
-
-    auditLog(session.userId, 'PERIOD_UPDATED', {
-      periodName: updated.name,
-      ...changes,
-    })
 
     return Response.json(updated)
   } catch (err) {
