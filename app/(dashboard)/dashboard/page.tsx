@@ -17,6 +17,7 @@ interface SectionConfig {
   label: string
   description: string
   icon: LucideIcon
+  iconName: 'clock' | 'alert-triangle'
   color: string
   bg: string
   border: string
@@ -27,6 +28,7 @@ const SECTION_CONFIG: Record<DashboardStatus, SectionConfig> = {
     label: 'Expected This Week',
     description: 'Due within the current week (Sun–Sat)',
     icon: Clock,
+    iconName: 'clock',
     color: 'oklch(0.55 0.15 78)',
     bg: 'oklch(0.97 0.022 85)',
     border: 'oklch(0.88 0.08 78)',
@@ -35,6 +37,7 @@ const SECTION_CONFIG: Record<DashboardStatus, SectionConfig> = {
     label: 'Overdue',
     description: 'Past their expected delivery date',
     icon: AlertTriangle,
+    iconName: 'alert-triangle',
     color: 'oklch(0.56 0.225 27)',
     bg: 'oklch(0.97 0.020 27)',
     border: 'oklch(0.88 0.08 27)',
@@ -288,7 +291,7 @@ export default async function DashboardPage() {
               key={status}
               label={cfg.label}
               count={totalCount}
-              icon={cfg.icon}
+              iconName={cfg.iconName}
               color={cfg.color}
               bg={cfg.bg}
               border={cfg.border}

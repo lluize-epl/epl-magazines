@@ -1,13 +1,19 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { ChevronDown, ChevronUp, AlertTriangle, Clock } from 'lucide-react'
+
+const ICONS = {
+  clock: Clock,
+  'alert-triangle': AlertTriangle,
+} as const
+
+type IconName = keyof typeof ICONS
 
 interface CollapsibleSectionProps {
   label: string
   count: number
-  icon: LucideIcon
+  iconName: IconName
   color: string
   bg: string
   border: string
@@ -18,13 +24,14 @@ interface CollapsibleSectionProps {
 export default function CollapsibleSection({
   label,
   count,
-  icon: Icon,
+  iconName,
   color,
   bg,
   border,
   children,
   defaultOpen = true,
 }: CollapsibleSectionProps) {
+  const Icon = ICONS[iconName]
   const [open, setOpen] = useState(defaultOpen)
 
   return (
