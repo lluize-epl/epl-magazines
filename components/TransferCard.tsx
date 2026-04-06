@@ -39,7 +39,7 @@ export default function TransferCard({ transfer }: TransferCardProps) {
       className="relative overflow-hidden transition-shadow hover:shadow-md"
       style={{
         borderColor: 'oklch(0.78 0.12 250)',
-        backgroundColor: 'oklch(0.98 0.008 250)',
+        backgroundColor: 'white',
       }}
     >
       {/* Transfer indicator dot */}

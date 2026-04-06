@@ -31,14 +31,14 @@ interface StatusStyle {
 const STATUS_STYLES: Record<MagazineStatus, StatusStyle> = {
   overdue: {
     border: 'oklch(0.80 0.12 27)',
-    bg: 'oklch(0.99 0.006 27)',
+    bg: 'white',
     dot: 'oklch(0.56 0.225 27)',
     icon: CalendarX,
     iconColor: 'oklch(0.56 0.225 27)',
   },
   this_week: {
     border: 'oklch(0.82 0.12 78)',
-    bg: 'oklch(0.99 0.008 85)',
+    bg: 'white',
     dot: 'oklch(0.60 0.128 79)',
     icon: Clock,
     iconColor: 'oklch(0.55 0.15 78)',
