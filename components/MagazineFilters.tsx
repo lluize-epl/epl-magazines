@@ -16,10 +16,8 @@ import type { CadenceType } from '@/types'
 
 /** Status filter options with human-readable labels */
 const STATUS_OPTIONS: { value: string; label: string }[] = [
-  { value: 'overdue', label: 'Overdue' },
-  { value: 'expected', label: 'Expected This Week' },
-  { value: 'upcoming', label: 'Upcoming' },
-  { value: 'never', label: 'Never Received' },
+  { value: 'active', label: 'Active' },
+  { value: 'inactive', label: 'Inactive' },
 ]
 
 export interface MagazineFiltersProps {

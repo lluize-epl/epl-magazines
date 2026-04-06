@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { addDays } from 'date-fns'
 import { getUser } from '@/lib/dal'
 import { getActiveBranchId, getActiveBranches } from '@/lib/branch'
 
@@ -46,7 +45,7 @@ export default async function AdminMagazinesPage({ searchParams }: PageProps) {
   if (cadenceFilter) magazineWhere.cadence = cadenceFilter
   if (languageFilter) magazineWhere.language = languageFilter
 
-  const where = {
+  const where: Record<string, unknown> = {
     branchId,
     ...(Object.keys(magazineWhere).length > 0 ? { magazine: magazineWhere } : {}),
   }
@@ -108,58 +107,26 @@ export default async function AdminMagazinesPage({ searchParams }: PageProps) {
   let totalPages: number
   let currentPage: number
 
-  if (statusFilter) {
-    // Status is computed — fetch all matching, enrich, then filter and paginate
-    const allSubscriptions = await db.branchMagazine.findMany({
-      where,
-      orderBy: { magazine: { name: 'asc' } },
-      include: { magazine: true },
-    })
-
-    const allEnriched = await Promise.all(allSubscriptions.map(enrichSubscription))
-
-    const today = new Date()
-    const weekFromNow = addDays(today, 7)
-
-    const filtered = allEnriched.filter((item) => {
-      switch (statusFilter) {
-        case 'overdue':
-          return item.nextExpectedDate !== null && new Date(item.nextExpectedDate) < today
-        case 'expected':
-          return (
-            item.nextExpectedDate !== null &&
-            new Date(item.nextExpectedDate) >= today &&
-            new Date(item.nextExpectedDate) <= weekFromNow
-          )
-        case 'upcoming':
-          return item.nextExpectedDate !== null && new Date(item.nextExpectedDate) > weekFromNow
-        case 'never':
-          return item.lastReceivedDate === null
-        default:
-          return true
-      }
-    })
-
-    totalCount = filtered.length
-    totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
-    currentPage = Math.min(page, totalPages)
-    enriched = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  } else {
-    // No status filter — paginate at the DB level
-    totalCount = await db.branchMagazine.count({ where })
-    totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
-    currentPage = Math.min(page, totalPages)
-
-    const subscriptions = await db.branchMagazine.findMany({
-      where,
-      orderBy: { magazine: { name: 'asc' } },
-      skip: (currentPage - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-      include: { magazine: true },
-    })
-
-    enriched = await Promise.all(subscriptions.map(enrichSubscription))
+  // Status filter: active/inactive applies at DB level
+  if (statusFilter === 'active') {
+    where.active = true
+  } else if (statusFilter === 'inactive') {
+    where.active = false
   }
+
+  totalCount = await db.branchMagazine.count({ where })
+  totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+  currentPage = Math.min(page, totalPages)
+
+  const subscriptions = await db.branchMagazine.findMany({
+    where,
+    orderBy: { magazine: { name: 'asc' } },
+    skip: (currentPage - 1) * PAGE_SIZE,
+    take: PAGE_SIZE,
+    include: { magazine: true },
+  })
+
+  enriched = await Promise.all(subscriptions.map(enrichSubscription))
 
   // All magazine names for search dropdown
   const allSubMagazines = await db.branchMagazine.findMany({
