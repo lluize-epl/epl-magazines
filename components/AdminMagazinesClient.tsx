@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { format } from 'date-fns'
-import { toLocalDate } from '@/lib/utils'
 import type { BranchMagazineWithDetails, Branch, SubscriptionPeriod } from '@/types'
 import Link from 'next/link'
 import { Plus, Pencil, Trash2, BookMarked, SendHorizontal } from 'lucide-react'
@@ -96,7 +94,7 @@ export default function AdminMagazinesClient({ magazines, branchId, branches, se
           <Table>
             <TableHeader>
               <TableRow style={{ borderColor: 'oklch(0.876 0.016 88)', backgroundColor: 'oklch(0.963 0.012 91)' }}>
-                {['Name', 'Cadence', 'Period', 'Qty', 'Total Deliveries', 'Last Received', 'Next Expected', 'Notes', 'Status', 'Actions'].map((h) => (
+                {['Name', 'Cadence', 'Period', 'QTY/Branch', 'Issues/Period', 'Status', 'Actions'].map((h) => (
                   <TableHead
                     key={h}
                     className={`font-semibold ${h === 'Actions' ? 'text-right' : ''}`}
@@ -169,26 +167,7 @@ export default function AdminMagazinesClient({ magazines, branchId, branches, se
                   </TableCell>
                   <TableCell>
                     <span className="text-sm" style={{ color: 'oklch(0.40 0.028 62)' }}>
-                      {sub.totalIssues}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
-                      {toLocalDate(sub.lastReceivedDate)
-                        ? format(toLocalDate(sub.lastReceivedDate)!, 'MMM d, yyyy')
-                        : 'Never'}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-xs" style={{ color: 'oklch(0.55 0.030 72)' }}>
-                      {toLocalDate(sub.nextExpectedDate)
-                        ? format(toLocalDate(sub.nextExpectedDate)!, 'MMM d, yyyy')
-                        : '—'}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm italic" style={{ color: 'oklch(0.55 0.030 72)' }}>
-                      {sub.magazine.notes || '—'}
+                      {sub.magazineSubscription?.issuesPerYear ?? '—'}
                     </span>
                   </TableCell>
                   <TableCell>
