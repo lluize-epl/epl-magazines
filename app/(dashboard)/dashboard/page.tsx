@@ -295,6 +295,7 @@ export default async function DashboardPage() {
               color={cfg.color}
               bg={cfg.bg}
               border={cfg.border}
+              defaultOpen={status !== 'overdue'}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {transfers.map((t) => (
