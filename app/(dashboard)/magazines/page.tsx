@@ -3,7 +3,6 @@ import type { MagazineWithStatus } from '@/types'
 import { verifySession } from '@/lib/dal'
 import db from '@/lib/db'
 import { resolveActiveBranchId, getActiveBranches } from '@/lib/branch'
-import { getActivePeriods } from '@/lib/period'
 import { computeNextExpectedDate, getSubscriptionAwareStatus, CADENCE_LABELS } from '@/lib/cadence'
 
 // TODO: Task 8 rewrites this for multi-period
@@ -44,12 +43,7 @@ export default async function MagazinesPage({ searchParams }: PageProps) {
   const search = typeof params?.search === 'string' ? params.search.trim() : ''
   const page = Math.max(1, parseInt(typeof params?.page === 'string' ? params.page : '1', 10) || 1)
 
-  const [activeBranchId, activePeriods] = await Promise.all([
-    resolveActiveBranchId(),
-    getActivePeriods(),
-  ])
-  // Use first active period as fallback until multi-period rewrite
-  const activePeriod = activePeriods[0] ?? null
+  const activeBranchId = await resolveActiveBranchId()
   const branches = await getActiveBranches()
   const currentBranch = branches.find((b) => b.id === activeBranchId)
 
@@ -86,45 +80,48 @@ export default async function MagazinesPage({ searchParams }: PageProps) {
 
   const processed: MagazineRow[] = []
 
-  if (activePeriod) {
-    const periodStart = new Date(activePeriod.startDate)
-    const periodEnd = new Date(activePeriod.endDate)
+  for (const mag of magazines) {
+    const lastReceipt = mag.receipts[0] ?? null
+    const lastReceivedDate = lastReceipt?.receivedDate ?? null
 
-    for (const mag of magazines) {
-      const lastReceipt = mag.receipts[0] ?? null
-      const lastReceivedDate = lastReceipt?.receivedDate ?? null
+    // Find this magazine's active subscription in any active period
+    const subscription = await db.magazineSubscription.findFirst({
+      where: {
+        magazineId: mag.id,
+        active: true,
+        period: { active: true },
+      },
+      include: { period: true },
+    })
 
-      // Fetch subscription for this magazine in the active period
-      const subscription = await db.magazineSubscription.findUnique({
-        where: { magazineId_periodId: { magazineId: mag.id, periodId: activePeriod.id } },
-        select: { issuesPerYear: true, active: true },
-      })
-      const issuesPerYear = subscription?.active ? subscription.issuesPerYear : null
+    const issuesPerYear = subscription?.issuesPerYear ?? null
+    const magPeriod = subscription?.period ?? null
 
-      // Count receipts within the period's date range
-      const periodReceipts = await db.issueReceipt.count({
-        where: {
-          magazineId: mag.id,
-          branchId: activeBranchId,
-          receivedDate: { gte: periodStart, lte: periodEnd },
-        },
-      })
+    // Count receipts within the magazine's period date range
+    const periodReceipts = magPeriod
+      ? await db.issueReceipt.count({
+          where: {
+            magazineId: mag.id,
+            branchId: activeBranchId,
+            receivedDate: { gte: magPeriod.startDate, lte: magPeriod.endDate },
+          },
+        })
+      : 0
 
-      const status = getSubscriptionAwareStatus(
-        lastReceivedDate,
-        mag.cadence,
-        periodReceipts,
-        issuesPerYear,
-        activePeriod.startDate,
-      )
+    const status = getSubscriptionAwareStatus(
+      lastReceivedDate,
+      mag.cadence,
+      periodReceipts,
+      issuesPerYear,
+      magPeriod?.startDate ?? new Date(),
+    )
 
-      const anchor = lastReceivedDate ?? activePeriod.startDate
-      const nextExpectedDate = status === 'completed' || status === 'not_subscribed'
-        ? null
-        : computeNextExpectedDate(anchor, mag.cadence)
+    const anchor = lastReceivedDate ?? magPeriod?.startDate ?? new Date()
+    const nextExpectedDate = status === 'completed' || status === 'not_subscribed'
+      ? null
+      : computeNextExpectedDate(anchor, mag.cadence)
 
-      processed.push({ ...mag, lastReceivedDate, nextExpectedDate, status, lastReceivedBy: lastReceipt?.receivedBy?.name })
-    }
+    processed.push({ ...mag, lastReceivedDate, nextExpectedDate, status, lastReceivedBy: lastReceipt?.receivedBy?.name })
   }
 
   const filtered = filter === 'all' ? processed : processed.filter((m) => m.status === filter)
