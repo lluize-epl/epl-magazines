@@ -4,6 +4,7 @@ import { withRetry } from '@/lib/db-retry'
 import { verifySessionForApi } from '@/lib/dal'
 import { auditLog } from '@/lib/logger'
 import { createSubscriptionPeriodSchema } from '@/lib/validations'
+import { format } from 'date-fns'
 
 /**
  * GET /api/subscription-periods
@@ -95,8 +96,8 @@ export async function POST(request: NextRequest): Promise<Response> {
 
     auditLog(session.userId, 'PERIOD_CREATED', {
       periodName: result.period.name,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
+      startDate: format(startDate, 'MM/dd/yyyy'),
+      endDate: format(endDate, 'MM/dd/yyyy'),
     })
 
     if (result.copiedCount > 0) {

@@ -1,6 +1,7 @@
 import db from './db'
 import { withRetry } from '@/lib/db-retry'
 import { auditLog } from '@/lib/logger'
+import { format } from 'date-fns'
 import type { AuditAction, SubscriptionPeriod } from '@/types'
 
 /**
@@ -55,8 +56,7 @@ export async function deactivateExpiredPeriods(): Promise<void> {
     })
     auditLog('system', 'PERIOD_AUTO_DEACTIVATED' as AuditAction, {
       periodName: period.name,
-      periodId: period.id,
-      endDate: period.endDate,
+      endDate: format(new Date(period.endDate), 'MM/dd/yyyy'),
     })
   }
 }
