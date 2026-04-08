@@ -21,14 +21,27 @@ function enableWalMode(url: string): void {
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined }
 
 function createPrismaClient(): PrismaClient {
-  const dbUrl = process.env['DATABASE_URL']!
+  const dbUrl = process.env['DATABASE_URL']
+  if (!dbUrl) {
+    throw new Error('DATABASE_URL is not set. Create .env.local with DATABASE_URL="file:./prisma/dev.db"')
+  }
   enableWalMode(dbUrl)
   const adapter = new PrismaBetterSqlite3({ url: dbUrl })
   return new PrismaClient({ adapter })
 }
 
-const db: PrismaClient = globalForPrisma.prisma ?? createPrismaClient()
+/** Lazy-initialized Prisma client — avoids crash when DATABASE_URL is absent during Docker build */
+function getDb(): PrismaClient {
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = createPrismaClient()
+  }
+  return globalForPrisma.prisma
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db
+const db = new Proxy({} as PrismaClient, {
+  get(_, prop) {
+    return (getDb() as unknown as Record<string | symbol, unknown>)[prop]
+  },
+})
 
 export default db
