@@ -147,7 +147,7 @@ Back up by copying `prisma/dev.db` and `logs/audit.log`. Before applying schema 
 
 ## ✍️ Authors
 
-**Edison Public Library** — Internal Tools Team
+**Edison Public Library** — Lucas Luize 
 
 Built and maintained by library staff for library staff.
 
