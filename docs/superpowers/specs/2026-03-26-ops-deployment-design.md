@@ -20,7 +20,7 @@ Ops tooling for the EPL Magazine Tracker: local Docker build/test, daily SQLite 
 
 ## Prerequisites
 
-- `sqlite3` installed on CT 100: `pct exec 100 -- apt install -y sqlite3`
+- `sqlite3` installed on **pve host** (backup script runs `PRAGMA integrity_check` on the pulled DB on pve, not inside the CT): `apt install -y sqlite3`
 
 ---
 

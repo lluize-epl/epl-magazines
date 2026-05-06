@@ -27,6 +27,7 @@ MIN_DB_SIZE=8192   # at least one SQLite page
 
 MOUNTED_BY_US=false
 CT_STATUS=""
+STAGE_DIR=""
 
 # ── Helpers ───────────────────────────────────────────────────────────
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $1" | tee -a "$LOGFILE"; }
@@ -45,6 +46,9 @@ diag_ls() {
 }
 
 cleanup() {
+  if [ -n "$STAGE_DIR" ] && [ -d "$STAGE_DIR" ]; then
+    rm -rf "$STAGE_DIR" 2>/dev/null || true
+  fi
   if [ "$MOUNTED_BY_US" = "true" ]; then
     log "Unmounting CT ${CTID}..."
     /usr/sbin/pct unmount "$CTID" 2>> "$LOGFILE" || log "Notice: CT ${CTID} unmount may have failed."
@@ -76,6 +80,12 @@ log "Backup dest:   ${BACKUP_DIR}"
 mountpoint -q "$NAS_MOUNT" || fail "QNAP NAS not mounted at ${NAS_MOUNT}"
 log "✓ NAS mount confirmed at ${NAS_MOUNT}"
 
+# Required tools on the pve host (not in CT)
+for tool in sqlite3 pct numfmt; do
+  command -v "$tool" >/dev/null 2>&1 || fail "Missing required tool on pve host: ${tool} (install with: apt install -y ${tool/numfmt/coreutils})"
+done
+log "✓ Required tools present (sqlite3, pct, numfmt)"
+
 CT_STATUS=$(pct status "$CTID" 2>/dev/null | awk '{print $2}' || true)
 [ -n "$CT_STATUS" ] || fail "Could not determine CT ${CTID} status"
 log "CT ${CTID} status: ${CT_STATUS}"
@@ -83,20 +93,26 @@ log "CT ${CTID} status: ${CT_STATUS}"
 mkdir -p "$BACKUP_DIR"
 log "✓ Backup dir ready: ${BACKUP_DIR}"
 
+# Local staging dir — DB+WAL+SHM pulled here first because SQLite cannot
+# acquire fcntl locks on the CIFS-mounted NAS, which causes integrity_check
+# to fail with SQLITE_IOERR. We validate locally then cp to NAS.
+STAGE_DIR=$(mktemp -d /tmp/epl-mag-backup-XXXXXX)
+log "✓ Local staging dir: ${STAGE_DIR}"
+
 # ── Pull files (CT-state aware) ──────────────────────────────────────
 if [ "$CT_STATUS" = "running" ]; then
   log "Mode: pct pull (CT is running)"
 
-  # 1. DB
-  log "[1/4] Pulling DB:    ${DB_PATH_IN_CT}  →  ${BACKUP_DIR}/dev.db"
-  pct pull "$CTID" "$DB_PATH_IN_CT" "${BACKUP_DIR}/dev.db" 2>>"$LOGFILE" \
+  # 1. DB → STAGE
+  log "[1/4] Pulling DB:    ${DB_PATH_IN_CT}  →  ${STAGE_DIR}/dev.db (stage)"
+  pct pull "$CTID" "$DB_PATH_IN_CT" "${STAGE_DIR}/dev.db" 2>>"$LOGFILE" \
     || { diag_ls "DB parent dir" "$(dirname "$DB_PATH_IN_CT")"; fail "pct pull dev.db failed"; }
-  DB_BYTES=$(stat -c%s "${BACKUP_DIR}/dev.db")
+  DB_BYTES=$(stat -c%s "${STAGE_DIR}/dev.db")
   log "  ✓ dev.db pulled ($(human_size "$DB_BYTES"))"
 
   for ext in wal shm; do
     if pct exec "$CTID" -- test -f "${DB_PATH_IN_CT}-${ext}" 2>/dev/null; then
-      if pct pull "$CTID" "${DB_PATH_IN_CT}-${ext}" "${BACKUP_DIR}/dev.db-${ext}" 2>>"$LOGFILE"; then
+      if pct pull "$CTID" "${DB_PATH_IN_CT}-${ext}" "${STAGE_DIR}/dev.db-${ext}" 2>>"$LOGFILE"; then
         log "  ✓ dev.db-${ext} pulled"
       else
         log "  Notice: dev.db-${ext} present but pull failed"
@@ -104,7 +120,7 @@ if [ "$CT_STATUS" = "running" ]; then
     fi
   done
 
-  # 2. Audit log — HARD FAIL if missing
+  # 2. Audit log → NAS directly (binary copy, no SQLite locking concern)
   log "[2/4] Pulling audit: ${LOG_PATH_IN_CT}  →  ${BACKUP_DIR}/audit.log"
   if ! pct exec "$CTID" -- test -f "$LOG_PATH_IN_CT" 2>/dev/null; then
     diag_ls "logs dir" "$LOG_DIR_IN_CT"
@@ -121,16 +137,16 @@ elif [ "$CT_STATUS" = "stopped" ]; then
   /usr/sbin/pct mount "$CTID" 2>> "$LOGFILE" || fail "pct mount ${CTID} failed"
   MOUNTED_BY_US=true
 
-  # 1. DB
+  # 1. DB → STAGE
   [ -f "$DB_PATH_HOST" ] || { diag_ls "DB parent dir" "$(dirname "$DB_PATH_IN_CT")"; fail "DB not found at ${DB_PATH_HOST}"; }
-  log "[1/4] Copy DB:       ${DB_PATH_HOST}  →  ${BACKUP_DIR}/dev.db"
-  cp "$DB_PATH_HOST" "${BACKUP_DIR}/dev.db" || fail "cp dev.db failed"
-  DB_BYTES=$(stat -c%s "${BACKUP_DIR}/dev.db")
+  log "[1/4] Copy DB:       ${DB_PATH_HOST}  →  ${STAGE_DIR}/dev.db (stage)"
+  cp "$DB_PATH_HOST" "${STAGE_DIR}/dev.db" || fail "cp dev.db failed"
+  DB_BYTES=$(stat -c%s "${STAGE_DIR}/dev.db")
   log "  ✓ dev.db copied ($(human_size "$DB_BYTES"))"
 
   for ext in wal shm; do
     if [ -f "${DB_PATH_HOST}-${ext}" ]; then
-      if cp "${DB_PATH_HOST}-${ext}" "${BACKUP_DIR}/dev.db-${ext}"; then
+      if cp "${DB_PATH_HOST}-${ext}" "${STAGE_DIR}/dev.db-${ext}"; then
         log "  ✓ dev.db-${ext} copied"
       else
         log "  Notice: dev.db-${ext} present but copy failed"
@@ -138,7 +154,7 @@ elif [ "$CT_STATUS" = "stopped" ]; then
     fi
   done
 
-  # 2. Audit log — HARD FAIL if missing
+  # 2. Audit log → NAS directly
   log "[2/4] Copy audit:    ${LOG_PATH_HOST}  →  ${BACKUP_DIR}/audit.log"
   if [ ! -f "$LOG_PATH_HOST" ]; then
     diag_ls "logs dir" "$LOG_DIR_IN_CT"
@@ -152,18 +168,33 @@ else
   fail "CT ${CTID} in unexpected state: ${CT_STATUS}"
 fi
 
-# ── 3. Validate DB ───────────────────────────────────────────────────
-log "[3/4] Validating DB integrity..."
-INTEGRITY=$(sqlite3 "${BACKUP_DIR}/dev.db" "PRAGMA integrity_check;" 2>&1)
-[ "$INTEGRITY" = "ok" ] || fail "DB integrity check failed: ${INTEGRITY}"
+# ── 3. Validate DB on local stage (CIFS can't host SQLite locks) ─────
+log "[3/4] Validating DB integrity (on local stage ${STAGE_DIR})..."
+set +e
+INTEGRITY=$(sqlite3 "${STAGE_DIR}/dev.db" "PRAGMA integrity_check;" 2>&1)
+INTEGRITY_RC=$?
+set -e
+if [ $INTEGRITY_RC -ne 0 ]; then
+  fail "sqlite3 integrity_check exited with code ${INTEGRITY_RC}: ${INTEGRITY}"
+fi
+[ "$INTEGRITY" = "ok" ] || fail "DB integrity check returned: ${INTEGRITY}"
 log "  ✓ integrity_check = ok"
 
 [ "$DB_BYTES" -ge "$MIN_DB_SIZE" ] || fail "DB suspiciously small: ${DB_BYTES} bytes (min ${MIN_DB_SIZE})"
 log "  ✓ DB size $(human_size "$DB_BYTES") ≥ min $(human_size "$MIN_DB_SIZE")"
 
-# Checkpoint WAL into main DB and drop WAL/SHM from backup
-sqlite3 "${BACKUP_DIR}/dev.db" "PRAGMA wal_checkpoint(TRUNCATE);" 2>/dev/null || true
-rm -f "${BACKUP_DIR}/dev.db-wal" "${BACKUP_DIR}/dev.db-shm" 2>/dev/null || true
+# Checkpoint WAL into main DB on the staged copy (consolidate so the
+# final NAS file is self-contained without WAL/SHM sidecars)
+sqlite3 "${STAGE_DIR}/dev.db" "PRAGMA wal_checkpoint(TRUNCATE);" 2>/dev/null || true
+rm -f "${STAGE_DIR}/dev.db-wal" "${STAGE_DIR}/dev.db-shm" 2>/dev/null || true
+
+# Promote validated DB from stage → NAS
+log "  Copying validated DB to NAS: ${STAGE_DIR}/dev.db  →  ${BACKUP_DIR}/dev.db"
+cp "${STAGE_DIR}/dev.db" "${BACKUP_DIR}/dev.db" || fail "cp validated dev.db to NAS failed"
+NAS_DB_BYTES=$(stat -c%s "${BACKUP_DIR}/dev.db")
+[ "$NAS_DB_BYTES" -eq "$(stat -c%s "${STAGE_DIR}/dev.db")" ] \
+  || fail "Post-copy size mismatch: stage $(stat -c%s "${STAGE_DIR}/dev.db") vs NAS ${NAS_DB_BYTES}"
+log "  ✓ DB promoted to NAS ($(human_size "$NAS_DB_BYTES"))"
 
 # ── 4. Post-copy verification ────────────────────────────────────────
 log "[4/4] Verifying backup directory contents:"

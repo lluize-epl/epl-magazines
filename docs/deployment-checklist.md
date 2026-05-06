@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - [ ] DNS record created in Nginx Proxy Manager for the app (port 3000)
-- [ ] `sqlite3` installed on CT 100: `pct exec 100 -- apt install -y sqlite3`
+- [ ] `sqlite3` installed on **pve host** (used by backup script for `PRAGMA integrity_check` on the pulled DB copy): `apt install -y sqlite3`
 
 ---
 
