@@ -166,7 +166,7 @@ git commit -m "feat: add migrate service for containerized migrations and seedin
 **Files:**
 - Create: `scripts/epl-magazines-backup.sh`
 
-**Context:** This script will run on the Proxmox host (`pve`, `10.101.16.220`) via cron at 3AM daily. It uses `pct exec 100` to run commands inside CT 100, and `pct pull 100` to copy files out. The QNAP NAS is mounted at `/mnt/pve/nas-backup` on the host. Email is sent via `sendmail` (Postfix is already configured on the host). The SQLite database is at `/home/epltech/epl-magazines/prisma/dev.db` on CT 100's filesystem (bind-mounted into the Docker container). The `.backup` SQLite command produces a consistent snapshot that handles WAL coordination automatically.
+**Context:** This script will run on the Proxmox host (`pve`, `10.101.16.71`) via cron at 3AM daily. It uses `pct exec 100` to run commands inside CT 100, and `pct pull 100` to copy files out. The QNAP NAS is mounted at `/mnt/pve/nas-backup` on the host. Email is sent via `sendmail` (Postfix is already configured on the host). The SQLite database is at `/home/epltech/epl-magazines/prisma/dev.db` on CT 100's filesystem (bind-mounted into the Docker container). The `.backup` SQLite command produces a consistent snapshot that handles WAL coordination automatically.
 
 - [ ] **Step 1: Create the backup script**
 
@@ -286,7 +286,7 @@ git commit -m "feat: add daily SQLite backup script for Proxmox host"
 **Files:**
 - Create: `scripts/epl-magazines-watcher.sh`
 
-**Context:** This script will run on the Proxmox host via cron every 5 minutes. It polls the app's health endpoint at `http://10.101.16.231:3000/api/health` and checks disk usage on CT 100 via `pct exec 100 -- df`. It uses separate flag files for health and disk conditions to independently track state transitions (alert/recovery). It respects the existing maintenance flag at `/tmp/pve-maintenance.flag` used by other `pve-*.sh` watchers. Email via `sendmail` (Postfix).
+**Context:** This script will run on the Proxmox host via cron every 5 minutes. It polls the app's health endpoint at `http://10.101.16.86:3000/api/health` and checks disk usage on CT 100 via `pct exec 100 -- df`. It uses separate flag files for health and disk conditions to independently track state transitions (alert/recovery). It respects the existing maintenance flag at `/tmp/pve-maintenance.flag` used by other `pve-*.sh` watchers. Email via `sendmail` (Postfix).
 
 - [ ] **Step 1: Create the watcher script**
 
@@ -298,7 +298,7 @@ set -euo pipefail
 
 # ── Config ────────────────────────────────────────────────────────────
 CTID=100
-HEALTH_URL="http://10.101.16.231:3000/api/health"
+HEALTH_URL="http://10.101.16.86:3000/api/health"
 HEALTH_TIMEOUT=10
 DISK_THRESHOLD=80
 
@@ -458,7 +458,7 @@ From your dev machine (or wherever the repo is cloned):
 pct exec 100 -- bash -c "cd /home/epltech && git clone <repo-url> epl-magazines"
 
 # Option B: scp from dev machine
-scp -r ./epl-magazines epltech@10.101.16.231:/home/epltech/
+scp -r ./epl-magazines epltech@10.101.16.67:/home/epltech/
 ```
 
 ### 2. Create `.env.local` on CT 100
@@ -502,7 +502,7 @@ pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && docker compose run --
 ### 6. Verify health
 
 ```bash
-curl -s http://10.101.16.231:3000/api/health
+curl -s http://10.101.16.86:3000/api/health
 # Expected: {"status":"healthy"}
 ```
 
@@ -520,8 +520,8 @@ From the repo's `scripts/` directory:
 
 ```bash
 # From dev machine to Proxmox host
-scp scripts/epl-magazines-backup.sh root@10.101.16.220:/usr/local/bin/
-scp scripts/epl-magazines-watcher.sh root@10.101.16.220:/usr/local/bin/
+scp scripts/epl-magazines-backup.sh root@10.101.16.71:/usr/local/bin/
+scp scripts/epl-magazines-watcher.sh root@10.101.16.71:/usr/local/bin/
 ```
 
 ### 2. Set permissions
@@ -605,7 +605,7 @@ After full deployment, confirm:
 
 | Check | Command | Expected |
 |---|---|---|
-| App healthy | `curl -s http://10.101.16.231:3000/api/health` | `{"status":"healthy"}` |
+| App healthy | `curl -s http://10.101.16.86:3000/api/health` | `{"status":"healthy"}` |
 | Docker health | `pct exec 100 -- bash -c "docker inspect --format='{{.State.Health.Status}}' \$(cd /home/epltech/epl-magazines && docker compose ps -q app)"` | `healthy` |
 | Backup cron | `crontab -l \| grep epl-magazines` | Two entries (3AM backup, */5 watcher) |
 | QNAP backup dir | `ls /mnt/pve/nas-backup/epl-magazines/daily/` | Today's date directory |

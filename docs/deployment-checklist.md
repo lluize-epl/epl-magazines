@@ -20,7 +20,7 @@ From your dev machine (or wherever the repo is cloned):
 pct exec 100 -- bash -c "cd /home/epltech && git clone <repo-url> epl-magazines"
 
 # Option B: scp from dev machine
-scp -r ./epl-magazines epltech@10.101.16.231:/home/epltech/
+scp -r ./epl-magazines epltech@10.101.16.67:/home/epltech/
 ```
 
 ### 2. Create `.env.local` on CT 100
@@ -64,7 +64,7 @@ pct exec 100 -- bash -c "cd /home/epltech/epl-magazines && docker compose run --
 ### 6. Verify health
 
 ```bash
-curl -s http://10.101.16.231:3000/api/health
+curl -s http://10.101.16.86:3000/api/health
 # Expected: {"status":"healthy"}
 ```
 
@@ -82,8 +82,8 @@ From the repo's `scripts/` directory:
 
 ```bash
 # From dev machine to Proxmox host
-scp scripts/epl-magazines-backup.sh root@10.101.16.220:/usr/local/bin/
-scp scripts/epl-magazines-watcher.sh root@10.101.16.220:/usr/local/bin/
+scp scripts/epl-magazines-backup.sh root@10.101.16.71:/usr/local/bin/
+scp scripts/epl-magazines-watcher.sh root@10.101.16.71:/usr/local/bin/
 ```
 
 ### 2. Set permissions
@@ -167,7 +167,7 @@ After full deployment, confirm:
 
 | Check | Command | Expected |
 |---|---|---|
-| App healthy | `curl -s http://10.101.16.231:3000/api/health` | `{"status":"healthy"}` |
+| App healthy | `curl -s http://10.101.16.86:3000/api/health` | `{"status":"healthy"}` |
 | Docker health | `pct exec 100 -- bash -c "docker inspect --format='{{.State.Health.Status}}' \$(cd /home/epltech/epl-magazines && docker compose ps -q app)"` | `healthy` |
 | Backup cron | `crontab -l \| grep epl-magazines` | Two entries (3AM backup, */5 watcher) |
 | QNAP backup dir | `ls /mnt/pve/nas-backup/epl-magazines/daily/` | Today's date directory |

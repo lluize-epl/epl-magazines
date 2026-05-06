@@ -11,10 +11,10 @@ Ops tooling for the EPL Magazine Tracker: local Docker build/test, daily SQLite 
 
 ## Target Environment
 
-- **Proxmox host:** `pve` at `10.101.16.220`
-- **CT 100 (docker-server):** `10.101.16.231` — runs Docker Compose with the epl-magazines app
+- **Proxmox host:** `pve` at `10.101.16.71`
+- **CT 100 (docker-server):** `10.101.16.67` — runs Docker Compose with the epl-magazines app
 - **QNAP NAS:** `10.101.16.30`, mounted at `/mnt/pve/nas-backup` on the Proxmox host
-- **App URL inside LAN:** `http://10.101.16.231:3000`
+- **App URL inside LAN:** `http://10.101.16.86:3000`
 - **Project directory on CT 100:** `/home/epltech/epl-magazines/`
 - **Email:** Postfix on Proxmox host → `smtp-relay.gmail.com:587` → `itdepartment@edisonpubliclibrary.org`
 
@@ -121,7 +121,7 @@ Same as backup script: `set -euo pipefail`, owned by root, `chmod 755`.
 
 ### Logic
 
-1. **Health check:** `curl -sf --max-time 10 http://10.101.16.231:3000/api/health`
+1. **Health check:** `curl -sf --max-time 10 http://10.101.16.86:3000/api/health`
    - Success: HTTP 200 with `{"status":"healthy"}`
    - Failure: non-200, timeout, or connection refused
 2. **Disk check:** `pct exec 100 -- df --output=pcent / | tail -1`

@@ -4,7 +4,7 @@ set -euo pipefail
 # ── Config ────────────────────────────────────────────────────────────
 CTID=100
 CT_ROOT="/var/lib/lxc/${CTID}/rootfs"
-HEALTH_URL="http://10.101.16.231:3000/api/health"
+HEALTH_URL="http://10.101.16.86:3000/api/health"
 HEALTH_TIMEOUT=10
 DISK_THRESHOLD=80
 
