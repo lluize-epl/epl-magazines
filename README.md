@@ -7,6 +7,8 @@
 
 > *Your documentation is a direct reflection of your software, so hold it to the same standards.*
 
+**New here?** Read [`docs/PROJECT_CONTEXT.md`](docs/PROJECT_CONTEXT.md) for project orientation, then [`docs/ROADMAP.md`](docs/ROADMAP.md) for current state and direction. AI agents working on this repo: see [`CLAUDE.md`](CLAUDE.md) and [`AGENTS.md`](AGENTS.md).
+
 
 ## 🌟 Highlights
 
