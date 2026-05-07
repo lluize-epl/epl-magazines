@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+# Cron's default PATH is /usr/bin:/bin which omits /usr/sbin where pct lives.
+# Match the convention used by pve-ha-watcher.sh and pve-sync-docker-standby.sh.
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 # ── Config ────────────────────────────────────────────────────────────
 CTID=100
 APP_PATH_IN_CT="/home/epltech/epl-magazines"
