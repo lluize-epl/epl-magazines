@@ -261,20 +261,46 @@ export async function runSeed(training: boolean): Promise<void> {
   })
   console.log('✓ Subscription period Ebsco-26/27 created (inactive)')
 
-  let subCount = 0
-  for (const mag of magazines) {
-    if (mag.vendor !== 'EBSCO') continue
-    const entry = magazineIds.get(mag.name)
-    if (!entry) continue
-    await db.magazineSubscription.create({
+  let wtcoxPeriodId: string | null = null
+  if (!training) {
+    const wtcoxPeriod = await db.subscriptionPeriod.create({
       data: {
-        magazineId: entry.id,
-        periodId: ebscoPeriod.id,
-        issuesPerYear: mag.issuesPerYear,
+        name: 'Wtcox-26',
+        startDate: new Date('2026-01-01T12:00:00Z'),
+        endDate: new Date('2026-12-31T12:00:00Z'),
         active: true,
       },
     })
-    subCount++
+    wtcoxPeriodId = wtcoxPeriod.id
+    console.log('✓ Subscription period Wtcox-26 created (active)')
+  }
+
+  let subCount = 0
+  for (const mag of magazines) {
+    const entry = magazineIds.get(mag.name)
+    if (!entry) continue
+
+    if (mag.vendor === 'EBSCO') {
+      await db.magazineSubscription.create({
+        data: {
+          magazineId: entry.id,
+          periodId: ebscoPeriod.id,
+          issuesPerYear: mag.issuesPerYear,
+          active: true,
+        },
+      })
+      subCount++
+    } else if (mag.vendor === 'WTCOX' && wtcoxPeriodId) {
+      await db.magazineSubscription.create({
+        data: {
+          magazineId: entry.id,
+          periodId: wtcoxPeriodId,
+          issuesPerYear: mag.issuesPerYear,
+          active: true,
+        },
+      })
+      subCount++
+    }
   }
   console.log(`✓ ${subCount} magazine subscriptions created`)
 
@@ -282,7 +308,7 @@ export async function runSeed(training: boolean): Promise<void> {
   const wtcoxCount = magazines.filter((m) => m.vendor === 'WTCOX').length
   console.log(`\n✓ Seed complete (${label})`)
   console.log(`  EBSCO magazines: ${ebscoCount}`)
-  console.log(`  WT COX magazines: ${wtcoxCount} (bare records, no period)`)
+  console.log(`  WT COX magazines: ${wtcoxCount}${training ? ' (bare records, no period)' : ''}`)
   console.log(`  Branch assignments: ${branchMagCount}`)
   console.log(`  Subscriptions: ${subCount}`)
   if (training) {
