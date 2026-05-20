@@ -52,7 +52,6 @@ const EBSCO: MagSeed[] = [
   { name: 'AARP Bulletin', cadence: 'MONTHLY', issuesPerYear: 10, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
   { name: 'AARP The Magazine', cadence: 'BI_MONTHLY', issuesPerYear: 6, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
   { name: 'AllRecipes Magazine', cadence: 'SEASONAL', issuesPerYear: 5, vendor: 'EBSCO', branches: b('ML') },
-  { name: 'Consumer Reports Buying Guide', cadence: 'YEARLY', issuesPerYear: 1, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
   { name: 'Elle - American ed', cadence: 'MONTHLY', issuesPerYear: 9, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Food & Wine', cadence: 'MONTHLY', issuesPerYear: 11, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Inc 500', cadence: 'YEARLY', issuesPerYear: 1, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
