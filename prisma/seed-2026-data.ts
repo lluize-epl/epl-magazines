@@ -54,12 +54,10 @@ const EBSCO: MagSeed[] = [
   { name: 'AllRecipes Magazine', cadence: 'SEASONAL', issuesPerYear: 5, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Elle - American ed', cadence: 'MONTHLY', issuesPerYear: 9, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Food & Wine', cadence: 'MONTHLY', issuesPerYear: 11, vendor: 'EBSCO', branches: b('ML') },
-  { name: 'Inc 500', cadence: 'YEARLY', issuesPerYear: 1, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
   { name: 'Library Journal', cadence: 'MONTHLY', issuesPerYear: 12, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Magnolia Journal', cadence: 'SEASONAL', issuesPerYear: 4, vendor: 'EBSCO', branches: b('ML') },
   { name: 'Publishers Weekly', cadence: 'WEEKLY', issuesPerYear: 48, vendor: 'EBSCO', branches: b('ML') },
   { name: 'School Library Journal', cadence: 'MONTHLY', issuesPerYear: 12, vendor: 'EBSCO', branches: b('ML') },
-  { name: 'Series Made Simple', cadence: 'YEARLY', issuesPerYear: 1, notes: 'Membership Title', vendor: 'EBSCO', branches: b('ML') },
 
   // Qty 2 — Main Library + North Edison
   { name: 'Ananda Vikatan - India', cadence: 'WEEKLY', issuesPerYear: 52, language: 'Tamil', notes: 'Standing Order', vendor: 'EBSCO', branches: b('ML,NE') },
