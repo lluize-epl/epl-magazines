@@ -26,7 +26,7 @@ export async function GET(): Promise<Response> {
 
 /**
  * POST /api/magazines
- * Creates a new magazine. ADMIN only. Body: { name, cadence, language?, notes? }.
+ * Creates a new magazine. ADMIN only. Body: { name, cadence, language?, notes?, branches: [{ branchId, quantity }] }.
  * Returns 201 with the created magazine, or 400/403 on validation/auth failure.
  */
 export async function POST(request: NextRequest): Promise<Response> {
@@ -39,18 +39,50 @@ export async function POST(request: NextRequest): Promise<Response> {
     if (!parsed.success) {
       return Response.json({ error: parsed.error.issues[0].message }, { status: 400 })
     }
-    const { name, cadence, language, notes } = parsed.data
+    const { name, cadence, language, notes, branches } = parsed.data
 
     /** Normalize language: "hindi" → "Hindi", "GUJARATI" → "Gujarati" */
     const normalizedLanguage = language?.trim()
       ? language.trim().charAt(0).toUpperCase() + language.trim().slice(1).toLowerCase()
       : 'English'
 
-    const magazine = await withRetry(() => db.magazine.create({
-      data: { name: name.trim(), cadence, language: normalizedLanguage, notes: notes?.trim() || null },
+    // Dedup: block an exact (name + language) duplicate among ACTIVE magazines.
+    // SQLite `equals` is case-sensitive, so compare case-insensitively in JS over the
+    // (small) set of active magazines sharing this language.
+    const sameLanguage = await db.magazine.findMany({
+      where: { active: true, language: normalizedLanguage },
+      select: { id: true, name: true },
+    })
+    if (sameLanguage.some((m) => m.name.toLowerCase() === name.toLowerCase())) {
+      const label = normalizedLanguage !== 'English' ? `${name} - ${normalizedLanguage}` : name
+      return Response.json({ error: `"${label}" already exists` }, { status: 409 })
+    }
+
+    const magazine = await withRetry(() => db.$transaction(async (tx) => {
+      const mag = await tx.magazine.create({
+        data: { name, cadence, language: normalizedLanguage, notes: notes?.trim() || null },
+      })
+      for (const b of branches) {
+        await tx.branchMagazine.upsert({
+          where: { branchId_magazineId: { branchId: b.branchId, magazineId: mag.id } },
+          update: { quantity: b.quantity, active: true },
+          create: { branchId: b.branchId, magazineId: mag.id, quantity: b.quantity },
+        })
+      }
+      return mag
     }))
 
-    auditLog(session.userId, 'MAGAZINE_CREATED', { name: magazine.name })
+    // Audit with human-readable branch codes, never cuids.
+    const branchCodes = await db.branch.findMany({
+      where: { id: { in: branches.map((b) => b.branchId) } },
+      select: { code: true },
+    })
+    auditLog(session.userId, 'MAGAZINE_CREATED', {
+      name: magazine.name,
+      language: magazine.language,
+      branches: branchCodes.map((b) => b.code),
+    })
+
     return Response.json(magazine, { status: 201 })
   } catch (err) {
     const e = err as { code?: string; message?: string }
