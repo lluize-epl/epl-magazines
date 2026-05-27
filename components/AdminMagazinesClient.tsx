@@ -21,12 +21,14 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/comp
 export interface AdminMagazinesClientProps {
   magazines: BranchMagazineWithDetails[]
   branchId: string
+  /** All active branches for the create dialog */
+  branches: { id: string; name: string; code: string }[]
   search?: string
   /** All subscription periods for the period assignment dropdown */
   periods: SubscriptionPeriod[]
 }
 
-export default function AdminMagazinesClient({ magazines, branchId, search, periods }: AdminMagazinesClientProps) {
+export default function AdminMagazinesClient({ magazines, branchId, branches, search, periods }: AdminMagazinesClientProps) {
   const router = useRouter()
   const [createOpen, setCreateOpen] = useState(false)
   const [editTarget, setEditTarget] = useState<BranchMagazineWithDetails | null>(null)
@@ -229,7 +231,7 @@ export default function AdminMagazinesClient({ magazines, branchId, search, peri
         </div>
       )}
 
-      <CreateMagazineDialog open={createOpen} onOpenChange={setCreateOpen} branchId={branchId} />
+      <CreateMagazineDialog open={createOpen} onOpenChange={setCreateOpen} branches={branches} />
 
       {editTarget && (
         <EditMagazineDialog
