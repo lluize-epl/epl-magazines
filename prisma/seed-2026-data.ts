@@ -211,6 +211,19 @@ export async function runSeed(training: boolean): Promise<void> {
   })
   console.log('✓ Admin user created (magadmin / magTech)')
 
+  if (!training) {
+    const staffHash = await bcrypt.hash('magstaff', 10)
+    await db.user.create({
+      data: {
+        name: 'Testing Staff',
+        username: 'magstaff',
+        passwordHash: staffHash,
+        role: 'STAFF',
+      },
+    })
+    console.log('✓ Staff user created (magstaff / magstaff)')
+  }
+
   const branchMap = new Map<string, string>()
   for (const branch of BRANCHES) {
     const created = await db.branch.create({ data: branch })
@@ -312,6 +325,7 @@ export async function runSeed(training: boolean): Promise<void> {
     console.log(`    ${[...TRAINING_OMISSIONS].join(', ')}`)
   }
   console.log('  Admin: magadmin / magTech')
+  if (!training) console.log('  Staff: magstaff / magstaff')
 }
 
 export { db }
