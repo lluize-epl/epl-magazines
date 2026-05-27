@@ -21,3 +21,13 @@ export function toLocalDate(date: Date | string | null): Date | null {
   if (date instanceof Date) return date
   return parseISO(date)
 }
+
+/**
+ * Display label for a magazine, disambiguating same-name titles by language.
+ * English titles show the bare name; non-English append " - <Language>".
+ * @param name - Magazine name
+ * @param language - Magazine language (e.g. "English", "Spanish")
+ */
+export function formatMagazineLabel(name: string, language: string): string {
+  return language && language !== 'English' ? `${name} - ${language}` : name
+}
