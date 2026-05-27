@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { Loader2, Plus, Pencil, Search } from 'lucide-react'
 import type { MagazineSubscriptionWithDetails, CadenceType } from '@/types'
 import { CADENCE_LABELS } from '@/lib/cadence'
+import { formatMagazineLabel } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -27,6 +28,7 @@ import DeleteConfirmDialog from './DeleteConfirmDialog'
 interface MagazineOption {
   id: string
   name: string
+  language: string
 }
 
 export interface SubscriptionManagementProps {
@@ -159,7 +161,8 @@ export default function SubscriptionManagement({
   }
 
   const filteredAvailable = magSearch
-    ? availableMagazines.filter((m) => m.name.toLowerCase().includes(magSearch.toLowerCase()))
+    ? availableMagazines.filter((m) =>
+        formatMagazineLabel(m.name, m.language).toLowerCase().includes(magSearch.toLowerCase()))
     : availableMagazines
 
   return (
@@ -288,7 +291,7 @@ export default function SubscriptionManagement({
               )}
               <Select value={addMagazineId} onValueChange={(v) => setAddMagazineId(v ?? '')} required>
                 <SelectTrigger>
-                  <SelectValue>{addMagazineId ? availableMagazines.find((m) => m.id === addMagazineId)?.name ?? 'Select magazine' : 'Select magazine'}</SelectValue>
+                  <SelectValue>{addMagazineId ? (() => { const m = availableMagazines.find((m) => m.id === addMagazineId); return m ? formatMagazineLabel(m.name, m.language) : 'Select magazine' })() : 'Select magazine'}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {filteredAvailable.length === 0 ? (
@@ -297,7 +300,7 @@ export default function SubscriptionManagement({
                     </div>
                   ) : (
                     filteredAvailable.map((mag) => (
-                      <SelectItem key={mag.id} value={mag.id}>{mag.name}</SelectItem>
+                      <SelectItem key={mag.id} value={mag.id}>{formatMagazineLabel(mag.name, mag.language)}</SelectItem>
                     ))
                   )}
                 </SelectContent>

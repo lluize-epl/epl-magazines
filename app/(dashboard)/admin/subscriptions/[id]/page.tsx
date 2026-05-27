@@ -94,7 +94,7 @@ export default async function SubscriptionPeriodDetailPage({ params, searchParam
 
   const allActiveMagazines = await db.magazine.findMany({
     where: { active: true },
-    select: { id: true, name: true },
+    select: { id: true, name: true, language: true },
     orderBy: { name: 'asc' },
   })
   const availableMagazines = allActiveMagazines.filter((m) => !subscribedIds.has(m.id))
