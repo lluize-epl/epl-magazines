@@ -7,6 +7,7 @@ import { computeNextExpectedDate, getSubscriptionAwareStatus, CADENCE_LABELS } f
 
 // TODO: Task 8 rewrites this for multi-period
 import { format } from 'date-fns'
+import { toLocalDate } from '@/lib/utils'
 import Link from 'next/link'
 import MagazineStatusBadge from '@/components/MagazineStatusBadge'
 import MagazinesClientControls from '@/components/MagazinesClientControls'
@@ -27,7 +28,8 @@ export const metadata: Metadata = { title: 'Magazines — EPL Magazine Tracker' 
 const PAGE_SIZE = 10
 
 function fmt(date: Date | string | null): string {
-  return date ? format(new Date(date), 'MMM d, yyyy') : '—'
+  const d = toLocalDate(date)
+  return d ? format(d, 'MMM d, yyyy') : '—'
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }

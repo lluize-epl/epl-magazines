@@ -12,6 +12,7 @@ import {
   getReceiptTimeline,
 } from '@/lib/reports'
 import { format } from 'date-fns'
+import { toLocalDate } from '@/lib/utils'
 import { CADENCE_LABELS } from '@/lib/cadence'
 import type { CadenceType } from '@/types'
 
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest): Promise<Response> {
             cadence: CADENCE_LABELS[row.cadence as CadenceType],
             receipts: row.receiptCount,
             lastReceived: row.lastReceivedDate
-              ? format(new Date(row.lastReceivedDate), 'MMM d, yyyy')
+              ? format(toLocalDate(row.lastReceivedDate)!, 'MMM d, yyyy')
               : 'Never',
             branch: row.branchName,
           })
@@ -86,10 +87,10 @@ export async function GET(request: NextRequest): Promise<Response> {
             cadence: CADENCE_LABELS[row.cadence as CadenceType],
             daysOverdue: row.daysOverdue,
             lastReceived: row.lastReceivedDate
-              ? format(new Date(row.lastReceivedDate), 'MMM d, yyyy')
+              ? format(toLocalDate(row.lastReceivedDate)!, 'MMM d, yyyy')
               : 'Never',
             nextExpected: row.nextExpectedDate
-              ? format(new Date(row.nextExpectedDate), 'MMM d, yyyy')
+              ? format(toLocalDate(row.nextExpectedDate)!, 'MMM d, yyyy')
               : 'Never',
           })
         }
@@ -113,7 +114,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         ]
         for (const row of rows) {
           sheet.addRow({
-            date: format(new Date(row.date), 'MMM d, yyyy'),
+            date: format(toLocalDate(row.date)!, 'MMM d, yyyy'),
             magazine: row.magazineName,
             from: row.fromBranch,
             to: row.toBranch,

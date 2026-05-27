@@ -11,15 +11,18 @@ export function cn(...inputs: ClassValue[]): string {
 }
 
 /**
- * Safely converts a date value to a Date object, avoiding UTC timezone shift.
- * `new Date('2026-03-27')` parses as UTC midnight, which displays as the previous
- * day in US timezones. `parseISO` from date-fns treats date-only strings as local time.
- * @param date - A Date object, ISO date string, or null
+ * Safely converts a date value to a Date object for display, avoiding UTC timezone shift.
+ * Receipt dates are stored at UTC midnight. Whether they reach us as a `Date` instance
+ * (server-side, or preserved across the RSC boundary) or as an ISO timestamp string,
+ * formatting that UTC-midnight instant in a US timezone renders the previous day. We take
+ * the UTC calendar date and re-parse just the date portion, which `parseISO` treats as
+ * local midnight — so the displayed day matches the stored day in any timezone.
+ * @param date - A Date object, ISO date or timestamp string, or null
  */
 export function toLocalDate(date: Date | string | null): Date | null {
   if (!date) return null
-  if (date instanceof Date) return date
-  return parseISO(date)
+  const iso = typeof date === 'string' ? date : date.toISOString()
+  return parseISO(iso.split('T')[0])
 }
 
 /**
