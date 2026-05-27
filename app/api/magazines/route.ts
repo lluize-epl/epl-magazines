@@ -58,7 +58,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       return Response.json({ error: `"${label}" already exists` }, { status: 409 })
     }
 
-    const magazine = await withRetry(() => db.$transaction(async (tx) => {
+    const { magazine, branchCodes } = await withRetry(() => db.$transaction(async (tx) => {
       const mag = await tx.magazine.create({
         data: { name, cadence, language: normalizedLanguage, notes: notes?.trim() || null },
       })
@@ -69,18 +69,18 @@ export async function POST(request: NextRequest): Promise<Response> {
           create: { branchId: b.branchId, magazineId: mag.id, quantity: b.quantity },
         })
       }
-      return mag
+      const branchRows = await tx.branch.findMany({
+        where: { id: { in: branches.map((b) => b.branchId) } },
+        select: { code: true },
+      })
+      return { magazine: mag, branchCodes: branchRows.map((r) => r.code) }
     }))
 
     // Audit with human-readable branch codes, never cuids.
-    const branchCodes = await db.branch.findMany({
-      where: { id: { in: branches.map((b) => b.branchId) } },
-      select: { code: true },
-    })
     auditLog(session.userId, 'MAGAZINE_CREATED', {
       name: magazine.name,
       language: magazine.language,
-      branches: branchCodes.map((b) => b.code),
+      branches: branchCodes,
     })
 
     return Response.json(magazine, { status: 201 })
