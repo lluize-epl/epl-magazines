@@ -166,13 +166,16 @@ export default function CreateMagazineDialog({ open, onOpenChange, branches }: C
                 const checked = b.id in branchQty
                 return (
                   <div key={b.id} className="flex items-center justify-between gap-3 px-3 py-2">
-                    <label className="flex items-center gap-2 cursor-pointer text-sm">
+                    <div className="flex items-center gap-2 text-sm">
                       <Checkbox
+                        id={`branch-${b.id}`}
                         checked={checked}
                         onCheckedChange={(v) => toggleBranch(b.id, v === true)}
                       />
-                      <span>{b.name} <span className="text-muted-foreground">({b.code})</span></span>
-                    </label>
+                      <label htmlFor={`branch-${b.id}`} className="cursor-pointer">
+                        {b.name} <span className="text-muted-foreground">({b.code})</span>
+                      </label>
+                    </div>
                     {checked && (
                       <Input
                         type="number"
