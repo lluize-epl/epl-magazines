@@ -209,6 +209,7 @@ export default async function AdminMagazinesPage({ searchParams }: PageProps) {
       <AdminMagazinesClient
         magazines={enriched}
         branchId={branchId}
+        branches={branches.map((b) => ({ id: b.id, name: b.name, code: b.code }))}
         search={search}
         periods={allPeriods}
       />

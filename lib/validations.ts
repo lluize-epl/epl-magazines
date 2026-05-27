@@ -31,6 +31,10 @@ export const createMagazineSchema = z.object({
   cadence: cadenceSchema,
   language: z.string().nullable().optional(),
   notes: z.string().nullable().optional(),
+  branches: z
+    .array(z.object({ branchId: z.string().min(1), quantity: quantitySchema }))
+    .min(1, 'Select at least one branch')
+    .max(50, 'Too many branches'),
 })
 
 /** PUT /api/magazines/[id] — partial update */
